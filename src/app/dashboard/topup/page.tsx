@@ -1,115 +1,76 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   ArrowDownLeft,
   Copy,
   Check,
   Bitcoin,
   Wallet,
-  TrendingUp,
-  TrendingDown,
-  QrCode,
   Clock,
   CheckCircle,
   AlertCircle,
-  CreditCard,
-  DollarSign,
-  Info
+  Info,
+  Loader2,
+  XCircle,
 } from "lucide-react";
+import Link from "next/link";
+import { useGetDepositAddressesQuery } from "@/redux/services/depositApi";
+import { useCreateDepositMutation } from "@/redux/services/depositApi";
+import { useGetMyDepositsQuery } from "@/redux/services/depositApi";
 
-interface CryptoCurrency {
-  id: string;
-  name: string;
-  symbol: string;
-  icon: any;
-  address: string;
-  currentPrice: number;
-  change24h: number;
-  networkFee: number;
-  minAmount: number;
-  color: string;
-}
+const CRYPTOCURRENCIES = {
+  BTC: {
+    name: "Bitcoin",
+    icon: Bitcoin,
+    color: "from-orange-400 to-orange-600",
+  },
+  ETH: {
+    name: "Ethereum",
+    icon: Wallet,
+    color: "from-blue-400 to-blue-600",
+  },
+  USDT_ERC20: {
+    name: "USDT (ERC20)",
+    icon: Wallet,
+    color: "from-green-400 to-green-600",
+  },
+  USDT_TRC20: {
+    name: "USDT (TRC20)",
+    icon: Wallet,
+    color: "from-red-400 to-red-600",
+  },
+  XMR: {
+    name: "Monero",
+    icon: Wallet,
+    color: "from-gray-400 to-gray-600",
+  },
+};
 
-interface TopUpTransaction {
-  id: string;
-  cryptoId: string;
-  amount: number;
-  usdAmount: number;
-  status: "pending" | "completed" | "failed";
-  timestamp: string;
-  txHash?: string;
-}
+type CryptoCurrency = keyof typeof CRYPTOCURRENCIES;
 
 export default function TopUpPage() {
+  const router = useRouter();
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoCurrency | null>(null);
-  const [topupAmount, setTopupAmount] = useState("");
+  const [amount, setAmount] = useState("");
+  const [txHash, setTxHash] = useState("");
   const [copiedAddress, setCopiedAddress] = useState(false);
-  const [activeTab, setActiveTab] = useState("deposit");
-  const [transactions, setTransactions] = useState<TopUpTransaction[]>([]);
+  const [activeTab, setActiveTab] = useState<"deposit" | "history">("deposit");
+  const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Submit deposit
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const cryptoCurrencies: CryptoCurrency[] = [
-    {
-      id: "bitcoin",
-      name: "Bitcoin",
-      symbol: "BTC",
-      icon: Bitcoin,
-      address: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
-      currentPrice: 94350.25,
-      change24h: 2.5,
-      networkFee: 0.0001,
-      minAmount: 0.0001,
-      color: "from-orange-400 to-orange-600"
-    },
-    {
-      id: "ethereum",
-      name: "Ethereum",
-      symbol: "ETH",
-      icon: Wallet,
-      address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
-      currentPrice: 3380.50,
-      change24h: -1.2,
-      networkFee: 0.01,
-      minAmount: 0.01,
-      color: "from-blue-400 to-blue-600"
-    },
-    {
-      id: "usdt",
-      name: "Tether",
-      symbol: "USDT",
-      icon: Wallet,
-      address: "TRXNHfqEradKHuJf6HkqUEjXKyJKTEEEzv",
-      currentPrice: 1.00,
-      change24h: 0.1,
-      networkFee: 1.0,
-      minAmount: 10,
-      color: "from-green-400 to-green-600"
-    },
-    {
-      id: "usdc",
-      name: "USD Coin",
-      symbol: "USDC",
-      icon: Wallet,
-      address: "0xA0b86a33E6441b8e8C7C7b0b8e8e8C7C7b0b8e8e",
-      currentPrice: 1.00,
-      change24h: 0.0,
-      networkFee: 0.5,
-      minAmount: 10,
-      color: "from-blue-400 to-indigo-600"
-    }
-  ];
+  // API calls
+  const { data: addressesData, isLoading: addressesLoading } = useGetDepositAddressesQuery();
+  const { data: depositsData, isLoading: depositsLoading, refetch } = useGetMyDepositsQuery({
+    limit: 20,
+  });
+  const [createDeposit, { isLoading: isCreating }] = useCreateDepositMutation();
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
-  const formatCrypto = (amount: number, symbol: string) => {
-    return `${amount.toFixed(6)} ${symbol}`;
-  };
+  const cryptoAddresses = addressesData?.data?.cryptoAddresses || {};
+  const minimumDeposit = addressesData?.data?.minimumDeposit || 10;
+  const deposits = depositsData?.data?.deposits || [];
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
@@ -117,24 +78,83 @@ export default function TopUpPage() {
     setTimeout(() => setCopiedAddress(false), 2000);
   };
 
-  const handleTopUp = () => {
-    if (!selectedCrypto || !topupAmount) return;
-
-    const amount = parseFloat(topupAmount);
-    const newTransaction: TopUpTransaction = {
-      id: `TX${Date.now()}`,
-      cryptoId: selectedCrypto.id,
-      amount: amount / selectedCrypto.currentPrice,
-      usdAmount: amount,
-      status: "pending",
-      timestamp: new Date().toISOString()
-    };
-
-    setTransactions([newTransaction, ...transactions]);
+  const handleGenerateAddress = () => {
+    if (!selectedCrypto || !amount) return;
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum) || amountNum < minimumDeposit) {
+      setError(`Minimum deposit is $${minimumDeposit}`);
+      return;
+    }
+    setError("");
+    setStep(2);
   };
 
-  const calculateCryptoAmount = (usdAmount: number, crypto: CryptoCurrency) => {
-    return usdAmount / crypto.currentPrice;
+  const handleSubmitDeposit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCrypto || !amount || !txHash) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    const amountNum = parseFloat(amount);
+    const walletAddress = cryptoAddresses[selectedCrypto.toLowerCase() as keyof typeof cryptoAddresses];
+
+    if (!walletAddress) {
+      setError("Deposit address not available. Please contact support.");
+      return;
+    }
+
+    try {
+      setError("");
+      await createDeposit({
+        currency: selectedCrypto,
+        amount: amountNum,
+        walletAddress,
+        txHash,
+      }).unwrap();
+
+      setSuccess("Deposit request submitted successfully!");
+      setStep(1);
+      setSelectedCrypto(null);
+      setAmount("");
+      setTxHash("");
+      refetch();
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+    } catch (err: any) {
+      setError(err.data?.message || "Failed to submit deposit. Please try again.");
+    }
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "approved":
+        return "bg-green-100 text-green-700";
+      case "rejected":
+        return "bg-red-100 text-red-700";
+      case "pending":
+      default:
+        return "bg-yellow-100 text-yellow-700";
+    }
   };
 
   return (
@@ -150,9 +170,7 @@ export default function TopUpPage() {
         <button
           onClick={() => setActiveTab("deposit")}
           className={`px-6 py-3 font-medium transition-colors relative ${
-            activeTab === "deposit"
-              ? "text-black"
-              : "text-gray-600 hover:text-black"
+            activeTab === "deposit" ? "text-black" : "text-gray-600 hover:text-black"
           }`}
         >
           Deposit
@@ -163,9 +181,7 @@ export default function TopUpPage() {
         <button
           onClick={() => setActiveTab("history")}
           className={`px-6 py-3 font-medium transition-colors relative ${
-            activeTab === "history"
-              ? "text-black"
-              : "text-gray-600 hover:text-black"
+            activeTab === "history" ? "text-black" : "text-gray-600 hover:text-black"
           }`}
         >
           History
@@ -176,267 +192,364 @@ export default function TopUpPage() {
       </div>
 
       {activeTab === "deposit" && (
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left Column - Amount & Crypto Selection */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Amount Input Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white border border-gray-200 rounded-xl p-6"
-            >
-              <h2 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
-                <DollarSign className="w-5 h-5" />
-                Enter Amount
-              </h2>
+        <>
+          {/* Success Message */}
+          {success && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-600" />
+                <p className="text-green-900 font-medium">{success}</p>
+              </div>
+            </div>
+          )}
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">USD Amount</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">$</span>
-                  <input
-                    type="number"
-                    value={topupAmount}
-                    onChange={(e) => setTopupAmount(e.target.value)}
-                    placeholder="0.00"
-                    className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <XCircle className="w-5 h-5 text-red-600" />
+                <p className="text-red-900 font-medium">{error}</p>
+              </div>
+            </div>
+          )}
+
+          {addressesLoading ? (
+            <div className="flex items-center justify-center p-12">
+              <Loader2 className="w-8 h-8 animate-spin text-black" />
+            </div>
+          ) : step === 1 ? (
+            /* Step 1: Select Crypto & Amount */
+            <div className="grid lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                {/* Amount Input */}
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h2 className="text-lg font-semibold text-black mb-4">Enter Amount</h2>
+
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      USD Amount
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+                        $
+                      </span>
+                      <input
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="0.00"
+                        min={minimumDeposit}
+                        className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                      />
+                    </div>
+                    <p className="mt-2 text-sm text-gray-600">
+                      Minimum deposit: ${minimumDeposit}
+                    </p>
+                  </div>
+
+                  {/* Quick Amount Buttons */}
+                  <div className="grid grid-cols-4 gap-3 mb-6">
+                    {[50, 100, 250, 500].map((amt) => (
+                      <button
+                        key={amt}
+                        onClick={() => setAmount(amt.toString())}
+                        className="py-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-black font-medium transition-all"
+                      >
+                        ${amt}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Crypto Selection */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Select Cryptocurrency
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => {
+                        const Icon = crypto.icon;
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => setSelectedCrypto(key as CryptoCurrency)}
+                            className={`p-4 rounded-lg border transition-all ${
+                              selectedCrypto === key
+                                ? "bg-black text-white border-black"
+                                : "bg-white border-gray-200 hover:border-gray-300"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3 mb-2">
+                              <div
+                                className={`w-8 h-8 bg-gradient-to-br ${crypto.color} rounded-lg flex items-center justify-center`}
+                              >
+                                <Icon className="w-4 h-4 text-white" />
+                              </div>
+                              <div className="text-left">
+                                <p
+                                  className={`font-semibold text-sm ${
+                                    selectedCrypto === key ? "text-white" : "text-black"
+                                  }`}
+                                >
+                                  {crypto.name}
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Generate Button */}
+                <button
+                  onClick={handleGenerateAddress}
+                  disabled={!selectedCrypto || !amount}
+                  className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                >
+                  <ArrowDownLeft className="w-5 h-5" />
+                  Generate Deposit Address
+                </button>
               </div>
 
-              {/* Quick Amount Buttons */}
-              <div className="grid grid-cols-4 gap-3 mb-6">
-                {[50, 100, 250, 500].map((amount) => (
-                  <button
-                    key={amount}
-                    onClick={() => setTopupAmount(amount.toString())}
-                    className="py-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-black font-medium transition-all"
-                  >
-                    ${amount}
-                  </button>
-                ))}
-              </div>
-
-              {/* Crypto Selection */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Select Cryptocurrency</label>
-                <div className="grid grid-cols-2 gap-3">
-                  {cryptoCurrencies.map((crypto) => (
-                    <motion.div
-                      key={crypto.id}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setSelectedCrypto(crypto)}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all ${
-                        selectedCrypto?.id === crypto.id
-                          ? "bg-black text-white border-black"
-                          : "bg-white border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className={`w-8 h-8 bg-gradient-to-br ${crypto.color} rounded-lg flex items-center justify-center`}>
-                          <crypto.icon className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <p className={`font-semibold text-sm ${selectedCrypto?.id === crypto.id ? "text-white" : "text-black"}`}>{crypto.name}</p>
-                        </div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <p className={`text-xs ${selectedCrypto?.id === crypto.id ? "text-gray-300" : "text-gray-600"}`}>{crypto.symbol}</p>
-                        <div className="flex items-center gap-1">
-                          <span className={`text-sm font-semibold ${selectedCrypto?.id === crypto.id ? "text-white" : "text-black"}`}>
-                            {formatCurrency(crypto.currentPrice)}
-                          </span>
-                          {crypto.change24h >= 0 ? (
-                            <TrendingUp className="w-3 h-3 text-green-500" />
-                          ) : (
-                            <TrendingDown className="w-3 h-3 text-red-500" />
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Conversion Info */}
-            {selectedCrypto && topupAmount && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-gray-50 border border-gray-200 rounded-xl p-4"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-600">You will receive:</span>
-                  <span className="text-xl font-bold text-black">
-                    {formatCrypto(calculateCryptoAmount(parseFloat(topupAmount), selectedCrypto), selectedCrypto.symbol)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <span>Network fee:</span>
-                  <span>
-                    {formatCrypto(selectedCrypto.networkFee, selectedCrypto.symbol)} ≈ {formatCurrency(selectedCrypto.networkFee * selectedCrypto.currentPrice)}
-                  </span>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Generate Button */}
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={handleTopUp}
-              disabled={!selectedCrypto || !topupAmount}
-              className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-            >
-              <ArrowDownLeft className="w-5 h-5" />
-              Generate Deposit Address
-            </motion.button>
-          </div>
-
-          {/* Right Column - Deposit Address */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-1"
-          >
-            {selectedCrypto && topupAmount ? (
-              <div className="bg-white border border-gray-200 rounded-xl p-6 sticky top-24">
-                <h2 className="text-lg font-semibold text-black mb-4">Deposit Address</h2>
-
-                {/* QR Code Placeholder */}
-                <div className="flex justify-center mb-4">
-                  <div className="w-48 h-48 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
-                    <QrCode className="w-16 h-16 text-gray-400" />
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Send {selectedCrypto.symbol} to this address:
-                  </label>
-                  <div className="flex items-center gap-2 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                    <div className="flex-1 font-mono text-xs text-gray-600 truncate">
-                      {selectedCrypto.address}
-                    </div>
-                    <button
-                      onClick={() => handleCopyAddress(selectedCrypto.address)}
-                      className="p-2 bg-white hover:bg-gray-100 border border-gray-200 rounded transition-all"
-                    >
-                      {copiedAddress ? (
-                        <Check className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <Copy className="w-4 h-4 text-gray-600" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Instructions */}
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm">
-                      <p className="font-medium text-black">Send exact amount</p>
-                      <p className="text-gray-600">
-                        {formatCrypto(calculateCryptoAmount(parseFloat(topupAmount), selectedCrypto), selectedCrypto.symbol)}
-                      </p>
+              {/* Info Card */}
+              <div className="lg:col-span-1">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 sticky top-24">
+                  <div className="flex items-start gap-2 mb-4">
+                    <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-blue-900 mb-2">
+                        Deposit Instructions
+                      </h3>
+                      <ul className="text-sm text-blue-800 space-y-2">
+                        <li>1. Select cryptocurrency</li>
+                        <li>2. Enter USD amount</li>
+                        <li>3. Get deposit address</li>
+                        <li>4. Send crypto to address</li>
+                        <li>5. Submit transaction hash</li>
+                        <li>6. Wait for admin approval</li>
+                      </ul>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm">
-                      <p className="font-medium text-black">Network confirmations</p>
-                      <p className="text-gray-600">Credited after network confirmation</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm">
-                      <p className="font-medium text-black">Minimum deposit</p>
-                      <p className="text-gray-600">{formatCrypto(selectedCrypto.minAmount, selectedCrypto.symbol)}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <div className="flex items-start gap-2">
-                    <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-blue-900">
-                      <strong>Important:</strong> Only send {selectedCrypto.name} to this address. Sending other cryptocurrencies may result in permanent loss.
+                  <div className="bg-blue-100 rounded-lg p-3">
+                    <p className="text-xs text-blue-900">
+                      <strong>Important:</strong> Deposits are manually reviewed by admin.
+                      Approval typically takes 1-24 hours.
                     </p>
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="bg-white border border-gray-200 rounded-xl p-8 text-center">
-                <Wallet className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-black mb-2">Ready to Top Up?</h3>
-                <p className="text-sm text-gray-600">
-                  Select a cryptocurrency and enter amount to generate your deposit address.
-                </p>
+            </div>
+          ) : (
+            /* Step 2: Deposit Address & Submit */
+            <div className="grid lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                {/* Deposit Address Card */}
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h2 className="text-lg font-semibold text-black mb-4">
+                    Deposit {CRYPTOCURRENCIES[selectedCrypto!].name}
+                  </h2>
+
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Send {selectedCrypto} to this address:
+                    </label>
+                    <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg">
+                      <div className="flex-1 font-mono text-xs text-gray-600 break-all">
+                        {cryptoAddresses[selectedCrypto!.toLowerCase() as keyof typeof cryptoAddresses]}
+                      </div>
+                      <button
+                        onClick={() =>
+                          handleCopyAddress(
+                            cryptoAddresses[
+                              selectedCrypto!.toLowerCase() as keyof typeof cryptoAddresses
+                            ]
+                          )
+                        }
+                        className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0"
+                      >
+                        {copiedAddress ? (
+                          <Check className="w-4 h-4 text-green-600" />
+                        ) : (
+                          <Copy className="w-4 h-4 text-gray-600" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Submit Transaction Hash */}
+                  <form onSubmit={handleSubmitDeposit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Transaction Hash (TXID) *
+                      </label>
+                      <input
+                        type="text"
+                        value={txHash}
+                        onChange={(e) => setTxHash(e.target.value)}
+                        placeholder="Paste your transaction hash here"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                        required
+                      />
+                      <p className="mt-2 text-sm text-gray-600">
+                        You can find this in your wallet after sending the transaction
+                      </p>
+                    </div>
+
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <div className="flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                        <div className="text-sm text-yellow-900">
+                          <p className="font-medium mb-1">Before submitting:</p>
+                          <ul className="space-y-1 text-yellow-800">
+                            <li>• Send exactly {formatCurrency(parseFloat(amount))}</li>
+                            <li>• Use the correct network</li>
+                            <li>• Copy the transaction hash from your wallet</li>
+                            <li>• Deposit will be reviewed by admin</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setStep(1);
+                          setError("");
+                        }}
+                        className="flex-1 px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={isCreating}
+                        className="flex-1 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                      >
+                        {isCreating ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle className="w-4 h-4" />
+                            Submit Deposit
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            )}
-          </motion.div>
-        </div>
+
+              {/* Summary Card */}
+              <div className="lg:col-span-1">
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 sticky top-24">
+                  <h3 className="font-semibold text-black mb-4">Deposit Summary</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Cryptocurrency</span>
+                      <span className="text-sm font-medium text-black">
+                        {CRYPTOCURRENCIES[selectedCrypto!].name}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Amount</span>
+                      <span className="text-sm font-medium text-black">
+                        {formatCurrency(parseFloat(amount))}
+                      </span>
+                    </div>
+                    <div className="border-t border-gray-300 pt-3">
+                      <div className="flex justify-between">
+                        <span className="text-sm font-medium text-black">You will receive</span>
+                        <span className="text-lg font-bold text-black">
+                          {formatCurrency(parseFloat(amount))}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {activeTab === "history" && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            {transactions.length > 0 ? (
+        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          {depositsLoading ? (
+            <div className="flex items-center justify-center p-12">
+              <Loader2 className="w-8 h-8 animate-spin text-black" />
+            </div>
+          ) : deposits.length === 0 ? (
+            <div className="p-16 text-center">
+              <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 mb-4">No deposit history yet.</p>
+              <button
+                onClick={() => setActiveTab("deposit")}
+                className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+              >
+                Make Your First Deposit
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-black">Deposit History</h3>
+              </div>
               <div className="divide-y divide-gray-200">
-                <div className="p-6 border-b border-gray-200">
-                  <h3 className="text-lg font-semibold text-black">Recent Top-ups</h3>
-                </div>
-                {transactions.map((transaction) => {
-                  const crypto = cryptoCurrencies.find(c => c.id === transaction.cryptoId);
+                {deposits.map((deposit: any) => {
+                  const crypto = CRYPTOCURRENCIES[deposit.currency as CryptoCurrency];
+                  const Icon = crypto?.icon || Wallet;
                   return (
-                    <div key={transaction.id} className="p-4 hover:bg-gray-50 transition-colors">
+                    <div key={deposit._id} className="p-4 hover:bg-gray-50 transition-colors">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                          <div className={`w-10 h-10 bg-gradient-to-br ${crypto?.color || "from-gray-500 to-gray-700"} rounded-lg flex items-center justify-center`}>
-                            {crypto && <crypto.icon className="w-5 h-5 text-white" />}
+                          <div
+                            className={`w-10 h-10 bg-gradient-to-br ${crypto?.color || "from-gray-500 to-gray-700"} rounded-lg flex items-center justify-center`}
+                          >
+                            <Icon className="w-5 h-5 text-white" />
                           </div>
                           <div>
-                            <p className="font-semibold text-black">{formatCrypto(transaction.amount, crypto?.symbol || "")}</p>
-                            <p className="text-sm text-gray-600">{formatCurrency(transaction.usdAmount)}</p>
+                            <p className="font-semibold text-black">{crypto?.name || deposit.currency}</p>
+                            <p className="text-sm text-gray-600">
+                              {deposit.amount} {deposit.currency}
+                            </p>
+                            {deposit.txHash && (
+                              <p className="text-xs text-gray-500 font-mono truncate max-w-xs">
+                                TX: {deposit.txHash}
+                              </p>
+                            )}
                           </div>
                         </div>
                         <div className="text-right">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                            transaction.status === "completed"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}>
-                            {transaction.status}
+                          <span
+                            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadge(
+                              deposit.status
+                            )}`}
+                          >
+                            {deposit.status}
                           </span>
-                          <p className="text-xs text-gray-500 mt-1">{new Date(transaction.timestamp).toLocaleDateString()}</p>
+                          <p className="text-xs text-gray-500 mt-1">{formatDate(deposit.createdAt)}</p>
+                          {deposit.usdAmount && (
+                            <p className="text-sm font-medium text-black mt-1">
+                              ≈ {formatCurrency(deposit.usdAmount)}
+                            </p>
+                          )}
+                          {deposit.rejectionReason && (
+                            <p className="text-xs text-red-600 mt-1">{deposit.rejectionReason}</p>
+                          )}
                         </div>
                       </div>
                     </div>
                   );
                 })}
               </div>
-            ) : (
-              <div className="p-16 text-center">
-                <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">No top-up history yet.</p>
-                <button
-                  onClick={() => setActiveTab("deposit")}
-                  className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-                >
-                  Make Your First Deposit
-                </button>
-              </div>
-            )}
-          </div>
-        </motion.div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

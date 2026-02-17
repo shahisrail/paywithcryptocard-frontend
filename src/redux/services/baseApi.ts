@@ -24,6 +24,6 @@ export const baseApi = createApi({
     },
     credentials: 'include', // Include cookies for httpOnly cookie support
   }),
-  tagTypes: ['Auth', 'User', 'Card', 'Transaction', 'Admin'],
+  tagTypes: ['Auth', 'User', 'Card', 'Transaction', 'Admin', 'Deposit'],
   endpoints: () => ({}),
 });
