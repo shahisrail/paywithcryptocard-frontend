@@ -261,16 +261,16 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {users.map((user) => (
-                    <tr key={user._id} className="hover:bg-gray-50">
+                  {users.map((user: any) => (
+                    <tr key={user._id || user.id} className="hover:bg-gray-50">
                       <td className="p-4">
                         <div>
-                          <p className="font-medium text-gray-900">{user.fullName}</p>
-                          <p className="text-sm text-gray-500">{user.email}</p>
+                          <p className="font-medium text-gray-900">{user.fullName || 'Unknown'}</p>
+                          <p className="text-sm text-gray-500">{user.email || 'No email'}</p>
                         </div>
                       </td>
                       <td className="p-4 text-sm text-gray-900 font-medium">
-                        {formatCurrency(user.balance)}
+                        {formatCurrency(user.balance || 0)}
                       </td>
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -281,18 +281,18 @@ export default function AdminDashboard() {
                           {user.isActive ? "active" : "suspended"}
                         </span>
                       </td>
-                      <td className="p-4 text-sm text-gray-500">{formatDate(user.createdAt)}</td>
+                      <td className="p-4 text-sm text-gray-500">{formatDate(user.createdAt || user.created)}</td>
                       <td className="p-4">
                         <div className="flex items-center justify-center gap-2">
                           <Link
-                            href={`/admin/users?userId=${user._id}`}
+                            href={`/admin/users?userId=${user._id || user.id}`}
                             className="p-1 hover:bg-gray-100 rounded"
                             title="View User"
                           >
                             <Eye className="w-4 h-4 text-gray-600" />
                           </Link>
                           <button
-                            onClick={() => handleToggleUserStatus(user._id, user.isActive)}
+                            onClick={() => handleToggleUserStatus(user._id || user.id, user.isActive)}
                             className="p-1 hover:bg-gray-100 rounded"
                             title={user.isActive ? "Suspend" : "Activate"}
                           >
@@ -344,48 +344,57 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {pendingDeposits.map((deposit) => (
-                    <tr key={deposit._id} className="hover:bg-gray-50">
-                      <td className="p-4">
-                        <div>
-                          <p className="font-medium text-gray-900">{deposit.user?.fullName || 'Unknown'}</p>
-                          <p className="text-sm text-gray-500">{deposit.user?.email || deposit.userId}</p>
-                        </div>
-                      </td>
-                      <td className="p-4 text-sm text-gray-900">{deposit.currency}</td>
-                      <td className="p-4 text-sm text-gray-900">{deposit.amount}</td>
-                      <td className="p-4">
-                        <p className="text-xs text-gray-600 font-mono truncate max-w-xs" title={deposit.txHash}>
-                          {deposit.txHash ? `${deposit.txHash.substring(0, 10)}...` : 'Pending'}
-                        </p>
-                      </td>
-                      <td className="p-4 text-sm text-gray-600">{formatDate(deposit.createdAt)}</td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="number"
-                            placeholder="USD"
-                            value={approveAmounts[deposit._id] || ""}
-                            onChange={(e) => setApproveAmounts({ ...approveAmounts, [deposit._id]: e.target.value })}
-                            className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                          />
-                          <button
-                            onClick={() => handleApprove(deposit._id)}
-                            disabled={approving || !approveAmounts[deposit._id]}
-                            className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 disabled:opacity-50"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => setRejectModal(deposit._id)}
-                            className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200"
-                          >
-                            Reject
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {pendingDeposits.map((deposit: any) => {
+                    const userEmail = typeof deposit.user === 'object'
+                      ? deposit.user?.email
+                      : deposit.user;
+                    const userName = typeof deposit.user === 'object'
+                      ? deposit.user?.fullName
+                      : 'Unknown';
+
+                    return (
+                      <tr key={deposit._id || deposit.id} className="hover:bg-gray-50">
+                        <td className="p-4">
+                          <div>
+                            <p className="font-medium text-gray-900">{userName || 'Unknown'}</p>
+                            <p className="text-sm text-gray-500">{userEmail || deposit.userId}</p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-sm text-gray-900">{deposit.currency}</td>
+                        <td className="p-4 text-sm text-gray-900">{deposit.amount}</td>
+                        <td className="p-4">
+                          <p className="text-xs text-gray-600 font-mono truncate max-w-xs" title={deposit.txHash}>
+                            {deposit.txHash ? `${deposit.txHash.substring(0, 10)}...` : 'Pending'}
+                          </p>
+                        </td>
+                        <td className="p-4 text-sm text-gray-600">{formatDate(deposit.createdAt)}</td>
+                        <td className="p-4">
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="number"
+                              placeholder="USD"
+                              value={approveAmounts[deposit._id] || ""}
+                              onChange={(e) => setApproveAmounts({ ...approveAmounts, [deposit._id]: e.target.value })}
+                              className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                            />
+                            <button
+                              onClick={() => handleApprove(deposit._id)}
+                              disabled={approving || !approveAmounts[deposit._id]}
+                              className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 disabled:opacity-50"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              onClick={() => setRejectModal(deposit._id)}
+                              className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

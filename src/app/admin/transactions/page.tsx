@@ -13,21 +13,60 @@ import {
   ArrowUpRight,
   ArrowDownLeft,
   Loader2,
+  Bitcoin,
+  Wallet,
+  CreditCard,
 } from "lucide-react";
 import { useGetAllTransactionsQuery } from "@/redux/services/adminApi";
+import { useGetPendingDepositsQuery } from "@/redux/services/adminApi";
 
 export default function AdminTransactionsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
+  const [showDeposits, setShowDeposits] = useState(true); // Toggle between deposits and transactions
 
-  const { data: transactionsData, isLoading, error } = useGetAllTransactionsQuery({
+  const { data: transactionsData, isLoading: txLoading, error: txError } = useGetAllTransactionsQuery({
     limit: 100,
     status: statusFilter === "all" ? undefined : statusFilter,
     type: typeFilter === "all" ? undefined : typeFilter,
   });
 
+  const { data: depositsData, isLoading: depLoading } = useGetPendingDepositsQuery({
+    limit: 100,
+  });
+
   const transactions = transactionsData?.data?.transactions || [];
+  const deposits = depositsData?.data?.deposits || [];
+
+  const isLoading = txLoading || depLoading;
+
+  // Combine transactions and all deposits (not just pending)
+  const combinedItems = [
+    ...transactions.map((t: any) => ({ ...t, itemType: 'transaction' })),
+    ...deposits.map((d: any) => ({
+      ...d,
+      itemType: 'deposit',
+      description: `Crypto deposit: ${d.currency} ${d.amount}`,
+      type: 'deposit',
+      amount: d.usdAmount || d.amount || 0,
+      status: d.status
+    }))
+  ].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  const filteredItems = combinedItems.filter((item: any) => {
+    const matchesSearch =
+      item.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (item.itemType === 'deposit' && item.currency?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (item.user?.email?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (item.user?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const matchesStatus = statusFilter === "all" || item.status === statusFilter;
+    const matchesType = typeFilter === "all" || item.type === typeFilter || (typeFilter === 'deposit' && item.itemType === 'deposit');
+
+    return matchesSearch && matchesStatus && matchesType;
+  });
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -51,21 +90,12 @@ export default function AdminTransactionsPage() {
     };
   };
 
-  const filteredTransactions = transactions.filter((transaction: any) => {
-    const matchesSearch =
-      transaction.user?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.user?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.description?.toLowerCase().includes(searchTerm.toLowerCase());
-
-    return matchesSearch;
-  });
-
   const stats = {
-    total: transactions.length,
-    completed: transactions.filter((t: any) => t.status === "completed").length,
-    pending: transactions.filter((t: any) => t.status === "pending").length,
-    failed: transactions.filter((t: any) => t.status === "failed").length,
+    total: combinedItems.length,
+    completed: combinedItems.filter((t: any) => t.status === "completed").length,
+    pending: combinedItems.filter((t: any) => t.status === "pending").length,
+    rejected: combinedItems.filter((t: any) => t.status === "rejected").length,
+    approved: combinedItems.filter((t: any) => t.status === "approved").length,
     totalVolume: Math.abs(transactions.reduce((sum: number, t: any) => sum + (t.amount || 0), 0)),
   };
 
@@ -77,7 +107,7 @@ export default function AdminTransactionsPage() {
     );
   }
 
-  if (error) {
+  if (txError) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
         <div className="flex items-center gap-2">
@@ -108,7 +138,7 @@ export default function AdminTransactionsPage() {
               <ArrowRightLeft className="w-6 h-6 text-blue-600" />
             </div>
           </div>
-          <h3 className="text-gray-500 text-sm mb-1">Total Transactions</h3>
+          <h3 className="text-gray-500 text-sm mb-1">Total Items</h3>
           <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
         </motion.div>
 
@@ -123,8 +153,8 @@ export default function AdminTransactionsPage() {
               <CheckCircle className="w-6 h-6 text-green-600" />
             </div>
           </div>
-          <h3 className="text-gray-500 text-sm mb-1">Completed</h3>
-          <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
+          <h3 className="text-gray-500 text-sm mb-1">Approved</h3>
+          <p className="text-2xl font-bold text-gray-900">{stats.approved}</p>
         </motion.div>
 
         <motion.div
@@ -153,8 +183,8 @@ export default function AdminTransactionsPage() {
               <XCircle className="w-6 h-6 text-red-600" />
             </div>
           </div>
-          <h3 className="text-gray-500 text-sm mb-1">Failed</h3>
-          <p className="text-2xl font-bold text-gray-900">{stats.failed}</p>
+          <h3 className="text-gray-500 text-sm mb-1">Rejected</h3>
+          <p className="text-2xl font-bold text-gray-900">{stats.rejected}</p>
         </motion.div>
 
         <motion.div
@@ -196,7 +226,9 @@ export default function AdminTransactionsPage() {
             >
               <option value="all">All Status</option>
               <option value="completed">Completed</option>
+              <option value="approved">Approved</option>
               <option value="pending">Pending</option>
+              <option value="rejected">Rejected</option>
               <option value="failed">Failed</option>
             </select>
             <select
@@ -233,13 +265,14 @@ export default function AdminTransactionsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredTransactions.map((transaction: any, index: number) => {
-                const { date, time } = formatDate(transaction.createdAt);
-                const isPositive = transaction.type === "deposit" || transaction.amount > 0;
+              {filteredItems.map((item: any, index: number) => {
+                const { date, time } = formatDate(item.createdAt);
+                const isDeposit = item.itemType === 'deposit';
+                const isPositive = item.type === "deposit" || item.amount > 0;
 
                 return (
                   <motion.tr
-                    key={transaction._id}
+                    key={item._id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.05 * index }}
@@ -249,12 +282,16 @@ export default function AdminTransactionsPage() {
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                            isPositive
+                            isDeposit
+                              ? "bg-yellow-100 text-yellow-600"
+                              : isPositive
                               ? "bg-green-100 text-green-600"
                               : "bg-red-100 text-red-600"
                           }`}
                         >
-                          {isPositive ? (
+                          {isDeposit ? (
+                            <Bitcoin className="w-5 h-5" />
+                          ) : isPositive ? (
                             <ArrowDownLeft className="w-5 h-5" />
                           ) : (
                             <ArrowUpRight className="w-5 h-5" />
@@ -262,11 +299,15 @@ export default function AdminTransactionsPage() {
                         </div>
                         <div>
                           <p className="font-medium text-gray-900">
-                            {transaction._id.slice(-8).toUpperCase()}
+                            {item._id.slice(-8).toUpperCase()}
+                            {isDeposit && <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Deposit</span>}
                           </p>
-                          <p className="text-sm text-gray-500">{transaction.description || transaction.type}</p>
-                          {transaction.cardId && (
-                            <p className="text-xs text-gray-400">Card: {transaction.cardId.slice(-4)}</p>
+                          <p className="text-sm text-gray-500">{item.description || item.type}</p>
+                          {item.cardId && (
+                            <p className="text-xs text-gray-400">Card: {item.cardId.slice(-4)}</p>
+                          )}
+                          {isDeposit && item.txHash && (
+                            <p className="text-xs text-gray-400">TX: {item.txHash.slice(0, 10)}...</p>
                           )}
                         </div>
                       </div>
@@ -274,10 +315,10 @@ export default function AdminTransactionsPage() {
                     <td className="p-4">
                       <div>
                         <p className="font-medium text-gray-900">
-                          {transaction.user?.fullName || "Unknown User"}
+                          {item.user?.fullName || "Unknown User"}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {transaction.user?.email || transaction.userId}
+                          {item.user?.email || item.userId}
                         </p>
                       </div>
                     </td>
@@ -287,23 +328,31 @@ export default function AdminTransactionsPage() {
                     </td>
                     <td
                       className={`p-4 text-right font-medium ${
-                        isPositive ? "text-green-600" : "text-red-600"
+                        isDeposit ? "text-yellow-600" : isPositive ? "text-green-600" : "text-red-600"
                       }`}
                     >
-                      {isPositive ? "+" : ""}
-                      {formatCurrency(transaction.amount || 0)}
+                      {isDeposit ? (
+                        <span>{item.currency} {item.amount}</span>
+                      ) : (
+                        <>
+                          {isPositive ? "+" : ""}
+                          {formatCurrency(item.amount || 0)}
+                        </>
+                      )}
                     </td>
                     <td className="p-4 text-center">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          transaction.status === "completed"
+                          item.status === "approved" || item.status === "completed"
                             ? "bg-green-100 text-green-700"
-                            : transaction.status === "pending"
+                            : item.status === "pending"
                             ? "bg-yellow-100 text-yellow-700"
-                            : "bg-red-100 text-red-700"
+                            : item.status === "rejected"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-gray-100 text-gray-700"
                         }`}
                       >
-                        {transaction.status}
+                        {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
                       </span>
                     </td>
                     <td className="p-4">
@@ -321,10 +370,10 @@ export default function AdminTransactionsPage() {
         </div>
       </div>
 
-      {filteredTransactions.length === 0 && !isLoading && (
+      {filteredItems.length === 0 && !isLoading && (
         <div className="text-center py-12">
           <ArrowRightLeft className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No transactions found matching your criteria.</p>
+          <p className="text-gray-500">No transactions or deposits found matching your criteria.</p>
         </div>
       )}
     </div>
