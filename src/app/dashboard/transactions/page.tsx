@@ -13,9 +13,13 @@ import {
   Loader2,
   Eye,
   CreditCard,
+  Clock,
+  Bitcoin,
+  Wallet,
 } from "lucide-react";
 import { useGetMyTransactionsQuery } from "@/redux/services/transactionApi";
 import { useGetMyCardsQuery } from "@/redux/services/cardApi";
+import { useGetMyDepositsQuery } from "@/redux/services/depositApi";
 
 export default function TransactionsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,15 +27,22 @@ export default function TransactionsPage() {
   const [typeFilter, setTypeFilter] = useState("all");
   const [selectedTransaction, setSelectedTransaction] = useState<any>(null);
 
-  const { data: transactionsData, isLoading, error } = useGetMyTransactionsQuery({
+  const { data: transactionsData, isLoading: txLoading, error: txError } = useGetMyTransactionsQuery({
     limit: 100,
     status: statusFilter === "all" ? undefined : statusFilter,
     type: typeFilter === "all" ? undefined : typeFilter,
   });
 
+  const { data: depositsData, isLoading: depLoading } = useGetMyDepositsQuery({
+    limit: 100,
+  });
+
   const { data: cardsData } = useGetMyCardsQuery();
   const cards = cardsData?.data || [];
   const transactions = transactionsData?.data?.transactions || [];
+  const deposits = depositsData?.data?.deposits || [];
+
+  const isLoading = txLoading || depLoading;
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -55,10 +66,26 @@ export default function TransactionsPage() {
     };
   };
 
-  const filteredTransactions = transactions.filter((transaction: any) => {
+  // Combine transactions and pending deposits
+  const combinedItems = [
+    ...transactions.map((t: any) => ({ ...t, itemType: 'transaction' })),
+    ...deposits
+      .filter((d: any) => d.status === 'pending') // Only show pending deposits
+      .map((d: any) => ({
+        ...d,
+        itemType: 'deposit',
+        description: `Crypto deposit: ${d.currency} ${d.amount}`,
+        type: 'deposit',
+        amount: d.usdAmount || 0,
+        status: 'pending'
+      }))
+  ].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  const filteredItems = combinedItems.filter((item: any) => {
     const matchesSearch =
-      transaction.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction._id?.toLowerCase().includes(searchTerm.toLowerCase());
+      item.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (item.itemType === 'deposit' && item.currency?.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return matchesSearch;
   });
@@ -73,7 +100,19 @@ export default function TransactionsPage() {
   );
   const netBalance = totalIncome - totalExpenses;
 
-  const getTransactionIcon = (type: string) => {
+  // Crypto icons map
+  const CRYPTO_ICONS: Record<string, any> = {
+    BTC: Bitcoin,
+    ETH: Wallet,
+    USDT_ERC20: Wallet,
+    USDT_TRC20: Wallet,
+    XMR: Wallet,
+  };
+
+  const getTransactionIcon = (type: string, itemType: string, currency?: string) => {
+    if (itemType === 'deposit' && currency) {
+      return CRYPTO_ICONS[currency] || Bitcoin;
+    }
     const iconMap: Record<string, any> = {
       deposit: ArrowDownLeft,
       card_load: ArrowDownLeft,
@@ -84,7 +123,17 @@ export default function TransactionsPage() {
     return iconMap[type] || ArrowRightLeft;
   };
 
-  const getCategoryColor = (type: string) => {
+  const getCategoryColor = (type: string, itemType: string, currency?: string) => {
+    if (itemType === 'deposit') {
+      const colorMap: Record<string, string> = {
+        BTC: "from-orange-500 to-orange-600",
+        ETH: "from-blue-500 to-blue-600",
+        USDT_ERC20: "from-green-500 to-green-600",
+        USDT_TRC20: "from-red-500 to-red-600",
+        XMR: "from-gray-500 to-gray-600",
+      };
+      return colorMap[currency || "BTC"] || "from-gray-500 to-gray-600";
+    }
     const colorMap: Record<string, string> = {
       deposit: "from-green-500 to-emerald-500",
       card_load: "from-blue-500 to-cyan-500",
@@ -95,7 +144,10 @@ export default function TransactionsPage() {
     return colorMap[type] || "from-gray-400 to-gray-500";
   };
 
-  const getCategoryIcon = (type: string) => {
+  const getCategoryIcon = (type: string, itemType: string, currency?: string) => {
+    if (itemType === 'deposit') {
+      return "💰";
+    }
     const iconMap: Record<string, string> = {
       deposit: "💰",
       card_load: "💳",
@@ -118,7 +170,7 @@ export default function TransactionsPage() {
     );
   }
 
-  if (error) {
+  if (txError) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
         <div className="flex items-center gap-2">
@@ -303,36 +355,45 @@ export default function TransactionsPage() {
               </thead>
 
               <tbody className="divide-y divide-gray-100">
-                {filteredTransactions.map((transaction: any, index: number) => {
-                  const { date, time } = formatDate(transaction.createdAt);
-                  const card = transaction.cardId ? getCardById(transaction.cardId) : null;
-                  const Icon = getTransactionIcon(transaction.type);
+                {filteredItems.map((item: any, index: number) => {
+                  const { date, time } = formatDate(item.createdAt);
+                  const card = item.cardId ? getCardById(item.cardId) : null;
+                  const Icon = getTransactionIcon(item.type, item.itemType, item.currency);
+                  const isDeposit = item.itemType === 'deposit';
 
                   return (
                     <motion.tr
-                      key={transaction._id}
+                      key={item._id}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: 0.03 * index }}
                       className="group cursor-pointer"
-                      onClick={() => setSelectedTransaction(transaction)}
+                      onClick={() => setSelectedTransaction(item)}
                     >
                       <td className="p-5 bg-white">
                         <div className="flex items-center gap-4">
                           <div
                             className={`w-12 h-12 rounded-lg flex items-center justify-center text-white font-medium shadow ${getCategoryColor(
-                              transaction.type
+                              item.type,
+                              item.itemType,
+                              item.currency
                             )}`}
                           >
-                            <span className="text-xl">{getCategoryIcon(transaction.type)}</span>
+                            <span className="text-xl">{getCategoryIcon(item.type, item.itemType, item.currency)}</span>
                           </div>
                           <div>
                             <p className="font-semibold text-slate-900">
-                              {transaction.description || transaction.type.replace("_", " ")}
+                              {item.description || item.type.replace("_", " ")}
                             </p>
                             <p className="text-sm text-slate-500">
-                              {transaction._id.slice(-8).toUpperCase()}
+                              {item._id.slice(-8).toUpperCase()}
+                              {isDeposit && <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Pending Deposit</span>}
                             </p>
+                            {isDeposit && item.txHash && (
+                              <p className="text-xs text-slate-500 font-mono truncate max-w-xs mt-1">
+                                TX: {item.txHash}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </td>
@@ -351,6 +412,11 @@ export default function TransactionsPage() {
                             <span className="text-sm">{card.cardHolder}</span>
                             <span className="text-xs text-slate-500">•••• {card.cardNumber?.slice(-4)}</span>
                           </div>
+                        ) : isDeposit ? (
+                          <div className="flex items-center gap-2 text-slate-700">
+                            <Bitcoin className="w-4 h-4 text-slate-400" />
+                            <span className="text-sm">{item.currency}</span>
+                          </div>
                         ) : (
                           <span className="text-sm text-slate-500">-</span>
                         )}
@@ -358,28 +424,38 @@ export default function TransactionsPage() {
 
                       <td
                         className={`p-5 bg-white text-right font-semibold text-lg ${
-                          transaction.amount > 0 ? "text-emerald-600" : "text-rose-600"
+                          isDeposit ? "text-yellow-600" : (item.amount > 0 ? "text-emerald-600" : "text-rose-600")
                         }`}
                       >
-                        {transaction.amount > 0 ? "+" : ""}
-                        {formatCurrency(transaction.amount || 0)}
+                        {isDeposit ? (
+                          <span className="text-yellow-600">⏳ Pending</span>
+                        ) : (
+                          <>
+                            {item.amount > 0 ? "+" : ""}
+                            {formatCurrency(item.amount || 0)}
+                          </>
+                        )}
                       </td>
 
                       <td className="p-5 bg-white text-center">
                         <span
                           className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                            transaction.status === "completed"
+                            isDeposit
+                              ? "bg-amber-50 text-amber-700 border border-amber-100"
+                              : item.status === "completed"
                               ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                              : transaction.status === "pending"
+                              : item.status === "pending"
                               ? "bg-amber-50 text-amber-700 border border-amber-100"
                               : "bg-rose-50 text-rose-700 border border-rose-100"
                           }`}
                         >
-                          {transaction.status === "completed"
+                          {isDeposit ? "Pending Approval" : (
+                            item.status === "completed"
                             ? "Completed"
-                            : transaction.status === "pending"
+                            : item.status === "pending"
                             ? "Pending"
-                            : "Failed"}
+                            : "Failed"
+                          )}
                         </span>
                       </td>
 
@@ -396,14 +472,14 @@ export default function TransactionsPage() {
           </div>
         </div>
 
-        {filteredTransactions.length === 0 && !isLoading && (
+        {filteredItems.length === 0 && !isLoading && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-16 text-slate-500"
           >
             <ArrowRightLeft className="w-12 h-12 mx-auto mb-4 text-slate-400" />
-            <p>No transactions found matching your criteria.</p>
+            <p>No transactions or deposits found matching your criteria.</p>
           </motion.div>
         )}
 

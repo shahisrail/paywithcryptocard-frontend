@@ -516,50 +516,108 @@ export default function TopUpPage() {
             </div>
           ) : (
             <div>
-              <div className="p-6 border-b border-gray-200">
+              <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-black">Deposit History</h3>
+                <div className="text-sm text-gray-500">
+                  Total: {deposits.length} deposit{deposits.length !== 1 ? 's' : ''}
+                </div>
               </div>
               <div className="divide-y divide-gray-200">
                 {deposits.map((deposit: any) => {
                   const crypto = CRYPTOCURRENCIES[deposit.currency as CryptoCurrency];
                   const Icon = crypto?.icon || Wallet;
+
+                  // Status badge colors
+                  const getStatusBadge = (status: string) => {
+                    switch (status) {
+                      case "approved":
+                        return "bg-green-100 text-green-700 border-green-200";
+                      case "rejected":
+                        return "bg-red-100 text-red-700 border-red-200";
+                      case "pending":
+                      default:
+                        return "bg-yellow-100 text-yellow-700 border-yellow-200";
+                    }
+                  };
+
+                  // Status icon
+                  const getStatusIcon = (status: string) => {
+                    switch (status) {
+                      case "approved":
+                        return <CheckCircle className="w-4 h-4" />;
+                      case "rejected":
+                        return <XCircle className="w-4 h-4" />;
+                      case "pending":
+                      default:
+                        return <Clock className="w-4 h-4" />;
+                    }
+                  };
+
                   return (
                     <div key={deposit._id} className="p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4 flex-1">
                           <div
-                            className={`w-10 h-10 bg-gradient-to-br ${crypto?.color || "from-gray-500 to-gray-700"} rounded-lg flex items-center justify-center`}
+                            className={`w-12 h-12 bg-gradient-to-br ${crypto?.color || "from-gray-500 to-gray-700"} rounded-lg flex items-center justify-center flex-shrink-0`}
                           >
-                            <Icon className="w-5 h-5 text-white" />
+                            <Icon className="w-6 h-6 text-white" />
                           </div>
-                          <div>
-                            <p className="font-semibold text-black">{crypto?.name || deposit.currency}</p>
-                            <p className="text-sm text-gray-600">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="font-semibold text-black">{crypto?.name || deposit.currency}</p>
+                              <span
+                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusBadge(
+                                  deposit.status
+                                )}`}
+                              >
+                                {getStatusIcon(deposit.status)}
+                                {deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-700 font-medium">
                               {deposit.amount} {deposit.currency}
                             </p>
                             {deposit.txHash && (
-                              <p className="text-xs text-gray-500 font-mono truncate max-w-xs">
+                              <p className="text-xs text-gray-500 font-mono truncate max-w-md mt-1" title={deposit.txHash}>
                                 TX: {deposit.txHash}
                               </p>
                             )}
+                            {deposit.walletAddress && (
+                              <p className="text-xs text-gray-500 font-mono truncate max-w-md mt-1" title={deposit.walletAddress}>
+                                To: {deposit.walletAddress}
+                              </p>
+                            )}
+                            {deposit.rejectionReason && (
+                              <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
+                                <p className="text-xs text-red-700 font-medium flex items-center gap-1">
+                                  <XCircle className="w-3 h-3" />
+                                  Rejection Reason: {deposit.rejectionReason}
+                                </p>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <div className="text-right">
-                          <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadge(
-                              deposit.status
-                            )}`}
-                          >
-                            {deposit.status}
-                          </span>
-                          <p className="text-xs text-gray-500 mt-1">{formatDate(deposit.createdAt)}</p>
+                        <div className="text-right flex-shrink-0">
+                          <p className="text-xs text-gray-500">{formatDate(deposit.createdAt)}</p>
                           {deposit.usdAmount && (
-                            <p className="text-sm font-medium text-black mt-1">
-                              ≈ {formatCurrency(deposit.usdAmount)}
+                            <p className="text-sm font-semibold text-green-600 mt-1">
+                              +{formatCurrency(deposit.usdAmount)}
                             </p>
                           )}
-                          {deposit.rejectionReason && (
-                            <p className="text-xs text-red-600 mt-1">{deposit.rejectionReason}</p>
+                          {deposit.status === 'pending' && (
+                            <p className="text-xs text-yellow-600 mt-1">
+                              ⏳ Awaiting approval
+                            </p>
+                          )}
+                          {deposit.status === 'approved' && (
+                            <p className="text-xs text-green-600 mt-1">
+                              ✓ Approved
+                            </p>
+                          )}
+                          {deposit.status === 'rejected' && (
+                            <p className="text-xs text-red-600 mt-1">
+                              ✗ Rejected
+                            </p>
                           )}
                         </div>
                       </div>
