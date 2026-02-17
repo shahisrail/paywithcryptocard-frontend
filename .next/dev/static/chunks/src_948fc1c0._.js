@@ -31,6 +31,8 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 __turbopack_context__.s([
     "authApi",
     ()=>authApi,
+    "logout",
+    ()=>logout,
     "useGetCurrentUserQuery",
     ()=>useGetCurrentUserQuery,
     "useLoginMutation",
@@ -72,12 +74,16 @@ const authApi = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$redux$2f$
             // Get current user
             getCurrentUser: builder.query({
                 query: ()=>'/auth/me',
-                transformResponse: (response)=>response
+                transformResponse: (response)=>response,
+                providesTags: [
+                    'User'
+                ]
             })
         }),
     overrideExisting: false
 });
 const { useRegisterMutation, useLoginMutation, useLogoutMutation, useGetCurrentUserQuery } = authApi;
+const logout = authApi.endpoints.logout.initiate;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

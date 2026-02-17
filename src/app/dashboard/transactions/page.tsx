@@ -16,7 +16,6 @@ import {
   TrendingDown,
   Eye,
 } from "lucide-react";
-import DashboardSidebar from "@/components/DashboardSidebar";
 
 interface Transaction {
   id: string;
@@ -35,7 +34,6 @@ interface Transaction {
 }
 
 export default function TransactionsPage() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -226,64 +224,25 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex text-slate-800">
-      {/* Decorative background (subtle, low-opacity) */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute -top-36 -right-36 w-72 h-72 bg-purple-500/8 rounded-full blur-2xl" />
-        <div className="absolute -bottom-36 -left-36 w-72 h-72 bg-blue-500/8 rounded-full blur-2xl" />
+    <>
+      {/* Header */}
+      <div className="mb-8 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-black flex items-center gap-3">
+          <ArrowRightLeft className="w-7 h-7 text-cyan-500" />
+          Transactions
+        </h1>
+        <div className="flex items-center gap-3">
+          <button className="p-2.5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50">
+            <Calendar className="w-5 h-5 text-slate-700" />
+          </button>
+          <button className="p-2.5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50">
+            <Download className="w-5 h-5 text-slate-700" />
+          </button>
+        </div>
       </div>
 
-      {/* Sidebar */}
-      <DashboardSidebar
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:ml-0 relative">
-        {/* Header */}
-        <header className="bg-white sticky top-0 z-40 border-b border-gray-100">
-          <div className="responsive-container">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setIsSidebarOpen(true)}
-                  className="lg:hidden p-2 bg-white border border-gray-100 rounded-lg shadow-sm"
-                >
-                  <svg
-                    className="w-5 h-5 text-slate-700"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                </button>
-                <h1 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                  <ArrowRightLeft className="w-6 h-6 text-cyan-500" />
-                  Transactions
-                </h1>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <button className="p-2 bg-white border border-gray-100 rounded-lg shadow-sm">
-                  <Calendar className="w-5 h-5 text-slate-700" />
-                </button>
-                <button className="p-2 bg-white border border-gray-100 rounded-lg shadow-sm">
-                  <Download className="w-5 h-5 text-slate-700" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Page Content */}
-        <main className="flex-1 p-6 overflow-y-auto">
+      {/* Page Content */}
+      <div>
           {/* Stats Overview */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <motion.div
@@ -634,8 +593,7 @@ export default function TransactionsPage() {
               </motion.div>
             </motion.div>
           )}
-        </main>
       </div>
-    </div>
+    </>
   );
 }

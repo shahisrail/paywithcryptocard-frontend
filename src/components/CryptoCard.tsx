@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CreditCard, Chip, Eye, EyeOff } from "lucide-react";
+import { CreditCard, Cpu, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 interface CryptoCardProps {
@@ -93,7 +93,7 @@ const CryptoCard = ({
         {/* Chip */}
         <div className="relative z-10 mb-6 sm:mb-8">
           <div className="bg-gradient-to-br from-yellow-300/90 to-yellow-500/90 w-12 h-10 sm:w-16 sm:h-12 rounded-lg flex items-center justify-center shadow-lg border border-yellow-200/50">
-            <Chip className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-700/60" />
+            <Cpu className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-700/60" />
           </div>
         </div>
 

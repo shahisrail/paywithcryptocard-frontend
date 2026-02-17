@@ -15,7 +15,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
     "@reduxjs/toolkit": "^2.11.2",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.559.0",

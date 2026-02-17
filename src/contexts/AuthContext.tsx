@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshUser = async () => {
     try {
-      const response = await api.getMe();
+      const response = await api.getMe() as { success: boolean; data?: User };
       if (response.success && response.data) {
         setUser({
           id: response.data.id,
@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await api.login({ email, password });
+    const response = await api.login({ email, password }) as { success: boolean; user?: User };
     if (response.success && response.user) {
       setUser(response.user);
       if (response.user.role === 'admin') {
@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (email: string, password: string, fullName: string) => {
-    const response = await api.register({ email, password, fullName });
+    const response = await api.register({ email, password, fullName }) as { success: boolean; user?: User };
     if (response.success && response.user) {
       setUser(response.user);
       router.push('/dashboard');

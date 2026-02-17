@@ -1,7 +1,7 @@
 "use client";
 
-import { CryptoCard } from "./CryptoCard";
-import { PaymentMethodCard } from "./PaymentMethodCard";
+import CryptoCard from "./CryptoCard";
+import PaymentMethodCard from "./PaymentMethodCard";
 import { motion } from "framer-motion";
 
 const CardShowcase = () => {
