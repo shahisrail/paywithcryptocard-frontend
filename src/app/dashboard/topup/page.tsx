@@ -68,9 +68,27 @@ export default function TopUpPage() {
   });
   const [createDeposit, { isLoading: isCreating }] = useCreateDepositMutation();
 
-  const cryptoAddresses = addressesData?.data?.cryptoAddresses || {};
+  const cryptoAddresses = addressesData?.data?.cryptoAddresses || {
+    btc: "",
+    eth: "",
+    usdtErc20: "",
+    usdtTrc20: "",
+    xmr: "",
+  };
   const minimumDeposit = addressesData?.data?.minimumDeposit || 10;
   const deposits = depositsData?.data?.deposits || [];
+
+  // Map currency to address key
+  const getAddressKey = (currency: string): keyof typeof cryptoAddresses => {
+    const keyMap: Record<string, keyof typeof cryptoAddresses> = {
+      "BTC": "btc",
+      "ETH": "eth",
+      "USDT_ERC20": "usdtErc20",
+      "USDT_TRC20": "usdtTrc20",
+      "XMR": "xmr",
+    };
+    return keyMap[currency] || "btc";
+  };
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
@@ -97,7 +115,8 @@ export default function TopUpPage() {
     }
 
     const amountNum = parseFloat(amount);
-    const walletAddress = cryptoAddresses[selectedCrypto.toLowerCase() as keyof typeof cryptoAddresses];
+    const addressKey = getAddressKey(selectedCrypto);
+    const walletAddress = cryptoAddresses[addressKey];
 
     if (!walletAddress) {
       setError("Deposit address not available. Please contact support.");
@@ -356,17 +375,16 @@ export default function TopUpPage() {
                     </label>
                     <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg">
                       <div className="flex-1 font-mono text-xs text-gray-600 break-all">
-                        {cryptoAddresses[selectedCrypto!.toLowerCase() as keyof typeof cryptoAddresses]}
+                        {cryptoAddresses[getAddressKey(selectedCrypto!)] || "Address not configured"}
                       </div>
                       <button
                         onClick={() =>
                           handleCopyAddress(
-                            cryptoAddresses[
-                              selectedCrypto!.toLowerCase() as keyof typeof cryptoAddresses
-                            ]
+                            cryptoAddresses[getAddressKey(selectedCrypto!)] || ""
                           )
                         }
                         className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0"
+                        disabled={!cryptoAddresses[getAddressKey(selectedCrypto!)]}
                       >
                         {copiedAddress ? (
                           <Check className="w-4 h-4 text-green-600" />
@@ -375,6 +393,13 @@ export default function TopUpPage() {
                         )}
                       </button>
                     </div>
+                    {!cryptoAddresses[getAddressKey(selectedCrypto!)] && (
+                      <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded">
+                        <p className="text-xs text-yellow-800">
+                          ⚠️ Deposit address not configured. Please contact support or try again later.
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Submit Transaction Hash */}
@@ -451,8 +476,13 @@ export default function TopUpPage() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-sm text-gray-600">Cryptocurrency</span>
-                      <span className="text-sm font-medium text-black">
+                      <span className="text-sm font-medium text-black flex items-center gap-2">
                         {CRYPTOCURRENCIES[selectedCrypto!].name}
+                        {cryptoAddresses[getAddressKey(selectedCrypto!)] ? (
+                          <CheckCircle className="w-4 h-4 text-green-600" />
+                        ) : (
+                          <AlertCircle className="w-4 h-4 text-yellow-600" />
+                        )}
                       </span>
                     </div>
                     <div className="flex justify-between">
