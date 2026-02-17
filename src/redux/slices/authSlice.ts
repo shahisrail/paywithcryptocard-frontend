@@ -61,7 +61,7 @@ export const logoutUser = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       // Make direct fetch call to logout API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/auth/logout`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://server-puce-mu.vercel.app/api'}/auth/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

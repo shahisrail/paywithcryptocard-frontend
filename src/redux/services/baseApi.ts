@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Base API URL - change this for different environments
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server-puce-mu.vercel.app/api';
 
 // Create base API slice with common configuration
 export const baseApi = createApi({
