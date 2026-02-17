@@ -68,27 +68,17 @@ export default function TopUpPage() {
   });
   const [createDeposit, { isLoading: isCreating }] = useCreateDepositMutation();
 
-  const cryptoAddresses = addressesData?.data?.cryptoAddresses || {
-    btc: "",
-    eth: "",
-    usdtErc20: "",
-    usdtTrc20: "",
-    xmr: "",
+  // API returns addresses directly with uppercase keys: BTC, ETH, USDT_ERC20, etc.
+  const cryptoAddresses = addressesData?.data || {
+    BTC: "",
+    ETH: "",
+    USDT_ERC20: "",
+    USDT_TRC20: "",
+    XMR: "",
+    minimumDeposit: 10,
   };
-  const minimumDeposit = addressesData?.data?.minimumDeposit || 10;
+  const minimumDeposit = cryptoAddresses.minimumDeposit || 10;
   const deposits = depositsData?.data?.deposits || [];
-
-  // Map currency to address key
-  const getAddressKey = (currency: string): keyof typeof cryptoAddresses => {
-    const keyMap: Record<string, keyof typeof cryptoAddresses> = {
-      "BTC": "btc",
-      "ETH": "eth",
-      "USDT_ERC20": "usdtErc20",
-      "USDT_TRC20": "usdtTrc20",
-      "XMR": "xmr",
-    };
-    return keyMap[currency] || "btc";
-  };
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
@@ -115,8 +105,8 @@ export default function TopUpPage() {
     }
 
     const amountNum = parseFloat(amount);
-    const addressKey = getAddressKey(selectedCrypto);
-    const walletAddress = cryptoAddresses[addressKey];
+    // API uses uppercase keys matching the currency enum
+    const walletAddress = cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string;
 
     if (!walletAddress) {
       setError("Deposit address not available. Please contact support.");
@@ -128,7 +118,7 @@ export default function TopUpPage() {
       await createDeposit({
         currency: selectedCrypto,
         amount: amountNum,
-        walletAddress,
+        walletAddress: walletAddress,
         txHash,
       }).unwrap();
 
@@ -375,16 +365,16 @@ export default function TopUpPage() {
                     </label>
                     <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg">
                       <div className="flex-1 font-mono text-xs text-gray-600 break-all">
-                        {cryptoAddresses[getAddressKey(selectedCrypto!)] || "Address not configured"}
+                        {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) || "Address not configured"}
                       </div>
                       <button
                         onClick={() =>
                           handleCopyAddress(
-                            cryptoAddresses[getAddressKey(selectedCrypto!)] || ""
+                            (cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) || ""
                           )
                         }
                         className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0"
-                        disabled={!cryptoAddresses[getAddressKey(selectedCrypto!)]}
+                        disabled={!cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses]}
                       >
                         {copiedAddress ? (
                           <Check className="w-4 h-4 text-green-600" />
@@ -393,7 +383,7 @@ export default function TopUpPage() {
                         )}
                       </button>
                     </div>
-                    {!cryptoAddresses[getAddressKey(selectedCrypto!)] && (
+                    {!(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) && (
                       <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded">
                         <p className="text-xs text-yellow-800">
                           ⚠️ Deposit address not configured. Please contact support or try again later.
@@ -478,7 +468,7 @@ export default function TopUpPage() {
                       <span className="text-sm text-gray-600">Cryptocurrency</span>
                       <span className="text-sm font-medium text-black flex items-center gap-2">
                         {CRYPTOCURRENCIES[selectedCrypto!].name}
-                        {cryptoAddresses[getAddressKey(selectedCrypto!)] ? (
+                        {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) ? (
                           <CheckCircle className="w-4 h-4 text-green-600" />
                         ) : (
                           <AlertCircle className="w-4 h-4 text-yellow-600" />

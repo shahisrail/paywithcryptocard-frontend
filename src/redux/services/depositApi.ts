@@ -2,18 +2,17 @@ import { baseApi } from './baseApi';
 
 // Deposit interfaces
 export interface CryptoAddress {
-  btc: string;
-  eth: string;
-  usdtErc20: string;
-  usdtTrc20: string;
-  xmr: string;
+  BTC: string;
+  ETH: string;
+  USDT_ERC20: string;
+  USDT_TRC20: string;
+  XMR: string;
 }
 
 export interface DepositAddressResponse {
   success: boolean;
-  data: {
-    cryptoAddresses: CryptoAddress;
-    minimumDeposit: number;
+  data: CryptoAddress & {
+    minimumDeposit?: number;
   };
 }
 
