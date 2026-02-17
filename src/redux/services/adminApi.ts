@@ -1,6 +1,61 @@
 import { baseApi } from './baseApi';
 
 // Admin interfaces
+export interface DashboardStats {
+  totalUsers: number;
+  activeUsers: number;
+  totalBalance: number;
+  totalCards: number;
+  totalDeposits: number;
+  pendingDeposits: number;
+}
+
+export interface DashboardStatsResponse {
+  success: boolean;
+  data: DashboardStats;
+}
+
+export interface PendingDeposit {
+  _id: string;
+  userId: string;
+  user?: {
+    fullName: string;
+    email: string;
+  };
+  currency: 'BTC' | 'ETH' | 'USDT_ERC20' | 'USDT_TRC20' | 'XMR';
+  amount: number;
+  txHash?: string;
+  walletAddress: string;
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
+  usdAmount?: number;
+}
+
+export interface PendingDepositsResponse {
+  success: boolean;
+  data: {
+    deposits: PendingDeposit[];
+    total: number;
+  };
+}
+
+export interface AdminSettings {
+  cryptoAddresses: {
+    btc: string;
+    eth: string;
+    usdtErc20: string;
+    usdtTrc20: string;
+    xmr: string;
+  };
+  minimumDeposit: number;
+  cardIssuanceFee: number;
+  isActive: boolean;
+}
+
+export interface AdminSettingsResponse {
+  success: boolean;
+  data: AdminSettings;
+}
 export interface User {
   _id: string;
   id: string;
@@ -97,6 +152,72 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    // Get dashboard stats
+    getDashboardStats: builder.query<DashboardStatsResponse, void>({
+      query: () => '/admin/dashboard',
+      providesTags: ['User'],
+    }),
+
+    // Get pending deposits
+    getPendingDeposits: builder.query<PendingDepositsResponse, { limit?: number; skip?: number }>({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        queryParams.append('limit', (params?.limit || 20).toString());
+        queryParams.append('skip', (params?.skip || 0).toString());
+
+        return {
+          url: `/admin/deposits/pending?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Deposit'],
+    }),
+
+    // Approve deposit
+    approveDeposit: builder.mutation<
+      { success: boolean; message: string; data: any },
+      { depositId: string; usdAmount: number }
+    >({
+      query: ({ depositId, usdAmount }) => ({
+        url: `/admin/deposits/${depositId}/approve`,
+        method: 'PATCH',
+        body: { usdAmount },
+      }),
+      invalidatesTags: ['Deposit', 'User'],
+    }),
+
+    // Reject deposit
+    rejectDeposit: builder.mutation<
+      { success: boolean; message: string },
+      { depositId: string; reason: string }
+    >({
+      query: ({ depositId, reason }) => ({
+        url: `/admin/deposits/${depositId}/reject`,
+        method: 'PATCH',
+        body: { reason },
+      }),
+      invalidatesTags: ['Deposit'],
+    }),
+
+    // Get admin settings
+    getAdminSettings: builder.query<AdminSettingsResponse, void>({
+      query: () => '/admin/settings',
+      providesTags: ['Admin'],
+    }),
+
+    // Update admin settings
+    updateAdminSettings: builder.mutation<
+      { success: boolean; message: string; data: AdminSettings },
+      Partial<AdminSettings>
+    >({
+      query: (settings) => ({
+        url: '/admin/settings',
+        method: 'PUT',
+        body: settings,
+      }),
+      invalidatesTags: ['Admin'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -108,4 +229,10 @@ export const {
   useUpdateUserRoleMutation,
   useToggleUserStatusMutation,
   useDeleteUserMutation,
+  useGetDashboardStatsQuery,
+  useGetPendingDepositsQuery,
+  useApproveDepositMutation,
+  useRejectDepositMutation,
+  useGetAdminSettingsQuery,
+  useUpdateAdminSettingsMutation,
 } = adminApi;
