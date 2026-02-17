@@ -8,32 +8,17 @@ import {
   EyeOff,
   Copy,
   Check,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
-
-interface Card {
-  id: string;
-  name: string;
-  cardNumber: string;
-  expiryDate: string;
-  balance: number;
-  status: "active" | "frozen" | "expired";
-}
+import { useGetMyCardsQuery } from "@/redux/services/cardApi";
 
 export default function CardsPage() {
   const [showBalance, setShowBalance] = useState(true);
   const [copiedCard, setCopiedCard] = useState<string | null>(null);
 
-  const [cards] = useState<Card[]>([
-    {
-      id: "1",
-      name: "My Card",
-      cardNumber: "4532 1234 5678 8901",
-      expiryDate: "12/28",
-      balance: 450.00,
-      status: "active",
-    },
-  ]);
+  const { data: cardsData, isLoading, error } = useGetMyCardsQuery();
+  const cards = cardsData?.data || [];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -43,14 +28,35 @@ export default function CardsPage() {
   };
 
   const maskCardNumber = (cardNumber: string) => {
-    return cardNumber.replace(/(\d{4})\s(\d{4})\s(\d{4})\s(\d{4})/, "$1 **** **** $4");
+    // Remove spaces and add formatting
+    const cleaned = cardNumber.replace(/\s/g, "");
+    return cleaned.replace(/(\d{4})/g, "$1 ").trim() || cardNumber;
   };
 
   const copyCardNumber = (cardNumber: string) => {
-    navigator.clipboard.writeText(cardNumber);
+    const cleaned = cardNumber.replace(/\s/g, "");
+    navigator.clipboard.writeText(cleaned);
     setCopiedCard(cardNumber);
     setTimeout(() => setCopiedCard(null), 2000);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-black" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="flex items-center gap-2">
+          <p className="text-red-900 font-medium">Failed to load cards</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -83,13 +89,21 @@ export default function CardsPage() {
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card) => (
-          <div key={card.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        {cards.map((card: any) => (
+          <div key={card._id} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
             {/* Card Front */}
             <div className="relative p-6 h-48 flex flex-col bg-gradient-to-br from-gray-900 to-black">
               <div className="flex items-start justify-between mb-8">
                 <span className="text-white font-bold text-xl">VISA</span>
-                <span className="text-gray-400 text-xs font-medium border border-gray-600 px-3 py-1 rounded-full">
+                <span
+                  className={`text-xs font-medium border px-3 py-1 rounded-full ${
+                    card.status === "active"
+                      ? "border-green-500 text-green-400"
+                      : card.status === "frozen"
+                      ? "border-blue-500 text-blue-400"
+                      : "border-red-500 text-red-400"
+                  }`}
+                >
                   {card.status}
                 </span>
               </div>
@@ -103,7 +117,7 @@ export default function CardsPage() {
               <div className="flex items-end justify-between">
                 <div>
                   <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">Card Holder</p>
-                  <p className="text-white text-sm font-medium">{card.name}</p>
+                  <p className="text-white text-sm font-medium">{card.cardHolder}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-right">
@@ -133,13 +147,29 @@ export default function CardsPage() {
                     {showBalance ? formatCurrency(card.balance) : "••••"}
                   </span>
                 </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Spending Limit</span>
+                  <span className="text-sm font-medium text-black">
+                    {formatCurrency(card.spendingLimit)}
+                  </span>
+                </div>
+                {card.spendingLimit > 0 && (
+                  <div className="w-full bg-gray-200 rounded-full h-1.5">
+                    <div
+                      className="bg-black h-1.5 rounded-full"
+                      style={{
+                        width: `${Math.min((card.balance / card.spendingLimit) * 100, 100)}%`,
+                      }}
+                    ></div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {cards.length === 0 && (
+      {cards.length === 0 && !isLoading && (
         <div className="text-center py-16">
           <CreditCard className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 text-lg mb-4">You don't have any cards yet</p>

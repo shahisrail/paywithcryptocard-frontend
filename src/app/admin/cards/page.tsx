@@ -9,156 +9,83 @@ import {
   Eye,
   Ban,
   RefreshCw,
-  Download
+  Download,
+  Loader2,
 } from "lucide-react";
-
-interface Card {
-  id: string;
-  userId: string;
-  userName: string;
-  userEmail: string;
-  cardNumber: string;
-  name: string;
-  balance: number;
-  status: "active" | "expired" | "frozen";
-  spent: number;
-  limit: number;
-  expiryDate: string;
-  createdAt: string;
-  lastUsed?: string;
-  cardType: "virtual" | "physical";
-  currency: string;
-}
+import { useGetAllCardsQuery } from "@/redux/services/adminApi";
 
 export default function AdminCardsPage() {
-  const [cards] = useState<Card[]>([
-    {
-      id: "CRD001",
-      userId: "1",
-      userName: "John Doe",
-      userEmail: "john@example.com",
-      cardNumber: "4532 1234 5678 8901",
-      name: "Shopping Card",
-      balance: 450.00,
-      status: "active",
-      spent: 550,
-      limit: 1000,
-      expiryDate: "12/26",
-      createdAt: "2024-10-15",
-      lastUsed: "2024-12-10",
-      cardType: "virtual",
-      currency: "USD"
-    },
-    {
-      id: "CRD002",
-      userId: "2",
-      userName: "Jane Smith",
-      userEmail: "jane@example.com",
-      cardNumber: "4532 1234 5678 2345",
-      name: "Subscription Card",
-      balance: 25.50,
-      status: "active",
-      spent: 974.50,
-      limit: 1000,
-      expiryDate: "03/27",
-      createdAt: "2024-11-20",
-      lastUsed: "2024-12-09",
-      cardType: "virtual",
-      currency: "USD"
-    },
-    {
-      id: "CRD003",
-      userId: "3",
-      userName: "Bob Johnson",
-      userEmail: "bob@example.com",
-      cardNumber: "4532 1234 5678 3456",
-      name: "Travel Card",
-      balance: 0,
-      status: "frozen",
-      spent: 1000,
-      limit: 1000,
-      expiryDate: "09/26",
-      createdAt: "2024-09-05",
-      lastUsed: "2024-12-01",
-      cardType: "virtual",
-      currency: "USD"
-    },
-    {
-      id: "CRD004",
-      userId: "4",
-      userName: "Alice Brown",
-      userEmail: "alice@example.com",
-      cardNumber: "4532 1234 5678 4567",
-      name: "Business Expenses",
-      balance: 890.00,
-      status: "active",
-      spent: 210,
-      limit: 2000,
-      expiryDate: "06/27",
-      createdAt: "2024-08-12",
-      lastUsed: "2024-12-08",
-      cardType: "virtual",
-      currency: "USD"
-    },
-    {
-      id: "CRD005",
-      userId: "1",
-      userName: "John Doe",
-      userEmail: "john@example.com",
-      cardNumber: "4532 1234 5678 5678",
-      name: "Gaming Card",
-      balance: 125.00,
-      status: "expired",
-      spent: 1875,
-      limit: 2000,
-      expiryDate: "11/24",
-      createdAt: "2024-05-10",
-      lastUsed: "2024-11-15",
-      cardType: "virtual",
-      currency: "USD"
-    }
-  ]);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
+  const { data: cardsData, isLoading, error } = useGetAllCardsQuery({
+    limit: 100,
+    status: statusFilter === "all" ? undefined : statusFilter,
+  });
+
+  const cards = cardsData?.data?.cards || [];
+
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     }).format(amount);
   };
 
-  const filteredCards = cards.filter((card: Card) => {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const formatExpiry = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "2-digit",
+      year: "2-digit",
+    });
+  };
+
+  const filteredCards = cards.filter((card: any) => {
     const matchesSearch =
-      card.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.userEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.cardNumber.includes(searchTerm);
+      card.user?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.user?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.lastFour?.includes(searchTerm);
 
-    const matchesStatus = statusFilter === "all" || card.status === statusFilter;
-
-    return matchesSearch && matchesStatus;
+    return matchesSearch;
   });
 
   const stats = {
     total: cards.length,
-    active: cards.filter((c: Card) => c.status === "active").length,
-    frozen: cards.filter((c: Card) => c.status === "frozen").length,
-    expired: cards.filter((c: Card) => c.status === "expired").length,
-    totalBalance: cards.reduce((sum: number, card: Card) => sum + card.balance, 0),
-    totalSpent: cards.reduce((sum: number, card: Card) => sum + card.spent, 0)
+    active: cards.filter((c: any) => c.status === "active").length,
+    frozen: cards.filter((c: any) => c.status === "frozen").length,
+    expired: cards.filter((c: any) => c.status === "expired").length,
+    totalBalance: cards.reduce((sum: number, card: any) => sum + (card.balance || 0), 0),
+    totalSpent: cards.reduce((sum: number, card: any) => sum + (card.spent || 0), 0),
   };
 
-  const handleFreezeCard = (cardId: string) => {
-    console.log("Freeze card:", cardId);
-    // Handle freeze logic
-  };
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-black" />
+      </div>
+    );
+  }
 
-  const handleUnfreezeCard = (cardId: string) => {
-    console.log("Unfreeze card:", cardId);
-    // Handle unfreeze logic
-  };
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="flex items-center gap-2">
+          <Ban className="w-5 h-5 text-red-600" />
+          <p className="text-red-900 font-medium">Failed to load cards</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -238,10 +165,10 @@ export default function AdminCardsPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search cards by user, name, or card number..."
+                placeholder="Search cards by user, name, or last 4 digits..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               />
             </div>
           </div>
@@ -249,7 +176,7 @@ export default function AdminCardsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -260,7 +187,7 @@ export default function AdminCardsPage() {
               <Filter className="w-4 h-4" />
               Filters
             </button>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2">
+            <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 flex items-center gap-2">
               <Download className="w-4 h-4" />
               Export
             </button>
@@ -285,98 +212,126 @@ export default function AdminCardsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredCards.map((card: Card, index: number) => (
-                <motion.tr
-                  key={card.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.05 * index }}
-                  className="hover:bg-gray-50"
-                >
-                  <td className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        card.status === "active"
-                          ? "bg-green-100 text-green-600"
-                          : card.status === "frozen"
-                          ? "bg-blue-100 text-blue-600"
-                          : "bg-gray-100 text-gray-600"
-                      }`}>
-                        <CreditCard className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900">{card.name}</p>
-                        <p className="text-sm text-gray-500 font-mono">•••• {card.cardNumber.slice(-4)}</p>
-                        <p className="text-xs text-gray-400">{card.cardType} • {card.currency}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <div>
-                      <p className="font-medium text-gray-900">{card.userName}</p>
-                      <p className="text-sm text-gray-500">{card.userEmail}</p>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <p className="font-medium text-gray-900">{formatCurrency(card.balance)}</p>
-                  </td>
-                  <td className="p-4">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">{formatCurrency(card.spent)}</p>
-                      <p className="text-xs text-gray-500">of {formatCurrency(card.limit)}</p>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+              {filteredCards.map((card: any, index: number) => {
+                const spentPercentage = card.limit
+                  ? Math.min(((card.spent || 0) / card.limit) * 100, 100)
+                  : 0;
+
+                return (
+                  <motion.tr
+                    key={card._id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.05 * index }}
+                    className="hover:bg-gray-50"
+                  >
+                    <td className="p-4">
+                      <div className="flex items-center gap-3">
                         <div
-                          className="bg-indigo-600 h-1.5 rounded-full"
-                          style={{ width: `${Math.min((card.spent / card.limit) * 100, 100)}%` }}
-                        ></div>
+                          className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            card.status === "active"
+                              ? "bg-green-100 text-green-600"
+                              : card.status === "frozen"
+                              ? "bg-blue-100 text-blue-600"
+                              : "bg-gray-100 text-gray-600"
+                          }`}
+                        >
+                          <CreditCard className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{card.name || "Unnamed Card"}</p>
+                          <p className="text-sm text-gray-500 font-mono">
+                            •••• {card.lastFour || "????"
+}
+                          </p>
+                          <p className="text-xs text-gray-400">
+                            {card.type || "virtual"} • {card.currency || "USD"}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      card.status === "active"
-                        ? "bg-green-100 text-green-700"
-                        : card.status === "frozen"
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-gray-100 text-gray-700"
-                    }`}>
-                      {card.status}
-                    </span>
-                  </td>
-                  <td className="p-4 text-sm text-gray-600">{card.expiryDate}</td>
-                  <td className="p-4 text-sm text-gray-600">{card.createdAt}</td>
-                  <td className="p-4">
-                    <div className="flex items-center justify-center gap-2">
-                      <button className="p-1 hover:bg-gray-100 rounded">
-                        <Eye className="w-4 h-4 text-gray-600" />
-                      </button>
-                      {card.status === "active" ? (
-                        <button
-                          onClick={() => handleFreezeCard(card.id)}
-                          className="p-1 hover:bg-gray-100 rounded"
-                          title="Freeze Card"
-                        >
-                          <Ban className="w-4 h-4 text-blue-600" />
+                    </td>
+                    <td className="p-4">
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {card.user?.fullName || "Unknown User"}
+                        </p>
+                        <p className="text-sm text-gray-500">{card.user?.email || card.userId}</p>
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <p className="font-medium text-gray-900">
+                        {formatCurrency(card.balance || 0)}
+                      </p>
+                    </td>
+                    <td className="p-4">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {formatCurrency(card.spent || 0)}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          of {formatCurrency(card.limit || 0)}
+                        </p>
+                        {card.limit > 0 && (
+                          <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                            <div
+                              className="bg-black h-1.5 rounded-full"
+                              style={{ width: `${spentPercentage}%` }}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          card.status === "active"
+                            ? "bg-green-100 text-green-700"
+                            : card.status === "frozen"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        {card.status}
+                      </span>
+                    </td>
+                    <td className="p-4 text-sm text-gray-600">
+                      {card.expiryDate ? formatExpiry(card.expiryDate) : "N/A"}
+                    </td>
+                    <td className="p-4 text-sm text-gray-600">
+                      {formatDate(card.createdAt)}
+                    </td>
+                    <td className="p-4">
+                      <div className="flex items-center justify-center gap-2">
+                        <button className="p-1 hover:bg-gray-100 rounded">
+                          <Eye className="w-4 h-4 text-gray-600" />
                         </button>
-                      ) : card.status === "frozen" ? (
-                        <button
-                          onClick={() => handleUnfreezeCard(card.id)}
-                          className="p-1 hover:bg-gray-100 rounded"
-                          title="Unfreeze Card"
-                        >
-                          <RefreshCw className="w-4 h-4 text-green-600" />
-                        </button>
-                      ) : null}
-                    </div>
-                  </td>
-                </motion.tr>
-              ))}
+                        {card.status === "active" && (
+                          <button
+                            className="p-1 hover:bg-gray-100 rounded"
+                            title="Freeze Card"
+                          >
+                            <Ban className="w-4 h-4 text-blue-600" />
+                          </button>
+                        )}
+                        {card.status === "frozen" && (
+                          <button
+                            className="p-1 hover:bg-gray-100 rounded"
+                            title="Unfreeze Card"
+                          >
+                            <RefreshCw className="w-4 h-4 text-green-600" />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </motion.tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
 
-      {filteredCards.length === 0 && (
+      {filteredCards.length === 0 && !isLoading && (
         <div className="text-center py-12">
           <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No cards found matching your criteria.</p>

@@ -218,6 +218,66 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Admin'],
     }),
+
+    // Get all transactions
+    getAllTransactions: builder.query<
+      {
+        success: boolean;
+        data: {
+          transactions: any[];
+          total: number;
+        };
+      },
+      {
+        type?: string;
+        status?: string;
+        limit?: number;
+        skip?: number;
+      }
+    >({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.type) queryParams.append('type', params.type);
+        if (params.status) queryParams.append('status', params.status);
+        queryParams.append('limit', (params?.limit || 50).toString());
+        queryParams.append('skip', (params?.skip || 0).toString());
+
+        return {
+          url: `/transactions?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Transaction'],
+    }),
+
+    // Get all cards
+    getAllCards: builder.query<
+      {
+        success: boolean;
+        data: {
+          cards: any[];
+          total: number;
+        };
+      },
+      {
+        status?: string;
+        limit?: number;
+        skip?: number;
+      }
+    >({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.status) queryParams.append('status', params.status);
+        queryParams.append('limit', (params?.limit || 50).toString());
+        queryParams.append('skip', (params?.skip || 0).toString());
+
+        return {
+          url: `/admin/cards?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Card'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -235,4 +295,6 @@ export const {
   useRejectDepositMutation,
   useGetAdminSettingsQuery,
   useUpdateAdminSettingsMutation,
+  useGetAllTransactionsQuery,
+  useGetAllCardsQuery,
 } = adminApi;
