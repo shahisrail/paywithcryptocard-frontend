@@ -45,3 +45,5 @@ It can also happen if the client has a browser extension installed which messes 
 [00:00:07.403] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:00:07.530] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:16:34.966] Server  LOG      ✓ Compiled in 77ms
+[00:19:01.329] Server  LOG        Reload env: .env.local
+[00:19:01.660] Server  LOG      ✓ Compiled in 87ms

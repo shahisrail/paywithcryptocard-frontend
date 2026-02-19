@@ -12,7 +12,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$react$2f$rtk$2d$query$2d$react$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/query/react/rtk-query-react.modern.mjs [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$rtk$2d$query$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/query/rtk-query.modern.mjs [app-client] (ecmascript)");
 ;
-const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:4000/api") || 'https://server-puce-mu.vercel.app/api';
+const API_BASE_URL = ("TURBOPACK compile-time value", "https://server-puce-mu.vercel.app/api") || 'https://server-puce-mu.vercel.app/api';
 // Custom base query with error handling
 const baseQueryWithAuth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$rtk$2d$query$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchBaseQuery"])({
     baseUrl: API_BASE_URL,
@@ -204,7 +204,7 @@ const getInitialState = ()=>{
 const logoutUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/logoutUser', async (_, { dispatch })=>{
     try {
         // Make direct fetch call to logout API
-        const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:4000/api") || 'https://server-puce-mu.vercel.app/api'}/auth/logout`, {
+        const response = await fetch(`${("TURBOPACK compile-time value", "https://server-puce-mu.vercel.app/api") || 'https://server-puce-mu.vercel.app/api'}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
