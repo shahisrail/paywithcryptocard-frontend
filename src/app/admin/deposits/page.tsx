@@ -17,6 +17,7 @@ import {
 import { useGetAllDepositsQuery } from "@/redux/services/adminApi";
 import { useApproveDepositMutation } from "@/redux/services/adminApi";
 import { useRejectDepositMutation } from "@/redux/services/adminApi";
+import { useToast } from "@/contexts/ToastContext";
 
 const CRYPTOCURRENCIES = {
   BTC: { name: "Bitcoin", icon: Bitcoin, color: "text-orange-500" },
@@ -29,9 +30,8 @@ const CRYPTOCURRENCIES = {
 type DepositStatus = "all" | "pending" | "approved" | "rejected";
 
 export default function AdminDepositsPage() {
+  const { showSuccess, showError, showInfo } = useToast();
   const [statusFilter, setStatusFilter] = useState<DepositStatus>("pending");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [rejectReasons, setRejectReasons] = useState<Record<string, string>>({});
   const [rejectModal, setRejectModal] = useState<string | null>(null);
   const [viewModal, setViewModal] = useState<any>(null);
@@ -63,46 +63,43 @@ export default function AdminDepositsPage() {
     });
   };
 
-  const handleApprove = async (depositId: string, usdAmount?: number) => {
+  const handleApprove = async (depositId: string, usdAmount?: number, userEmail?: string) => {
     if (!usdAmount || usdAmount <= 0) {
-      setErrorMessage("Invalid USD amount");
+      showError("Invalid USD amount");
       return;
     }
 
     try {
-      setErrorMessage("");
       await approveDeposit({ depositId, usdAmount }).unwrap();
-      setSuccessMessage("Deposit approved successfully!");
+      showSuccess(`Deposit of $${usdAmount.toFixed(2)} approved for ${userEmail || 'user'}`);
       refetch();
-      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err: any) {
-      setErrorMessage(err.data?.message || "Failed to approve deposit");
+      showError(err.data?.message || "Failed to approve deposit");
     }
   };
 
   const handleReject = async (depositId: string) => {
     const reason = rejectReasons[depositId];
     if (!reason || reason.trim().length < 10) {
-      setErrorMessage("Please provide a reason (min 10 characters)");
+      showError("Please provide a reason (min 10 characters)");
       return;
     }
 
     try {
-      setErrorMessage("");
       await rejectDeposit({ depositId, reason }).unwrap();
-      setSuccessMessage("Deposit rejected successfully!");
+      showSuccess("Deposit rejected successfully");
       setRejectModal(null);
       setRejectReasons({ ...rejectReasons, [depositId]: "" });
       refetch();
-      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err: any) {
-      setErrorMessage(err.data?.message || "Failed to reject deposit");
+      showError(err.data?.message || "Failed to reject deposit");
     }
   };
 
   const handleCopyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopied(label);
+    showInfo(`${label} copied to clipboard`);
     setTimeout(() => setCopied(""), 2000);
   };
 
@@ -177,25 +174,6 @@ export default function AdminDepositsPage() {
           </div>
         </div>
       </div>
-
-      {/* Messages */}
-      {successMessage && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-5 h-5 text-green-600" />
-            <p className="text-green-900 font-medium">{successMessage}</p>
-          </div>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <div className="flex items-center gap-2">
-            <XCircle className="w-5 h-5 text-red-600" />
-            <p className="text-red-900 font-medium">{errorMessage}</p>
-          </div>
-        </div>
-      )}
 
       {/* Info Banner */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
@@ -317,7 +295,7 @@ export default function AdminDepositsPage() {
                           </div>
 
                           <button
-                            onClick={() => handleApprove(deposit._id, deposit.usdAmount)}
+                            onClick={() => handleApprove(deposit._id, deposit.usdAmount, deposit.user?.email)}
                             disabled={approving}
                             className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
                             title={`User sent ${deposit.amount} ${deposit.currency} = ${formatCurrency(deposit.usdAmount || 0)}`}
@@ -354,11 +332,7 @@ export default function AdminDepositsPage() {
                         <p
                           className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
                           title={deposit.txHash}
-                          onClick={() => {
-                            navigator.clipboard.writeText(deposit.txHash);
-                            setSuccessMessage("TX Hash copied!");
-                            setTimeout(() => setSuccessMessage(""), 2000);
-                          }}
+                          onClick={() => handleCopyToClipboard(deposit.txHash, "TX Hash")}
                         >
                           {deposit.txHash}
                           <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
@@ -376,11 +350,7 @@ export default function AdminDepositsPage() {
                       <p
                         className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
                         title={deposit.walletAddress}
-                        onClick={() => {
-                          navigator.clipboard.writeText(deposit.walletAddress);
-                          setSuccessMessage("Address copied!");
-                          setTimeout(() => setSuccessMessage(""), 2000);
-                        }}
+                        onClick={() => handleCopyToClipboard(deposit.walletAddress, "Wallet Address")}
                       >
                         {deposit.walletAddress}
                         <Copy className="w-3 h-3 inline ml-1 text-gray-400" />

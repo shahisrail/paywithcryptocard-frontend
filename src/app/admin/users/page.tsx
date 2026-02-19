@@ -20,8 +20,10 @@ import {
 } from "lucide-react";
 import { useGetAllUsersQuery, useToggleUserStatusMutation, useDeleteUserMutation, useUpdateUserBalanceMutation } from "@/redux/services/adminApi";
 import type { User } from "@/redux/services/adminApi";
+import { useToast } from "@/contexts/ToastContext";
 
 export default function AdminUsersPage() {
+  const { showSuccess, showError, showWarning, showInfo } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +31,6 @@ export default function AdminUsersPage() {
   const [balanceModal, setBalanceModal] = useState<{ user: User; show: boolean } | null>(null);
   const [balanceAmount, setBalanceAmount] = useState("");
   const [balanceReason, setBalanceReason] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   // Fetch users from API
@@ -63,13 +64,15 @@ export default function AdminUsersPage() {
     });
   };
 
-  const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
+  const handleToggleStatus = async (userId: string, currentStatus: boolean, userName: string) => {
     try {
       await toggleUserStatus({ userId, isActive: !currentStatus }).unwrap();
-      // Refetch to get updated data
+      const action = currentStatus ? 'deactivated' : 'activated';
+      showSuccess(`User "${userName}" has been ${action} successfully`);
       refetch();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to toggle user status:', error);
+      showError(error.data?.message || 'Failed to update user status');
     }
   };
 
@@ -77,10 +80,11 @@ export default function AdminUsersPage() {
     if (confirm(`Are you sure you want to delete user "${userName}"? This action cannot be undone.`)) {
       try {
         await deleteUser(userId).unwrap();
-        // Refetch to get updated data
+        showSuccess(`User "${userName}" has been deleted successfully`);
         refetch();
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to delete user:', error);
+        showError(error.data?.message || 'Failed to delete user');
       }
     }
   };
@@ -112,7 +116,6 @@ export default function AdminUsersPage() {
     }
 
     setErrorMessage("");
-    setSuccessMessage("");
 
     try {
       const result = await updateUserBalance({
@@ -121,14 +124,13 @@ export default function AdminUsersPage() {
         reason: balanceReason
       }).unwrap();
 
-      setSuccessMessage(`Balance updated successfully! ${result.message}`);
+      const action = amount > 0 ? 'added to' : 'deducted from';
+      showSuccess(`$${Math.abs(amount)} has been ${action} ${balanceModal.user.fullName}'s balance`);
       handleCloseBalanceModal();
       refetch();
-
-      // Auto-hide success message after 5 seconds
-      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (err: any) {
       setErrorMessage(err.data?.message || "Failed to update balance");
+      showError(err.data?.message || "Failed to update balance");
     }
   };
 
@@ -332,7 +334,7 @@ export default function AdminUsersPage() {
                           <DollarSign className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => handleToggleStatus(user._id || user.id, user.isActive)}
+                          onClick={() => handleToggleStatus(user._id || user.id, user.isActive, user.fullName)}
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
                               ? 'hover:bg-red-50 text-red-600'
@@ -409,28 +411,6 @@ export default function AdminUsersPage() {
         <div className="text-center py-12">
           <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No users found matching your criteria.</p>
-        </div>
-      )}
-
-      {/* Success Message */}
-      {successMessage && (
-        <div className="fixed bottom-4 right-4 bg-green-50 border border-green-200 text-green-900 rounded-lg p-4 shadow-lg max-w-md animate-slideIn">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0">
-              <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium">{successMessage}</p>
-            </div>
-            <button
-              onClick={() => setSuccessMessage("")}
-              className="flex-shrink-0 text-green-600 hover:text-green-700"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
         </div>
       )}
 
