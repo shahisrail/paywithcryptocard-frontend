@@ -299,15 +299,17 @@ export default function AdminTransactionsPage() {
                         </div>
                         <div>
                           <p className="font-medium text-gray-900">
-                            {item._id.slice(-8).toUpperCase()}
+                            {String(item._id.slice(-8).toUpperCase())}
                             {isDeposit && <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Deposit</span>}
                           </p>
-                          <p className="text-sm text-gray-500">{item.description || item.type}</p>
+                          <p className="text-sm text-gray-500">{String(item.description || item.type)}</p>
                           {item.cardId && (
-                            <p className="text-xs text-gray-400">Card: {item.cardId.slice(-4)}</p>
+                            <p className="text-xs text-gray-400">
+                              Card: {typeof item.cardId === 'object' ? String(item.cardId.cardNumber?.slice(-4) || '????') : String(item.cardId.slice(-4))}
+                            </p>
                           )}
                           {isDeposit && item.txHash && (
-                            <p className="text-xs text-gray-400">TX: {item.txHash.slice(0, 10)}...</p>
+                            <p className="text-xs text-gray-400">TX: {String(item.txHash.slice(0, 10))}...</p>
                           )}
                         </div>
                       </div>
@@ -315,10 +317,10 @@ export default function AdminTransactionsPage() {
                     <td className="p-4">
                       <div>
                         <p className="font-medium text-gray-900">
-                          {item.user?.fullName || "Unknown User"}
+                          {String(item.userId?.fullName || item.user?.fullName || "Unknown User")}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {item.user?.email || item.userId}
+                          {String(item.userId?.email || item.user?.email || "No email")}
                         </p>
                       </div>
                     </td>
@@ -332,7 +334,7 @@ export default function AdminTransactionsPage() {
                       }`}
                     >
                       {isDeposit ? (
-                        <span>{item.currency} {item.amount}</span>
+                        <span>{String(item.currency)} {String(item.amount)}</span>
                       ) : (
                         <>
                           {isPositive ? "+" : ""}
@@ -352,7 +354,7 @@ export default function AdminTransactionsPage() {
                             : "bg-gray-100 text-gray-700"
                         }`}
                       >
-                        {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                        {String(item.status.charAt(0).toUpperCase() + item.status.slice(1))}
                       </span>
                     </td>
                     <td className="p-4">

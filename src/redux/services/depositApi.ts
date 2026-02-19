@@ -21,6 +21,7 @@ export interface CreateDepositRequest {
   amount: number;
   txHash?: string;
   walletAddress: string;
+  usdAmount?: number; // Optional USD amount from frontend conversion
 }
 
 export interface Deposit {

@@ -9,8 +9,12 @@ import {
   Bitcoin,
   AlertCircle,
   Info,
+  Filter,
+  Eye,
+  Ban,
+  Copy,
 } from "lucide-react";
-import { useGetPendingDepositsQuery } from "@/redux/services/adminApi";
+import { useGetAllDepositsQuery } from "@/redux/services/adminApi";
 import { useApproveDepositMutation } from "@/redux/services/adminApi";
 import { useRejectDepositMutation } from "@/redux/services/adminApi";
 
@@ -22,15 +26,21 @@ const CRYPTOCURRENCIES = {
   XMR: { name: "Monero", icon: Wallet, color: "text-gray-500" },
 };
 
+type DepositStatus = "all" | "pending" | "approved" | "rejected";
+
 export default function AdminDepositsPage() {
-  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+  const [statusFilter, setStatusFilter] = useState<DepositStatus>("pending");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [approveAmounts, setApproveAmounts] = useState<Record<string, string>>({});
   const [rejectReasons, setRejectReasons] = useState<Record<string, string>>({});
   const [rejectModal, setRejectModal] = useState<string | null>(null);
+  const [viewModal, setViewModal] = useState<any>(null);
+  const [copied, setCopied] = useState("");
 
-  const { data: depositsData, isLoading, refetch } = useGetPendingDepositsQuery({ limit: 50 });
+  const { data: depositsData, isLoading, refetch } = useGetAllDepositsQuery({
+    status: statusFilter,
+    limit: 50,
+  });
   const [approveDeposit, { isLoading: approving }] = useApproveDepositMutation();
   const [rejectDeposit, { isLoading: rejecting }] = useRejectDepositMutation();
 
@@ -53,18 +63,16 @@ export default function AdminDepositsPage() {
     });
   };
 
-  const handleApprove = async (depositId: string) => {
-    const amount = approveAmounts[depositId];
-    if (!amount || parseFloat(amount) <= 0) {
-      setErrorMessage("Please enter a valid USD amount");
+  const handleApprove = async (depositId: string, usdAmount?: number) => {
+    if (!usdAmount || usdAmount <= 0) {
+      setErrorMessage("Invalid USD amount");
       return;
     }
 
     try {
       setErrorMessage("");
-      await approveDeposit({ depositId, usdAmount: parseFloat(amount) }).unwrap();
+      await approveDeposit({ depositId, usdAmount }).unwrap();
       setSuccessMessage("Deposit approved successfully!");
-      setApproveAmounts({ ...approveAmounts, [depositId]: "" });
       refetch();
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err: any) {
@@ -92,6 +100,16 @@ export default function AdminDepositsPage() {
     }
   };
 
+  const handleCopyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(label);
+    setTimeout(() => setCopied(""), 2000);
+  };
+
+  const handleViewDetails = (deposit: any) => {
+    setViewModal(deposit);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -103,9 +121,61 @@ export default function AdminDepositsPage() {
   return (
     <div>
       {/* Page Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Deposit Management</h1>
         <p className="text-gray-600">Review and approve/reject user deposit requests</p>
+      </div>
+
+      {/* Filter Buttons */}
+      <div className="mb-6">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-gray-500" />
+            <span className="text-sm font-medium text-gray-700">Status:</span>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setStatusFilter("all")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                statusFilter === "all"
+                  ? "bg-black text-white"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              All ({depositsData?.data?.total || 0})
+            </button>
+            <button
+              onClick={() => setStatusFilter("pending")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                statusFilter === "pending"
+                  ? "bg-yellow-500 text-white"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              Pending
+            </button>
+            <button
+              onClick={() => setStatusFilter("approved")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                statusFilter === "approved"
+                  ? "bg-green-500 text-white"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              Approved
+            </button>
+            <button
+              onClick={() => setStatusFilter("rejected")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                statusFilter === "rejected"
+                  ? "bg-red-500 text-white"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Messages */}
@@ -134,9 +204,9 @@ export default function AdminDepositsPage() {
           <div className="text-sm text-blue-900">
             <p className="font-medium mb-1">Deposit Approval Process</p>
             <ul className="space-y-1 text-blue-800 list-disc list-inside">
-              <li>Review the transaction hash on the blockchain</li>
-              <li>Enter the USD amount to credit the user</li>
-              <li>Approve to credit user balance automatically</li>
+              <li>USD amounts are auto-calculated from CoinGecko when users create deposits</li>
+              <li>Review the transaction hash on the blockchain before approving</li>
+              <li>Approve to credit user balance with the auto-converted USD amount</li>
               <li>Reject if the transaction is invalid or insufficient</li>
             </ul>
           </div>
@@ -144,134 +214,183 @@ export default function AdminDepositsPage() {
       </div>
 
       {/* Deposits List */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="space-y-4">
         {deposits.length === 0 ? (
-          <div className="p-16 text-center">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-16 text-center">
             <Wallet className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-600 mb-2">No pending deposits</p>
+            <p className="text-gray-600 mb-2">No deposits found</p>
             <p className="text-sm text-gray-500">
-              Deposits awaiting review will appear here
+              {statusFilter === 'pending' ? 'No pending deposits to review' : 'No deposits match your criteria'}
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">User</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Cryptocurrency</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Amount</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">TX Hash</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Wallet Address</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Date</th>
-                  <th className="text-center p-4 text-sm font-medium text-gray-700">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {deposits.map((deposit: any) => {
-                  const crypto = CRYPTOCURRENCIES[deposit.currency as keyof typeof CRYPTOCURRENCIES];
-                  const Icon = crypto?.icon || Wallet;
+          deposits.map((deposit: any) => {
+            const crypto = CRYPTOCURRENCIES[deposit.currency as keyof typeof CRYPTOCURRENCIES];
+            const Icon = crypto?.icon || Wallet;
 
-                  return (
-                    <tr key={deposit._id} className="hover:bg-gray-50">
-                      <td className="p-4">
+            return (
+              <div
+                key={deposit._id}
+                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                  {/* Left Section - User & Crypto Info */}
+                  <div className="flex-1 space-y-4">
+                    {/* User Info */}
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-sm font-semibold text-blue-600">
+                          {(deposit.userId?.fullName || deposit.user?.fullName || 'U')?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">
+                          {deposit.userId?.fullName || deposit.user?.fullName || "Unknown User"}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {deposit.userId?.email || deposit.user?.email || "Unknown email"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Crypto & Amount */}
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg">
+                        <Icon className={`w-5 h-5 ${crypto?.color || "text-gray-500"}`} />
                         <div>
-                          <p className="font-medium text-gray-900">
-                            {deposit.user?.fullName || "Unknown User"}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {deposit.user?.email || deposit.userId}
-                          </p>
+                          <p className="text-xs text-gray-600">Cryptocurrency</p>
+                          <p className="text-sm font-semibold text-gray-900">{deposit.currency}</p>
                         </div>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-2">
-                          <Icon className={`w-5 h-5 ${crypto?.color || "text-gray-500"}`} />
-                          <span className="text-sm font-medium text-gray-900">
-                            {deposit.currency}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <p className="text-sm text-gray-900 font-medium">
-                          {deposit.amount} {deposit.currency}
+                      </div>
+
+                      <div className="px-3 py-2 bg-gray-50 rounded-lg flex-1">
+                        <p className="text-xs text-gray-600">Amount Sent</p>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {deposit.amount < 0.01 ? deposit.amount.toFixed(8) : deposit.amount.toFixed(6)} {deposit.currency}
+                        </p>
+                      </div>
+
+                      <div className="px-3 py-2 bg-green-50 rounded-lg flex-1">
+                        <p className="text-xs text-gray-600">USD Value</p>
+                        <p className="text-sm font-bold text-green-900">
+                          {deposit.usdAmount ? formatCurrency(deposit.usdAmount) : '-'}
                         </p>
                         {deposit.usdAmount && (
-                          <p className="text-xs text-gray-500">
-                            ≈ {formatCurrency(deposit.usdAmount)}
-                          </p>
+                          <p className="text-xs text-green-600">Auto-converted</p>
                         )}
-                      </td>
-                      <td className="p-4">
-                        {deposit.txHash ? (
-                          <p
-                            className="text-xs text-gray-600 font-mono cursor-pointer hover:text-gray-900"
-                            title={deposit.txHash}
-                            onClick={() => {
-                              navigator.clipboard.writeText(deposit.txHash);
-                              setSuccessMessage("TX Hash copied!");
-                              setTimeout(() => setSuccessMessage(""), 2000);
-                            }}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Section - Status & Actions */}
+                  <div className="flex flex-col lg:items-end gap-3">
+                    {/* Status Badge */}
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                        deposit.status === 'approved'
+                          ? 'bg-green-100 text-green-700'
+                          : deposit.status === 'rejected'
+                          ? 'bg-red-100 text-red-700'
+                          : 'bg-yellow-100 text-yellow-700'
+                      }`}
+                    >
+                      {deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}
+                    </span>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <button
+                        onClick={() => handleViewDetails(deposit)}
+                        className="px-3 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 flex items-center gap-2"
+                      >
+                        <Eye className="w-4 h-4" />
+                        Details
+                      </button>
+
+                      {deposit.status === 'pending' && (
+                        <>
+                          <div className="px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
+                            <p className="text-xs text-green-600">Credit</p>
+                            <p className="text-sm font-bold text-green-700">
+                              {formatCurrency(deposit.usdAmount || 0)}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => handleApprove(deposit._id, deposit.usdAmount)}
+                            disabled={approving}
+                            className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
+                            title={`User sent ${deposit.amount} ${deposit.currency} = ${formatCurrency(deposit.usdAmount || 0)}`}
                           >
-                            {deposit.txHash.substring(0, 16)}...
-                            <span className="ml-2 text-gray-400">(click to copy)</span>
-                          </p>
-                        ) : (
-                          <span className="text-xs text-gray-400 italic">Not provided</span>
-                        )}
-                      </td>
-                      <td className="p-4">
+                            <CheckCircle className="w-4 h-4" />
+                            Approve
+                          </button>
+
+                          <button
+                            onClick={() => setRejectModal(deposit._id)}
+                            className="px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 flex items-center gap-2"
+                          >
+                            <XCircle className="w-4 h-4" />
+                            Reject
+                          </button>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Date */}
+                    <p className="text-xs text-gray-500">
+                      {formatDate(deposit.createdAt)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* TX Hash & Wallet - Show in compact row */}
+                <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* TX Hash */}
+                  <div className="flex items-start gap-2">
+                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">TX Hash:</p>
+                    {deposit.txHash ? (
+                      <div className="flex-1 min-w-0">
                         <p
-                          className="text-xs text-gray-600 font-mono cursor-pointer hover:text-gray-900 truncate max-w-[200px]"
-                          title={deposit.walletAddress}
+                          className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
+                          title={deposit.txHash}
                           onClick={() => {
-                            navigator.clipboard.writeText(deposit.walletAddress);
-                            setSuccessMessage("Address copied!");
+                            navigator.clipboard.writeText(deposit.txHash);
+                            setSuccessMessage("TX Hash copied!");
                             setTimeout(() => setSuccessMessage(""), 2000);
                           }}
                         >
-                          {deposit.walletAddress.substring(0, 20)}...
-                          <span className="ml-2 text-gray-400">(click to copy)</span>
+                          {deposit.txHash}
+                          <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
                         </p>
-                      </td>
-                      <td className="p-4 text-sm text-gray-600">
-                        {formatDate(deposit.createdAt)}
-                      </td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="number"
-                            placeholder="USD"
-                            value={approveAmounts[deposit._id] || ""}
-                            onChange={(e) =>
-                              setApproveAmounts({
-                                ...approveAmounts,
-                                [deposit._id]: e.target.value,
-                              })
-                            }
-                            className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                          />
-                          <button
-                            onClick={() => handleApprove(deposit._id)}
-                            disabled={approving || !approveAmounts[deposit._id]}
-                            className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 disabled:opacity-50"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => setRejectModal(deposit._id)}
-                            className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200"
-                          >
-                            Reject
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-gray-400 italic">Not provided</span>
+                    )}
+                  </div>
+
+                  {/* Wallet Address */}
+                  <div className="flex items-start gap-2">
+                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">Wallet:</p>
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
+                        title={deposit.walletAddress}
+                        onClick={() => {
+                          navigator.clipboard.writeText(deposit.walletAddress);
+                          setSuccessMessage("Address copied!");
+                          setTimeout(() => setSuccessMessage(""), 2000);
+                        }}
+                      >
+                        {deposit.walletAddress}
+                        <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
         )}
       </div>
 
@@ -305,6 +424,166 @@ export default function AdminDepositsPage() {
                 className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
               >
                 Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Details Modal */}
+      {viewModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 max-w-lg w-full">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900">Deposit Details</h2>
+              <button
+                onClick={() => setViewModal(null)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <XCircle className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Status */}
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <span className="text-sm text-gray-600">Status</span>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    viewModal.status === 'approved'
+                      ? 'bg-green-100 text-green-700'
+                      : viewModal.status === 'rejected'
+                      ? 'bg-red-100 text-red-700'
+                      : 'bg-yellow-100 text-yellow-700'
+                  }`}
+                >
+                  {viewModal.status.charAt(0).toUpperCase() + viewModal.status.slice(1)}
+                </span>
+              </div>
+
+              {/* User Information */}
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <p className="text-xs text-gray-600 mb-2">User Information</p>
+                <p className="text-sm font-semibold text-gray-900">
+                  {viewModal.userId?.fullName || viewModal.user?.fullName || 'Unknown User'}
+                </p>
+                <p className="text-xs text-gray-600">
+                  {viewModal.userId?.email || viewModal.user?.email || 'No email'}
+                </p>
+              </div>
+
+              {/* Cryptocurrency & Amount */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">Cryptocurrency</p>
+                  <p className="text-sm font-bold text-gray-900">
+                    {viewModal.currency}
+                  </p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">Crypto Amount</p>
+                  <p className="text-sm font-bold text-gray-900">
+                    {viewModal.amount < 0.01
+                      ? viewModal.amount.toFixed(8)
+                      : viewModal.amount.toFixed(6)} {viewModal.currency}
+                  </p>
+                </div>
+              </div>
+
+              {/* USD Amount */}
+              <div className="p-4 bg-green-50 rounded-lg">
+                <p className="text-xs text-gray-600 mb-1">USD Value</p>
+                <p className="text-2xl font-bold text-green-900">
+                  {viewModal.usdAmount ? formatCurrency(viewModal.usdAmount) : 'N/A'}
+                </p>
+                {viewModal.usdAmount && (
+                  <p className="text-xs text-green-700 mt-1">
+                    Auto-converted from CoinGecko
+                  </p>
+                )}
+              </div>
+
+              {/* Wallet Address */}
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-gray-600">Wallet Address</p>
+                  <button
+                    onClick={() => handleCopyToClipboard(viewModal.walletAddress, 'wallet')}
+                    className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                  >
+                    {copied === 'wallet' ? (
+                      <>
+                        <CheckCircle className="w-3 h-3" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3 h-3" />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+                <p className="text-xs font-mono text-gray-900 break-all">
+                  {viewModal.walletAddress}
+                </p>
+              </div>
+
+              {/* Transaction Hash */}
+              {viewModal.txHash && (
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs text-gray-600">Transaction Hash (TXID)</p>
+                    <button
+                      onClick={() => handleCopyToClipboard(viewModal.txHash, 'txhash')}
+                      className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                    >
+                      {copied === 'txhash' ? (
+                        <>
+                          <CheckCircle className="w-3 h-3" />
+                          Copied!
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          Copy
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-xs font-mono text-gray-900 break-all">
+                    {viewModal.txHash}
+                  </p>
+                </div>
+              )}
+
+              {/* Rejection Reason */}
+              {viewModal.status === 'rejected' && viewModal.rejectionReason && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-xs text-red-700 mb-1">Rejection Reason</p>
+                  <p className="text-sm text-red-900">{viewModal.rejectionReason}</p>
+                </div>
+              )}
+
+              {/* Dates */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">Created At</p>
+                  <p className="text-xs text-gray-900">{formatDate(viewModal.createdAt)}</p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">Updated At</p>
+                  <p className="text-xs text-gray-900">{formatDate(viewModal.updatedAt)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <button
+                onClick={() => setViewModal(null)}
+                className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
+              >
+                Close
               </button>
             </div>
           </div>

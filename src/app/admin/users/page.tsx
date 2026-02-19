@@ -15,8 +15,10 @@ import {
   ChevronLeft,
   ChevronRight,
   RefreshCw,
+  DollarSign,
+  X,
 } from "lucide-react";
-import { useGetAllUsersQuery, useToggleUserStatusMutation, useDeleteUserMutation } from "@/redux/services/adminApi";
+import { useGetAllUsersQuery, useToggleUserStatusMutation, useDeleteUserMutation, useUpdateUserBalanceMutation } from "@/redux/services/adminApi";
 import type { User } from "@/redux/services/adminApi";
 
 export default function AdminUsersPage() {
@@ -24,6 +26,11 @@ export default function AdminUsersPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [limit] = useState(50);
+  const [balanceModal, setBalanceModal] = useState<{ user: User; show: boolean } | null>(null);
+  const [balanceAmount, setBalanceAmount] = useState("");
+  const [balanceReason, setBalanceReason] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Fetch users from API
   const { data: usersData, isLoading, refetch, isFetching } = useGetAllUsersQuery({
@@ -35,6 +42,7 @@ export default function AdminUsersPage() {
 
   const [toggleUserStatus] = useToggleUserStatusMutation();
   const [deleteUser] = useDeleteUserMutation();
+  const [updateUserBalance] = useUpdateUserBalanceMutation();
 
   const users = usersData?.data?.users || [];
   const totalUsers = usersData?.data?.total || 0;
@@ -74,6 +82,53 @@ export default function AdminUsersPage() {
       } catch (error) {
         console.error('Failed to delete user:', error);
       }
+    }
+  };
+
+  const handleOpenBalanceModal = (user: User) => {
+    setBalanceModal({ user, show: true });
+    setBalanceAmount("");
+    setBalanceReason("");
+    setErrorMessage("");
+  };
+
+  const handleCloseBalanceModal = () => {
+    setBalanceModal(null);
+    setBalanceAmount("");
+    setBalanceReason("");
+    setErrorMessage("");
+  };
+
+  const handleBalanceUpdate = async () => {
+    if (!balanceModal || !balanceAmount || !balanceReason) {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
+
+    const amount = parseFloat(balanceAmount);
+    if (isNaN(amount) || amount === 0) {
+      setErrorMessage("Please enter a valid amount");
+      return;
+    }
+
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    try {
+      const result = await updateUserBalance({
+        id: balanceModal.user._id || balanceModal.user.id,
+        amount,
+        reason: balanceReason
+      }).unwrap();
+
+      setSuccessMessage(`Balance updated successfully! ${result.message}`);
+      handleCloseBalanceModal();
+      refetch();
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => setSuccessMessage(""), 5000);
+    } catch (err: any) {
+      setErrorMessage(err.data?.message || "Failed to update balance");
     }
   };
 
@@ -270,6 +325,13 @@ export default function AdminUsersPage() {
                     <td className="p-4">
                       <div className="flex items-center justify-center gap-2">
                         <button
+                          onClick={() => handleOpenBalanceModal(user)}
+                          className="p-2 hover:bg-green-50 rounded-lg text-green-600 transition-colors"
+                          title="Update Balance"
+                        >
+                          <DollarSign className="w-4 h-4" />
+                        </button>
+                        <button
                           onClick={() => handleToggleStatus(user._id || user.id, user.isActive)}
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
@@ -347,6 +409,144 @@ export default function AdminUsersPage() {
         <div className="text-center py-12">
           <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No users found matching your criteria.</p>
+        </div>
+      )}
+
+      {/* Success Message */}
+      {successMessage && (
+        <div className="fixed bottom-4 right-4 bg-green-50 border border-green-200 text-green-900 rounded-lg p-4 shadow-lg max-w-md animate-slideIn">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0">
+              <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{successMessage}</p>
+            </div>
+            <button
+              onClick={() => setSuccessMessage("")}
+              className="flex-shrink-0 text-green-600 hover:text-green-700"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Balance Update Modal */}
+      {balanceModal?.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-xl shadow-xl max-w-md w-full"
+          >
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                  <DollarSign className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Update Balance</h3>
+                  <p className="text-sm text-gray-500">{balanceModal.user.fullName}</p>
+                </div>
+              </div>
+              <button
+                onClick={handleCloseBalanceModal}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-4 h-4 text-gray-500" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {/* Current Balance */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-600 mb-1">Current Balance</p>
+                <p className="text-2xl font-bold text-gray-900">{formatCurrency(balanceModal.user.balance)}</p>
+              </div>
+
+              {/* Error Message */}
+              {errorMessage && (
+                <div className="bg-red-50 border border-red-200 text-red-900 rounded-lg p-3 text-sm">
+                  {errorMessage}
+                </div>
+              )}
+
+              {/* Amount Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Amount (USD)
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  placeholder="Enter amount (use negative to deduct)"
+                  value={balanceAmount}
+                  onChange={(e) => setBalanceAmount(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Use positive value to add, negative to deduct (e.g., -50)
+                </p>
+              </div>
+
+              {/* Reason Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Reason *
+                </label>
+                <textarea
+                  placeholder="Enter reason for balance adjustment"
+                  value={balanceReason}
+                  onChange={(e) => setBalanceReason(e.target.value)}
+                  rows={3}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+                />
+              </div>
+
+              {/* Preview */}
+              {balanceAmount && !isNaN(parseFloat(balanceAmount)) && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm font-medium text-blue-900 mb-2">Preview</p>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-blue-700">Current Balance:</span>
+                    <span className="font-semibold text-blue-900">{formatCurrency(balanceModal.user.balance)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm mt-1">
+                    <span className="text-blue-700">Adjustment:</span>
+                    <span className={`font-semibold ${parseFloat(balanceAmount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {formatCurrency(parseFloat(balanceAmount))}
+                    </span>
+                  </div>
+                  <div className="border-t border-blue-300 my-2"></div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium text-blue-900">New Balance:</span>
+                    <span className="text-lg font-bold text-blue-900">
+                      {formatCurrency(balanceModal.user.balance + parseFloat(balanceAmount))}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3 p-6 border-t border-gray-200">
+              <button
+                onClick={handleCloseBalanceModal}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBalanceUpdate}
+                disabled={!balanceAmount || !balanceReason}
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+              >
+                Update Balance
+              </button>
+            </div>
+          </motion.div>
         </div>
       )}
     </div>

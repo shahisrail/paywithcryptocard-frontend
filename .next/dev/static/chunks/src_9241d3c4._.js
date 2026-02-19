@@ -12,30 +12,114 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$react$2f$rtk$2d$query$2d$react$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/query/react/rtk-query-react.modern.mjs [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$rtk$2d$query$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/query/rtk-query.modern.mjs [app-client] (ecmascript)");
 ;
-const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:4000/api") || 'http://localhost:4000/api';
+const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:4000/api") || 'https://server-puce-mu.vercel.app/api';
+// Custom base query with error handling
+const baseQueryWithAuth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$rtk$2d$query$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchBaseQuery"])({
+    baseUrl: API_BASE_URL,
+    prepareHeaders: (headers, { getState })=>{
+        // Get token from Redux store
+        const token = getState().auth.token;
+        // If token exists, add to headers
+        if (token) {
+            headers.set('authorization', `Bearer ${token}`);
+        }
+        // Set content type for all requests
+        headers.set('accept', 'application/json');
+        return headers;
+    },
+    credentials: 'include'
+});
+// Wrapper around baseQuery to handle errors
+const baseQueryWithErrorHandling = async (args, api, extraOptions)=>{
+    const result = await baseQueryWithAuth(args, api, extraOptions);
+    // Handle errors
+    if (result.error) {
+        const { status, data } = result.error;
+        // Handle rate limiting (429)
+        if (status === 429) {
+            return {
+                error: {
+                    status: 429,
+                    data: {
+                        success: false,
+                        message: 'Too many requests. Please wait a moment and try again.'
+                    }
+                }
+            };
+        }
+        // Handle network errors / backend not found
+        if (status === 'FETCH_ERROR' || status === undefined) {
+            return {
+                error: {
+                    status: 503,
+                    data: {
+                        success: false,
+                        message: 'Unable to connect to the server. Please check your internet connection and try again.'
+                    }
+                }
+            };
+        }
+        // Handle timeout errors
+        if (status === 'TIMEOUT_ERROR') {
+            return {
+                error: {
+                    status: 504,
+                    data: {
+                        success: false,
+                        message: 'Request timeout. The server is taking too long to respond. Please try again.'
+                    }
+                }
+            };
+        }
+        // Handle 401 Unauthorized
+        if (status === 401) {
+            return {
+                error: {
+                    status: 401,
+                    data: {
+                        success: false,
+                        message: 'Your session has expired. Please log in again.'
+                    }
+                }
+            };
+        }
+        // Handle 403 Forbidden
+        if (status === 403) {
+            return {
+                error: {
+                    status: 403,
+                    data: {
+                        success: false,
+                        message: 'You do not have permission to perform this action.'
+                    }
+                }
+            };
+        }
+        // Handle 500 Server Error
+        if (status === 500) {
+            return {
+                error: {
+                    status: 500,
+                    data: {
+                        success: false,
+                        message: 'Server error. Please try again later. If the problem persists, contact support.'
+                    }
+                }
+            };
+        }
+    }
+    return result;
+};
 const baseApi = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$react$2f$rtk$2d$query$2d$react$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createApi"])({
     reducerPath: 'api',
-    baseQuery: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$query$2f$rtk$2d$query$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchBaseQuery"])({
-        baseUrl: API_BASE_URL,
-        prepareHeaders: (headers, { getState })=>{
-            // Get token from Redux store
-            const token = getState().auth.token;
-            // If token exists, add to headers
-            if (token) {
-                headers.set('authorization', `Bearer ${token}`);
-            }
-            // Set content type for all requests
-            headers.set('accept', 'application/json');
-            return headers;
-        },
-        credentials: 'include'
-    }),
+    baseQuery: baseQueryWithErrorHandling,
     tagTypes: [
         'Auth',
         'User',
         'Card',
         'Transaction',
-        'Admin'
+        'Admin',
+        'Deposit'
     ],
     endpoints: ()=>({})
 });
@@ -120,7 +204,7 @@ const getInitialState = ()=>{
 const logoutUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/logoutUser', async (_, { dispatch })=>{
     try {
         // Make direct fetch call to logout API
-        const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:4000/api") || 'http://localhost:4000/api'}/auth/logout`, {
+        const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:4000/api") || 'https://server-puce-mu.vercel.app/api'}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

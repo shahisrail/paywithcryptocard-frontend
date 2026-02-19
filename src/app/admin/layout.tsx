@@ -15,7 +15,9 @@ import {
   Search,
   Bell,
   Shield,
-  FileText
+  FileText,
+  UserCog,
+  DollarSign
 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser, logoutUser } from "@/redux/slices/authSlice";
@@ -88,16 +90,28 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       color: "text-blue-600",
     },
     {
+      name: "Admin Management",
+      href: "/admin/admins",
+      icon: UserCog,
+      color: "text-purple-600",
+    },
+    {
+      name: "Deposits",
+      href: "/admin/deposits",
+      icon: DollarSign,
+      color: "text-green-600",
+    },
+    {
       name: "Transactions",
       href: "/admin/transactions",
       icon: ArrowRightLeft,
-      color: "text-green-600",
+      color: "text-orange-600",
     },
     {
       name: "Cards",
       href: "/admin/cards",
       icon: CreditCard,
-      color: "text-purple-600",
+      color: "text-pink-600",
     },
     {
       name: "Settings",

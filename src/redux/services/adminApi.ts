@@ -56,6 +56,19 @@ export interface AdminSettingsResponse {
   success: boolean;
   data: AdminSettings;
 }
+export interface Admin {
+  _id: string;
+  id: string;
+  email: string;
+  fullName: string;
+  role: 'admin';
+  balance: number;
+  isActive: boolean;
+  isEmailVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface User {
   _id: string;
   id: string;
@@ -67,6 +80,22 @@ export interface User {
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface AdminsResponse {
+  success: boolean;
+  data: {
+    admins: Admin[];
+    total: number;
+    limit: number;
+    skip: number;
+  };
+}
+
+export interface CreateAdminRequest {
+  email: string;
+  password: string;
+  fullName: string;
 }
 
 export interface UsersResponse {
@@ -153,6 +182,19 @@ export const adminApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
+    // Update user balance
+    updateUserBalance: builder.mutation<
+      { success: boolean; message: string; data: { userId: string; oldBalance: number; newBalance: number; adjustment: number } },
+      { id: string; amount: number; reason: string }
+    >({
+      query: ({ id, amount, reason }) => ({
+        url: `/admin/users/${id}/balance`,
+        method: 'POST',
+        body: { amount, reason },
+      }),
+      invalidatesTags: ['User', 'Admin'],
+    }),
+
     // Get dashboard stats
     getDashboardStats: builder.query<DashboardStatsResponse, void>({
       query: () => '/admin/dashboard',
@@ -168,6 +210,26 @@ export const adminApi = baseApi.injectEndpoints({
 
         return {
           url: `/admin/deposits/pending?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Deposit'],
+    }),
+
+    // Get all deposits with filters
+    getAllDeposits: builder.query<
+      PendingDepositsResponse,
+      { status?: string; currency?: string; limit?: number; skip?: number }
+    >({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.status) queryParams.append('status', params.status);
+        if (params.currency) queryParams.append('currency', params.currency);
+        queryParams.append('limit', (params?.limit || 50).toString());
+        queryParams.append('skip', (params?.skip || 0).toString());
+
+        return {
+          url: `/admin/deposits?${queryParams.toString()}`,
           method: 'GET',
         };
       },
@@ -278,6 +340,78 @@ export const adminApi = baseApi.injectEndpoints({
       },
       providesTags: ['Card'],
     }),
+
+    // ==================== Admin Management Endpoints ====================
+
+    // Get all admins
+    getAllAdmins: builder.query<
+      AdminsResponse,
+      { search?: string; limit?: number; skip?: number }
+    >({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.search) queryParams.append('search', params.search);
+        queryParams.append('limit', (params?.limit || 50).toString());
+        queryParams.append('skip', (params?.skip || 0).toString());
+
+        return {
+          url: `/admin/admins?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Admin'],
+    }),
+
+    // Create new admin
+    createAdmin: builder.mutation<
+      { success: boolean; message: string; data: Admin },
+      CreateAdminRequest
+    >({
+      query: (data) => ({
+        url: '/admin/admins',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Admin'],
+    }),
+
+    // Update admin status
+    updateAdminStatus: builder.mutation<
+      { success: boolean; message: string; data: Admin },
+      { id: string; isActive: boolean }
+    >({
+      query: ({ id, isActive }) => ({
+        url: `/admin/admins/${id}/status`,
+        method: 'PATCH',
+        body: { isActive },
+      }),
+      invalidatesTags: ['Admin'],
+    }),
+
+    // Delete admin
+    deleteAdmin: builder.mutation<
+      { success: boolean; message: string },
+      string
+    >({
+      query: (id) => ({
+        url: `/admin/admins/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Admin'],
+    }),
+
+    // Update admin password
+    updateAdminPassword: builder.mutation<
+      { success: boolean; message: string },
+      { id: string; newPassword: string }
+    >({
+      query: ({ id, newPassword }) => ({
+        url: `/admin/admins/${id}/password`,
+        method: 'PATCH',
+        body: { newPassword },
+      }),
+      invalidatesTags: ['Admin'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -289,12 +423,19 @@ export const {
   useUpdateUserRoleMutation,
   useToggleUserStatusMutation,
   useDeleteUserMutation,
+  useUpdateUserBalanceMutation,
   useGetDashboardStatsQuery,
   useGetPendingDepositsQuery,
+  useGetAllDepositsQuery,
   useApproveDepositMutation,
   useRejectDepositMutation,
   useGetAdminSettingsQuery,
   useUpdateAdminSettingsMutation,
   useGetAllTransactionsQuery,
   useGetAllCardsQuery,
+  useGetAllAdminsQuery,
+  useCreateAdminMutation,
+  useUpdateAdminStatusMutation,
+  useDeleteAdminMutation,
+  useUpdateAdminPasswordMutation,
 } = adminApi;

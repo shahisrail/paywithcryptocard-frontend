@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsAuthenticated, selectUserRole } from '@/redux/slices/authSlice';
@@ -14,8 +14,16 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
   const router = useRouter();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const userRole = useAppSelector(selectUserRole);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Only redirect after component is mounted to avoid hydration mismatch
+    if (!isMounted) return;
+
     // Check if user is authenticated
     if (!isAuthenticated) {
       router.push('/login');
@@ -32,9 +40,14 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
       }
       return;
     }
-  }, [isAuthenticated, userRole, requiredRole, router]);
+  }, [isAuthenticated, userRole, requiredRole, router, isMounted]);
 
-  // Show loading or nothing while checking auth
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!isMounted) {
+    return null;
+  }
+
+  // Show loading while checking auth
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">

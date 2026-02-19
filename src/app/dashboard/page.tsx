@@ -1,21 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Plus, Eye, EyeOff, ArrowUpRight, ArrowDownLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useGetMyCardsQuery } from "@/redux/services/cardApi";
 import { useGetMyTransactionsQuery } from "@/redux/services/transactionApi";
 import { useGetCurrentUserQuery } from "@/redux/services/authApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { updateUser } from "@/redux/slices/authSlice";
 
 export default function Dashboard() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [showBalance, setShowBalance] = useState(true);
 
   // Fetch user data
-  const { data: userData, isLoading: userLoading } = useGetCurrentUserQuery();
+  const { data: userData, isLoading: userLoading, refetch: refetchUser } = useGetCurrentUserQuery();
   const { data: cardsData, isLoading: cardsLoading } = useGetMyCardsQuery();
   const { data: transactionsData, isLoading: transactionsLoading } = useGetMyTransactionsQuery({
     limit: 5
   });
+
+  // Refetch user data on mount to get latest balance
+  useEffect(() => {
+    refetchUser();
+  }, [refetchUser]);
+
+  // Update Redux state when user data changes
+  useEffect(() => {
+    if (userData?.data) {
+      dispatch(updateUser(userData.data));
+    }
+  }, [userData, dispatch]);
 
   const cards = cardsData?.data || [];
   const transactions = transactionsData?.data?.transactions || [];

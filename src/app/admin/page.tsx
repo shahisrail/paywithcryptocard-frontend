@@ -12,7 +12,10 @@ import {
   Loader2,
   CheckCircle,
   XCircle,
-  AlertTriangle
+  AlertTriangle,
+  Bitcoin,
+  Wallet,
+  Copy,
 } from "lucide-react";
 import { useGetDashboardStatsQuery } from "@/redux/services/adminApi";
 import { useGetAllUsersQuery } from "@/redux/services/adminApi";
@@ -21,6 +24,14 @@ import { useApproveDepositMutation } from "@/redux/services/adminApi";
 import { useRejectDepositMutation } from "@/redux/services/adminApi";
 import { useToggleUserStatusMutation } from "@/redux/services/adminApi";
 import Link from "next/link";
+
+const CRYPTOCURRENCIES = {
+  BTC: { name: "Bitcoin", icon: Bitcoin, color: "text-orange-500" },
+  ETH: { name: "Ethereum", icon: Wallet, color: "text-blue-500" },
+  USDT_ERC20: { name: "USDT (ERC20)", icon: Wallet, color: "text-green-500" },
+  USDT_TRC20: { name: "USDT (TRC20)", icon: Wallet, color: "text-red-500" },
+  XMR: { name: "Monero", icon: Wallet, color: "text-gray-500" },
+};
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -34,7 +45,6 @@ export default function AdminDashboard() {
   const [rejectDeposit, { isLoading: rejecting }] = useRejectDepositMutation();
   const [toggleUserStatus] = useToggleUserStatusMutation();
 
-  const [approveAmounts, setApproveAmounts] = useState<Record<string, string>>({});
   const [rejectReasons, setRejectReasons] = useState<Record<string, string>>({});
   const [rejectModal, setRejectModal] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
@@ -44,6 +54,7 @@ export default function AdminDashboard() {
     totalUsers: 0,
     activeUsers: 0,
     totalBalance: 0,
+    totalPlatformBalance: 0,
     totalCards: 0,
     totalDeposits: 0,
     pendingDeposits: 0,
@@ -68,17 +79,18 @@ export default function AdminDashboard() {
   };
 
   const handleApprove = async (depositId: string) => {
-    const amount = approveAmounts[depositId];
-    if (!amount || parseFloat(amount) <= 0) {
-      setErrorMessage("Please enter a valid USD amount");
+    const deposit = pendingDeposits.find((d: any) => d._id === depositId);
+    const usdAmount = deposit?.usdAmount;
+
+    if (!usdAmount || usdAmount <= 0) {
+      setErrorMessage("Invalid USD amount");
       return;
     }
 
     try {
       setErrorMessage("");
-      await approveDeposit({ depositId, usdAmount: parseFloat(amount) }).unwrap();
+      await approveDeposit({ depositId, usdAmount }).unwrap();
       setSuccessMessage("Deposit approved successfully!");
-      setApproveAmounts({ ...approveAmounts, [depositId]: "" });
       refetchStats();
       refetchDeposits();
       refetchUsers();
@@ -171,7 +183,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <h3 className="text-gray-500 text-sm mb-1">Total Balance</h3>
-          <p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalBalance)}</p>
+          <p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalBalance || 0)}</p>
           <p className="text-xs text-gray-500 mt-1">Across all users</p>
         </div>
 
@@ -321,85 +333,171 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          {depositsLoading ? (
-            <div className="flex items-center justify-center p-12">
-              <Loader2 className="w-8 h-8 animate-spin text-black" />
-            </div>
-          ) : pendingDeposits.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
-              No pending deposits
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
-                  <tr>
-                    <th className="text-left p-4 text-sm font-medium text-gray-700">User</th>
-                    <th className="text-left p-4 text-sm font-medium text-gray-700">Currency</th>
-                    <th className="text-left p-4 text-sm font-medium text-gray-700">Amount</th>
-                    <th className="text-left p-4 text-sm font-medium text-gray-700">TX Hash</th>
-                    <th className="text-left p-4 text-sm font-medium text-gray-700">Date</th>
-                    <th className="text-center p-4 text-sm font-medium text-gray-700">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {pendingDeposits.map((deposit: any) => {
-                    const userEmail = typeof deposit.user === 'object'
-                      ? deposit.user?.email
-                      : deposit.user;
-                    const userName = typeof deposit.user === 'object'
-                      ? deposit.user?.fullName
-                      : 'Unknown';
+        {depositsLoading ? (
+          <div className="flex items-center justify-center p-12">
+            <Loader2 className="w-8 h-8 animate-spin text-black" />
+          </div>
+        ) : pendingDeposits.length === 0 ? (
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center text-gray-500">
+            No pending deposits
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {pendingDeposits.map((deposit: any) => {
+              const userEmail = deposit.userId?.email || deposit.user?.email || 'No email';
+              const userName = deposit.userId?.fullName || deposit.user?.fullName || 'Unknown';
+              const crypto = CRYPTOCURRENCIES[deposit.currency as keyof typeof CRYPTOCURRENCIES];
+              const Icon = crypto?.icon || Wallet;
 
-                    return (
-                      <tr key={deposit._id || deposit.id} className="hover:bg-gray-50">
-                        <td className="p-4">
+              return (
+                <div
+                  key={deposit._id || deposit.id}
+                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    {/* Left Section - User & Crypto Info */}
+                    <div className="flex-1 space-y-4">
+                      {/* User Info */}
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <span className="text-sm font-semibold text-blue-600">
+                            {userName?.charAt(0).toUpperCase() || 'U'}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">{userName}</p>
+                          <p className="text-sm text-gray-500">{userEmail}</p>
+                        </div>
+                      </div>
+
+                      {/* Crypto & Amount */}
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg">
+                          <Icon className={`w-5 h-5 ${crypto?.color || "text-gray-500"}`} />
                           <div>
-                            <p className="font-medium text-gray-900">{userName || 'Unknown'}</p>
-                            <p className="text-sm text-gray-500">{userEmail || deposit.userId}</p>
+                            <p className="text-xs text-gray-600">Cryptocurrency</p>
+                            <p className="text-sm font-semibold text-gray-900">{deposit.currency}</p>
                           </div>
-                        </td>
-                        <td className="p-4 text-sm text-gray-900">{deposit.currency}</td>
-                        <td className="p-4 text-sm text-gray-900">{deposit.amount}</td>
-                        <td className="p-4">
-                          <p className="text-xs text-gray-600 font-mono truncate max-w-xs" title={deposit.txHash}>
-                            {deposit.txHash ? `${deposit.txHash.substring(0, 10)}...` : 'Pending'}
+                        </div>
+
+                        <div className="px-3 py-2 bg-gray-50 rounded-lg flex-1">
+                          <p className="text-xs text-gray-600">Amount Sent</p>
+                          <p className="text-sm font-semibold text-gray-900">
+                            {deposit.amount < 0.01 ? deposit.amount.toFixed(8) : deposit.amount.toFixed(6)} {deposit.currency}
                           </p>
-                        </td>
-                        <td className="p-4 text-sm text-gray-600">{formatDate(deposit.createdAt)}</td>
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="number"
-                              placeholder="USD"
-                              value={approveAmounts[deposit._id] || ""}
-                              onChange={(e) => setApproveAmounts({ ...approveAmounts, [deposit._id]: e.target.value })}
-                              className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                            />
-                            <button
-                              onClick={() => handleApprove(deposit._id)}
-                              disabled={approving || !approveAmounts[deposit._id]}
-                              className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 disabled:opacity-50"
-                            >
-                              Approve
-                            </button>
-                            <button
-                              onClick={() => setRejectModal(deposit._id)}
-                              className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200"
-                            >
-                              Reject
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                        </div>
+
+                        <div className="px-3 py-2 bg-green-50 rounded-lg flex-1">
+                          <p className="text-xs text-gray-600">USD Value</p>
+                          <p className="text-sm font-bold text-green-900">
+                            {deposit.usdAmount ? formatCurrency(deposit.usdAmount) : '-'}
+                          </p>
+                          {deposit.usdAmount && (
+                            <p className="text-xs text-green-600">Auto-converted</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Section - Status & Actions */}
+                    <div className="flex flex-col lg:items-end gap-3">
+                      {/* Status Badge */}
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
+                        Pending
+                      </span>
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Link
+                          href={`/admin/deposits`}
+                          className="px-3 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 flex items-center gap-2"
+                        >
+                          <Eye className="w-4 h-4" />
+                          Details
+                        </Link>
+
+                        <div className="px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
+                          <p className="text-xs text-green-600">Credit</p>
+                          <p className="text-sm font-bold text-green-700">
+                            {formatCurrency(deposit.usdAmount || 0)}
+                          </p>
+                        </div>
+
+                        <button
+                          onClick={() => handleApprove(deposit._id)}
+                          disabled={approving}
+                          className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
+                          title={`User sent ${deposit.amount} ${deposit.currency} = ${formatCurrency(deposit.usdAmount || 0)}`}
+                        >
+                          <CheckCircle className="w-4 h-4" />
+                          Approve
+                        </button>
+
+                        <button
+                          onClick={() => setRejectModal(deposit._id)}
+                          className="px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 flex items-center gap-2"
+                        >
+                          <XCircle className="w-4 h-4" />
+                          Reject
+                        </button>
+                      </div>
+
+                      {/* Date */}
+                      <p className="text-xs text-gray-500">
+                        {formatDate(deposit.createdAt)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* TX Hash & Wallet - Show in compact row */}
+                  <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* TX Hash */}
+                    {deposit.txHash && (
+                      <div className="flex items-start gap-2">
+                        <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">TX Hash:</p>
+                        <div className="flex-1 min-w-0">
+                          <p
+                            className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
+                            title={deposit.txHash}
+                            onClick={() => {
+                              navigator.clipboard.writeText(deposit.txHash);
+                              setSuccessMessage("TX Hash copied!");
+                              setTimeout(() => setSuccessMessage(""), 2000);
+                            }}
+                          >
+                            {deposit.txHash}
+                            <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Wallet Address */}
+                    {deposit.walletAddress && (
+                      <div className="flex items-start gap-2">
+                        <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">Wallet:</p>
+                        <div className="flex-1 min-w-0">
+                          <p
+                            className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
+                            title={deposit.walletAddress}
+                            onClick={() => {
+                              navigator.clipboard.writeText(deposit.walletAddress);
+                              setSuccessMessage("Address copied!");
+                              setTimeout(() => setSuccessMessage(""), 2000);
+                            }}
+                          >
+                            {deposit.walletAddress}
+                            <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Reject Modal */}

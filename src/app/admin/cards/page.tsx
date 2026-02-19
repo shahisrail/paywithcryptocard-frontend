@@ -17,6 +17,8 @@ import { useGetAllCardsQuery } from "@/redux/services/adminApi";
 export default function AdminCardsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedCard, setSelectedCard] = useState<any>(null);
+  const [showViewModal, setShowViewModal] = useState(false);
 
   const { data: cardsData, isLoading, error } = useGetAllCardsQuery({
     limit: 100,
@@ -50,11 +52,11 @@ export default function AdminCardsPage() {
 
   const filteredCards = cards.filter((card: any) => {
     const matchesSearch =
-      card.user?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.user?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.userId?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.userId?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.cardHolder?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       card._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.lastFour?.includes(searchTerm);
+      card.cardNumber?.slice(-4).includes(searchTerm);
 
     return matchesSearch;
   });
@@ -66,6 +68,16 @@ export default function AdminCardsPage() {
     expired: cards.filter((c: any) => c.status === "expired").length,
     totalBalance: cards.reduce((sum: number, card: any) => sum + (card.balance || 0), 0),
     totalSpent: cards.reduce((sum: number, card: any) => sum + (card.spent || 0), 0),
+  };
+
+  const handleViewCard = (card: any) => {
+    setSelectedCard(card);
+    setShowViewModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowViewModal(false);
+    setSelectedCard(null);
   };
 
   if (isLoading) {
@@ -213,8 +225,8 @@ export default function AdminCardsPage() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredCards.map((card: any, index: number) => {
-                const spentPercentage = card.limit
-                  ? Math.min(((card.spent || 0) / card.limit) * 100, 100)
+                const balancePercentage = card.spendingLimit
+                  ? Math.min(((card.balance || 0) / card.spendingLimit) * 100, 100)
                   : 0;
 
                 return (
@@ -239,13 +251,15 @@ export default function AdminCardsPage() {
                           <CreditCard className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">{card.name || "Unnamed Card"}</p>
+                          <p className="font-medium text-gray-900">
+                            {card.cardHolder ? `${card.cardHolder}'s Card` : "Unnamed Card"}
+                          </p>
                           <p className="text-sm text-gray-500 font-mono">
-                            •••• {card.lastFour || "????"
+                            •••• {card.cardNumber ? card.cardNumber.slice(-4) : "????"
 }
                           </p>
                           <p className="text-xs text-gray-400">
-                            {card.type || "virtual"} • {card.currency || "USD"}
+                            virtual • USD
                           </p>
                         </div>
                       </div>
@@ -253,9 +267,11 @@ export default function AdminCardsPage() {
                     <td className="p-4">
                       <div>
                         <p className="font-medium text-gray-900">
-                          {card.user?.fullName || "Unknown User"}
+                          {card.userId?.fullName || card.user?.fullName || "Unknown User"}
                         </p>
-                        <p className="text-sm text-gray-500">{card.user?.email || card.userId}</p>
+                        <p className="text-sm text-gray-500">
+                          {card.userId?.email || card.user?.email || "Unknown email"}
+                        </p>
                       </div>
                     </td>
                     <td className="p-4">
@@ -266,16 +282,16 @@ export default function AdminCardsPage() {
                     <td className="p-4">
                       <div>
                         <p className="text-sm font-medium text-gray-900">
-                          {formatCurrency(card.spent || 0)}
+                          {formatCurrency(card.balance || 0)}
                         </p>
                         <p className="text-xs text-gray-500">
-                          of {formatCurrency(card.limit || 0)}
+                          of {formatCurrency(card.spendingLimit || 0)}
                         </p>
-                        {card.limit > 0 && (
+                        {card.spendingLimit > 0 && (
                           <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
                             <div
                               className="bg-black h-1.5 rounded-full"
-                              style={{ width: `${spentPercentage}%` }}
+                              style={{ width: `${balancePercentage}%` }}
                             ></div>
                           </div>
                         )}
@@ -302,11 +318,16 @@ export default function AdminCardsPage() {
                     </td>
                     <td className="p-4">
                       <div className="flex items-center justify-center gap-2">
-                        <button className="p-1 hover:bg-gray-100 rounded">
+                        <button
+                          onClick={() => handleViewCard(card)}
+                          className="p-1 hover:bg-gray-100 rounded"
+                          title="View Card Details"
+                        >
                           <Eye className="w-4 h-4 text-gray-600" />
                         </button>
                         {card.status === "active" && (
                           <button
+                            onClick={() => alert(`Freeze card functionality coming soon for card ending in ${card.cardNumber?.slice(-4)}`)}
                             className="p-1 hover:bg-gray-100 rounded"
                             title="Freeze Card"
                           >
@@ -315,6 +336,7 @@ export default function AdminCardsPage() {
                         )}
                         {card.status === "frozen" && (
                           <button
+                            onClick={() => alert(`Unfreeze card functionality coming soon for card ending in ${card.cardNumber?.slice(-4)}`)}
                             className="p-1 hover:bg-gray-100 rounded"
                             title="Unfreeze Card"
                           >
@@ -335,6 +357,98 @@ export default function AdminCardsPage() {
         <div className="text-center py-12">
           <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No cards found matching your criteria.</p>
+        </div>
+      )}
+
+      {/* View Card Modal */}
+      {showViewModal && selectedCard && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900">Card Details</h2>
+              <button
+                onClick={handleCloseModal}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <Ban className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Card Visual */}
+            <div className="relative p-6 h-48 flex flex-col bg-gradient-to-br from-gray-900 to-black rounded-xl mb-6">
+              <div className="flex items-start justify-between mb-8">
+                <span className="text-white font-bold text-xl">VISA</span>
+                <span className={`text-xs font-medium border px-3 py-1 rounded-full ${
+                  selectedCard.status === 'active'
+                    ? 'border-green-500 text-green-400'
+                    : 'border-blue-500 text-blue-400'
+                }`}>
+                  {selectedCard.status}
+                </span>
+              </div>
+
+              <div className="mb-auto">
+                <p className="text-white text-lg font-mono tracking-wider">
+                  {selectedCard.cardNumber?.replace(/(\d{4})/g, '$1 ').trim() || '•••• •••• •••• ••••'}
+                </p>
+              </div>
+
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">Card Holder</p>
+                  <p className="text-white text-sm font-medium">{selectedCard.cardHolder || 'Unknown'}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">Expires</p>
+                  <p className="text-white text-sm font-medium">{selectedCard.expiryDate || 'N/A'}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card Details */}
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">CVV</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {selectedCard.cvv || '•••'}
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">Balance</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {formatCurrency(selectedCard.balance || 0)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <p className="text-xs text-gray-600 mb-1">Spending Limit</p>
+                <p className="text-lg font-bold text-gray-900">
+                  {formatCurrency(selectedCard.spendingLimit || 0)}
+                </p>
+              </div>
+
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="text-xs text-gray-600 mb-1">User</p>
+                <p className="text-sm font-semibold text-gray-900">
+                  {selectedCard.userId?.fullName || 'Unknown'}
+                </p>
+                <p className="text-xs text-gray-600">
+                  {selectedCard.userId?.email || 'No email'}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={handleCloseModal}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

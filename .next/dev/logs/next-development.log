@@ -1,11 +1,7 @@
-[00:00:01.555] Server  LOG      ✓ Ready in 1070ms
-[00:00:04.235] Server  ERROR    ⨯ ReferenceError: Settings is not defined
-[00:00:04.574] Browser ERROR   uncaughtError: ReferenceError: Settings is not defined
-[00:00:07.152] Server  ERROR    ⨯ ReferenceError: Settings is not defined
-[00:00:07.409] Browser ERROR   uncaughtError: ReferenceError: Settings is not defined
-[00:05:26.397] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:05:26.410] Server  LOG      ✓ Compiled in 308ms
-[00:05:27.110] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:01.457] Server  LOG      ✓ Ready in 1190ms
+[00:00:06.959] Server  ERROR   called `injectEndpoints` to override already-existing endpointName getDashboardStats without specifying `overrideExisting: true`
+[00:00:07.337] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.337] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -23,7 +19,7 @@ It can also happen if the client has a browser extension installed which messes 
         <ReplaySsrOnlyErrors>
         <DevRootHTTPAccessFallbackBoundary>
           <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
               <RedirectBoundary>
                 <RedirectErrorBoundary router={{...}}>
                   <Head>
@@ -35,52 +31,17 @@ It can also happen if the client has a browser extension installed which messes 
                       <script>
                       <script>
                       <RootLayout>
-                        <html lang="en" className="inter_2fe1...">
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
                           <body
                             className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
 -                           cz-shortcut-listen="true"
                           >
                   ...
 
-[00:14:03.510] Server  LOG      ✓ Compiled in 179ms
-[00:14:04.137] Browser ERROR   ./src/components/HeroSection.tsx:166:24
-Parsing ecmascript source code failed
-  164 |               </div>
-  165 |             </div>
-> 166 |           </motion.div>
-      |                        ^
-> 167 |         </div>
-      | ^^^^^^^^^
-  168 |
-  169 |         {/* Trust Badges */}
-  170 |         <div className="border-t border-slate-200 pt-16 mt-8">
-
-Expected '</', got 'jsx text (
-        )'
-
-Import trace:
-  Server Component:
-    ./src/components/HeroSection.tsx
-    ./src/app/page.tsx
-[00:14:04.137] Browser ERROR   ./src/components/HeroSection.tsx:166:24
-Parsing ecmascript source code failed
-  164 |               </div>
-  165 |             </div>
-> 166 |           </motion.div>
-      |                        ^
-> 167 |         </div>
-      | ^^^^^^^^^
-  168 |
-  169 |         {/* Trust Badges */}
-  170 |         <div className="border-t border-slate-200 pt-16 mt-8">
-
-Expected '</', got 'jsx text (
-        )'
-
-Import trace:
-  Server Component:
-    ./src/components/HeroSection.tsx
-    ./src/app/page.tsx
-[00:17:11.683] Server  LOG      ✓ Compiled in 174ms
-[00:26:04.299] Server  LOG      ✓ Compiled in 44ms
-[00:30:20.683] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:07.403] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.530] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:34.966] Server  LOG      ✓ Compiled in 77ms
