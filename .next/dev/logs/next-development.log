@@ -1,50 +1,883 @@
-[00:00:01.457] Server  LOG      ✓ Ready in 1190ms
-[00:00:06.959] Server  ERROR   called `injectEndpoints` to override already-existing endpointName getDashboardStats without specifying `overrideExisting: true`
-[00:00:07.337] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:07.337] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:05.271] Server  LOG      ✓ Ready in 5s
+[00:00:24.852] Server  LOG      ○ Compiling /login ...
+[00:00:52.669] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
 
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
 
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-%s%s https://react.dev/link/hydration-mismatch 
+[00:00:52.669] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
 
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
--                         data-arp=""
-                        >
-                          <body
-                            className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
--                           cz-shortcut-listen="true"
-                          >
-                  ...
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
 
-[00:00:07.403] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:07.530] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:34.966] Server  LOG      ✓ Compiled in 77ms
-[00:19:01.329] Server  LOG        Reload env: .env.local
-[00:19:01.660] Server  LOG      ✓ Compiled in 87ms
-[01:21:55.045] Server  LOG      ✓ Compiled in 507ms
+
+[00:00:52.670] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.670] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.929] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.929] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.930] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.930] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.955] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.955] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.955] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.955] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.960] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.960] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.961] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:00:52.961] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.717] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.717] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.719] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.719] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.831] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.831] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:13.832] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.599] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.600] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.600] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.600] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.634] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.634] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.634] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.635] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.705] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.705] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.705] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.705] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.764] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.764] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.764] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.764] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.782] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.782] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.782] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.782] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.802] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.802] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.803] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:19.803] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:22.008] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:22.008] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:22.008] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:22.008] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:22.175] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:01:52.848] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:52.848] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:52.850] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:52.850] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.087] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.119] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.119] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.120] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.120] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.184] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.184] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+Error while requesting resource
+There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.184] Server  WARN     ⚠ [next]/internal/font/google/inter_2fe1ab3d.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_2fe1ab3d.module.css
+    [next]/internal/font/google/inter_2fe1ab3d.js
+    ./src/app/layout.tsx
+
+
+[00:01:53.185] Server  WARN     ⚠ [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+next/font: warning:
+Failed to download `Space Grotesk` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/space_grotesk_59d6dcf5.module.css
+    [next]/internal/font/google/space_grotesk_59d6dcf5.js
+    ./src/app/layout.tsx
+
+
