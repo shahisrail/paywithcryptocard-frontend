@@ -1,11 +1,10 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import VirtualCardSection from "@/components/VirtualCardSection";
-import FundingSection from "@/components/FundingSection";
-import AcceptanceSection from "@/components/AcceptanceSection";
-import FlowSection from "@/components/FlowSection";
+import BrandLogosSection from "@/components/BrandLogosSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import BenefitsSection from "@/components/BenefitsSection";
 import FAQSection from "@/components/FAQSection";
-import SupportSection from "@/components/SupportSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -16,11 +15,10 @@ export default function Home() {
       <main>
         <HeroSection />
         <VirtualCardSection />
-        <FundingSection />
-        <AcceptanceSection />
-        <FlowSection />
+        <BrandLogosSection />
+        <HowItWorksSection />
+        <BenefitsSection />
         <FAQSection />
-        <SupportSection />
         <CTASection />
       </main>
       <Footer />

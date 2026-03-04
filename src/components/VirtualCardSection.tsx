@@ -1,18 +1,20 @@
 "use client";
 
-import { Zap, CreditCard, ShoppingBag, Settings, Shield, Globe, Clock } from "lucide-react";
+import { motion } from "framer-motion";
+import { CreditCard, ShoppingBag, Settings, Shield } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 const VirtualCardSection = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const features = [
     {
-      icon: Zap,
+      icon: CreditCard,
       title: "Instant issuance",
       description: "Your virtual Visa card is created within seconds after your crypto is received."
-    },
-    {
-      icon: CreditCard,
-      title: "Standard card details",
-      description: "Full card number, expiry date and CVV, ready to use on most websites."
     },
     {
       icon: ShoppingBag,
@@ -28,49 +30,51 @@ const VirtualCardSection = () => {
       icon: Shield,
       title: "Secure transactions",
       description: "All transactions are protected with bank-level encryption and security protocols."
-    },
-    {
-      icon: Globe,
-      title: "Worldwide acceptance",
-      description: "Shop at millions of online stores across 186+ countries that accept Visa."
-    },
-    {
-      icon: Clock,
-      title: "90-day validity",
-      description: "Each card remains active for 90 days from creation for security purposes."
-    },
+    }
   ];
 
   return (
-    <section className="py-32 bg-gray-50 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center max-w-3xl mb-16">
-          <h2 className="text-5xl font-bold mb-4 text-black tracking-tight">
+    <section className="py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4 tracking-tight">
             Your Virtual Visa Card
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             A fully functional virtual card for all your online payments
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white rounded-xl border border-gray-200 p-8 hover:border-gray-300 transition-colors"
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <Icon className="w-6 h-6 text-black" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3 text-black">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <div className="bg-white rounded-2xl p-8 h-full border border-gray-200 hover:border-indigo-200 transition-all duration-200">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center">
+                        <Icon className="w-7 h-7 text-indigo-600" />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-3 text-black">{feature.title}</h3>
+                      <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

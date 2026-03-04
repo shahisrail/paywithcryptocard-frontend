@@ -1,5 +1,12 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/admins/page": "app/admin/admins/page.js",
+  "/admin/cards/page": "app/admin/cards/page.js",
+  "/admin/deposits/page": "app/admin/deposits/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/settings/page": "app/admin/settings/page.js",
+  "/admin/transactions/page": "app/admin/transactions/page.js",
+  "/admin/users/page": "app/admin/users/page.js",
   "/login/page": "app/login/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js"
 }

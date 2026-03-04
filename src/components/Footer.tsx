@@ -6,8 +6,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-8 py-16">
+    <footer className="bg-gray-50 border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
@@ -34,19 +34,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-black">Support</h4>
+            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-black">Company</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/support" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  Help Center
-                </Link>
+                <a href="#how-it-works" className="text-gray-600 text-sm hover:text-black transition-colors">
+                  How It Works
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  Contact Us
-                </Link>
+                <a href="#faq" className="text-gray-600 text-sm hover:text-black transition-colors">
+                  FAQ
+                </a>
               </li>
             </ul>
           </div>
