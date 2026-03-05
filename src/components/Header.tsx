@@ -22,18 +22,18 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-black tracking-tight">PayWithCryptoCard</span>
+            <span className="text-2xl font-bold text-black tracking-tight">PayWithCryptoCard</span>
           </Link>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className="text-sm font-medium text-black hover:text-gray-700 transition-colors">
+          <nav className="hidden md:flex items-center gap-12">
+            <Link href="/" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
               Home
             </Link>
-            <Link href="#how-it-works" className="text-sm font-medium text-black hover:text-gray-700 transition-colors">
+            <Link href="#how-it-works" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
               How It Works
             </Link>
-            <Link href="#faq" className="text-sm font-medium text-black hover:text-gray-700 transition-colors">
+            <Link href="#faq" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
               FAQ
             </Link>
           </nav>
@@ -46,14 +46,14 @@ const Header = () => {
                 {user.role === "admin" ? (
                   <Link
                     href="/admin"
-                    className="px-5 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     Admin Dashboard
                   </Link>
                 ) : (
                   <Link
                     href="/dashboard"
-                    className="px-5 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     Dashboard
                   </Link>
@@ -75,7 +75,7 @@ const Header = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="px-5 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                  className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                 >
                   Create account
                 </Link>

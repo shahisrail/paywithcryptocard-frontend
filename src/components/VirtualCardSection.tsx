@@ -34,24 +34,24 @@ const VirtualCardSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
             Your Virtual Visa Card
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             A fully functional virtual card for all your online payments
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-5">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -61,16 +61,16 @@ const VirtualCardSection = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-2xl p-8 h-full border border-gray-200 hover:border-indigo-200 transition-all duration-200">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center">
-                        <Icon className="w-7 h-7 text-indigo-600" />
+                <div className="bg-white rounded-xl p-4 h-full border border-gray-200 hover:border-gray-300 transition-all duration-200">
+                  <div className="flex items-start gap-3">
+                    <div className="shrink-0">
+                      <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-black" />
                       </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-3 text-black">{feature.title}</h3>
-                      <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    <div className="flex-1">
+                      <h3 className="text-base font-semibold mb-1 text-black">{feature.title}</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
                 </div>

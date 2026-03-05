@@ -34,24 +34,24 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-24 bg-gray-50">
+    <section id="how-it-works" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
             How It Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Get your virtual Visa card in four simple steps
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -63,16 +63,16 @@ const HowItWorksSection = () => {
                 className="relative"
               >
                 {/* Number Circle */}
-                <div className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">
+                <div className="absolute -top-3 -left-3 w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md z-10">
                   {index + 1}
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 pt-12 h-full border border-gray-200 hover:border-indigo-200 transition-all duration-200 shadow-sm">
-                  <div className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6">
-                    <Icon className="w-7 h-7 text-indigo-600" />
+                <div className="bg-gray-50 rounded-xl p-4 pt-6 h-full border border-gray-200 hover:border-gray-300 transition-all duration-200">
+                  <div className="w-11 h-11 bg-white rounded-xl flex items-center justify-center mb-3 shadow-sm">
+                    <Icon className="w-5 h-5 text-black" />
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-3">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  <h3 className="text-base font-semibold text-black mb-1">{step.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                 </div>
               </motion.div>
             );
@@ -84,20 +84,28 @@ const HowItWorksSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 bg-white rounded-2xl p-8 border border-gray-200 shadow-sm"
+          className="mt-8 bg-gray-50 rounded-xl p-4 border border-gray-200"
         >
-          <h3 className="text-center text-lg font-semibold text-black mb-6">
+          <h3 className="text-center text-sm font-semibold text-black mb-3">
             Supported Cryptocurrencies
           </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {["Bitcoin", "Ethereum", "Tether", "USD Coin"].map((crypto) => (
-              <div
-                key={crypto}
-                className="px-6 py-3 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 font-medium"
-              >
-                {crypto}
-              </div>
-            ))}
+          <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+              <img src="/logos/btc.svg" alt="Bitcoin" className="w-4 h-4" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23f7931a%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <span className="text-xs font-medium text-gray-700">Bitcoin</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+              <img src="/logos/eth.svg" alt="Ethereum" className="w-4 h-4" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23627eea%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <span className="text-xs font-medium text-gray-700">Ethereum</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+              <img src="/logos/usdt.svg" alt="Tether" className="w-4 h-4" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%2226a17b%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <span className="text-xs font-medium text-gray-700">Tether</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+              <img src="/logos/usd-coin-usdc-logo.png" alt="USD Coin" className="w-4 h-4" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%222777ca%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <span className="text-xs font-medium text-gray-700">USD Coin</span>
+            </div>
           </div>
         </motion.div>
       </div>

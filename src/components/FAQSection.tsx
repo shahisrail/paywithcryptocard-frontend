@@ -15,28 +15,72 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "What is the PayWithCryptoCard Virtual Visa Card?",
-      answer: "A fully digital payment card funded with cryptocurrency. Top up with crypto, it converts to USD, and you can spend anywhere Visa is accepted online."
+      question: "What is the PayWithCryptoCard Virtual Visa® Card?",
+      answer: "The PayWithCryptoCard Virtual Visa® Card is a fully digital payment card you use online like a normal credit card, but funded with cryptocurrency. You top up with crypto, it's converted into USD balance, and you can spend it right away anywhere online that accepts Visa, worldwide."
     },
     {
       question: "Do I need to complete KYC?",
-      answer: "No. PayWithCryptoCard does not require personal data or identity documents to use the platform."
+      answer: "No. PayWithCryptoCard does not ask for personal data or identity documents in order to use the platform. You maintain complete privacy and anonymity."
     },
     {
-      question: "Where can I use my virtual card?",
-      answer: "On almost any website that accepts Visa cards worldwide, including Amazon, Google Play, Uber, Facebook, PayPal, and millions more."
+      question: "How do virtual cards work?",
+      answer: "A virtual card works just like a standard card, only without physical plastic. You receive card details (number, expiry date and CVV) and you enter them on checkout pages where you would normally use your regular credit or debit card. This lets you pay online without exposing your own bank card details."
     },
     {
-      question: "What are the fees?",
-      answer: "A flat 3% conversion fee when you top up with crypto. No monthly fees, no hidden charges, and no usage fees for payments."
+      question: "Where can I use the PayWithCryptoCard Virtual Visa® Card?",
+      answer: "You can spend your balance on almost any website that accepts Visa cards, in most countries around the world. This includes popular platforms like Uber, Google Play, Amazon, Apple Music, Asos, Udemy, Coursera, AliExpress, Namecheap, Facebook, PayPal and many more."
     },
     {
-      question: "What are the card limits?",
-      answer: "Each virtual card can be loaded once with up to $1,000 USD. Cards are valid for 90 days from creation."
+      question: "How much money can I load onto one virtual card?",
+      answer: "Each virtual card can be loaded only once, with a maximum of $1,000 USD. After that initial load, you cannot add more funds to the same card, but you can always create new cards."
     },
     {
-      question: "How do I fund my account?",
-      answer: "Send Bitcoin, Ethereum, Tether, USD Coin, or Litecoin to your unique wallet address. Funds are automatically converted to USD."
+      question: "Are there any fees when using the PayWithCryptoCard Virtual Visa® Card?",
+      answer: "Whenever you top up your account with crypto, we convert it into USD and apply a flat 3% conversion fee. There are no monthly subscription charges and no hidden extras, just one clear fee every time you add funds. PayWithCryptoCard does not add extra usage fees for paying online with the virtual card."
+    },
+    {
+      question: "Can I reload a PayWithCryptoCard Virtual Visa® Card?",
+      answer: "No. Cards are single-load only. To have more balance available, you would need to create a new card and fund that one. Each card can be funded up to $1,000 USD."
+    },
+    {
+      question: "What happens if I return something I paid for with the card?",
+      answer: "If a merchant approves your return, the refund is processed back to the same virtual card you used for the original payment. The refunded amount will be available to spend again on that card."
+    },
+    {
+      question: "What cryptocurrencies do you accept?",
+      answer: "We accept Bitcoin (BTC), Ethereum (ETH), Tether (USDT), and USD Coin (USDC). Simply send any of these cryptocurrencies to your unique wallet address, and the funds will be automatically converted to USD."
+    },
+    {
+      question: "How long does it take for my crypto to be converted?",
+      answer: "Crypto conversions are typically processed within a few minutes after your transaction is confirmed on the blockchain. Network congestion can sometimes cause slight delays, but your USD balance will be available as soon as the conversion is complete."
+    },
+    {
+      question: "Is my money safe on PayWithCryptoCard?",
+      answer: "Yes. We use industry-standard security measures including bank-level encryption and secure payment processing. Your funds are held securely and your transactions are protected. Additionally, using virtual cards helps protect your real banking information from being exposed online."
+    },
+    {
+      question: "How long is a virtual card valid for?",
+      answer: "Each virtual card has an expiration date, typically valid for several months from the date of creation. You can see the exact expiration date on your card details. Make sure to use your balance before the card expires."
+    },
+    {
+      question: "Can I create multiple virtual cards?",
+      answer: "Yes, you can create multiple virtual cards. This is useful for separating expenses - for example, one card for subscriptions, another for one-time purchases, and so on. Each card operates independently with its own balance."
+    },
+    {
+      question: "What happens if my payment is declined?",
+      answer: "Payments can be declined for several reasons: insufficient balance, card expired, merchant restrictions, or security flags. Check that you have enough USD balance on the card and that the card hasn't expired. If the issue persists, try creating a new card."
+    },
+    {
+      question: "Can I withdraw my USD back to crypto?",
+      answer: "No, once your crypto is converted to USD, it must be spent using the virtual card. We do not support converting USD back to cryptocurrency. This ensures funds are used for their intended purpose - making online payments."
+    },
+    {
+      question: "Are there any country restrictions?",
+      answer: "PayWithCryptoCard is available in most countries worldwide. However, some regions may have restrictions due to local regulations or sanctions. The virtual cards themselves can typically be used on any website that accepts Visa internationally."
+    },
+    {
+      question: "How do I contact customer support?",
+      answer: "You can reach our support team through the contact form on our website or via email. We typically respond within 24 hours. For urgent issues, please include your account details and a clear description of the problem."
     }
   ];
 
@@ -45,24 +89,24 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="py-16 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Quick answers to common questions
           </p>
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
@@ -75,10 +119,10 @@ const FAQSection = () => {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full bg-white rounded-xl p-6 text-left border border-gray-200 hover:border-indigo-300 transition-all duration-200"
+                className="w-full bg-white rounded-xl px-4 py-3 text-left border border-gray-200 hover:border-gray-300 transition-all duration-200"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-black pr-4">
+                  <h3 className="text-sm font-semibold text-black pr-4">
                     {faq.question}
                   </h3>
                   <motion.div
@@ -86,9 +130,9 @@ const FAQSection = () => {
                       rotate: openIndex === index ? 180 : 0
                     }}
                     transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
+                    className="shrink-0"
                   >
-                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                    <ChevronDown className="w-4 h-4 text-gray-400" />
                   </motion.div>
                 </div>
 
@@ -101,7 +145,7 @@ const FAQSection = () => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-4 text-gray-600 leading-relaxed">
+                      <div className="pt-3 text-sm text-gray-600 leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -116,12 +160,12 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 text-center"
+          className="mt-8 text-center"
         >
-          <p className="text-gray-600 mb-4">Still have questions?</p>
+          <p className="text-sm text-gray-600 mb-2">Still have questions?</p>
           <a
             href="#"
-            className="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-700 transition-colors"
+            className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700 transition-colors"
           >
             Chat with our team
             <ChevronDown className="w-4 h-4 rotate-[-90deg]" />

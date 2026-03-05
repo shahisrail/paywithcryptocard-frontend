@@ -12,7 +12,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section id="home" className="relative pt-20 pb-24 lg:pt-28 lg:pb-32 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="home" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -52,7 +52,7 @@ const HeroSection = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex items-start gap-4"
               >
-                <div className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 bg-black rounded-xl flex items-center justify-center shadow-lg">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -67,7 +67,7 @@ const HeroSection = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex items-start gap-4"
               >
-                <div className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 bg-black rounded-xl flex items-center justify-center shadow-lg">
                   <CreditCard className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -86,7 +86,7 @@ const HeroSection = () => {
             >
               <Link
                 href="/register"
-                className="inline-flex items-center justify-center px-10 py-5 bg-indigo-600 text-white font-semibold text-lg rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-10 py-5 bg-black text-white font-semibold text-lg rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-auto"
               >
                 Create Free Account
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -95,48 +95,61 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Right Content - Premium Card */}
-          <div className="relative flex justify-center">
-            <div className="relative w-full max-w-md mx-auto">
-              {/* Premium Virtual Visa Card */}
-              <div className="bg-gradient-to-br from-slate-800 via-slate-900 to-black rounded-3xl p-8 shadow-2xl relative overflow-hidden border border-slate-700">
-                {/* Subtle animated shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-20"></div>
+       {/* Right Content - Premium Card */}
+<div className="relative flex justify-center items-center">
 
-                <div className="relative z-10">
-                  {/* Card Header */}
-                  <div className="flex justify-between items-start mb-10">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-12 h-8 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                          <span className="text-white font-extrabold text-xl">VISA</span>
-                        </div>
-                      </div>
-                      <div className="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-                        <span className="text-white/90 text-xs font-semibold tracking-wider">VIRTUAL</span>
-                      </div>
-                    </div>
-                  </div>
+<div className="relative w-[420px] h-[250px] rounded-3xl bg-gradient-to-br from-black via-[#0a0a0a] to-black shadow-[0_25px_80px_rgba(0,0,0,0.6)] border border-[#1f1f1f] overflow-hidden">
 
-                  {/* Card Number */}
-                  <div className="text-white text-2xl font-mono tracking-widest mb-10">
-                    ••••• •••• •••• 4589
-                  </div>
+  {/* Gold Glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent"></div>
 
-                  {/* Card Footer */}
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <div className="text-white/70 text-xs mb-1 uppercase tracking-wider font-medium">Card Holder</div>
-                      <div className="text-white font-semibold text-base">YOUR NAME</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-white/70 text-xs mb-1 uppercase tracking-wider font-medium">Expires</div>
-                      <div className="text-white font-semibold text-base">12/28</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  {/* Shine */}
+  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent"></div>
+
+  <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+
+    {/* Top */}
+    <div className="flex justify-between items-start">
+
+      <div className="px-4 py-1 bg-yellow-200 text-black text-xs font-bold rounded-full">
+        VIRTUAL
+      </div>
+
+      <div className="text-yellow-200 text-3xl font-bold tracking-widest">
+        VISA
+      </div>
+
+    </div>
+
+    {/* Card Number */}
+    <div className="flex items-center gap-4 text-[] text-xl font-mono tracking-[6px] text-white font-bold">
+
+      <span>••••</span>
+      <span>••••</span>
+      <span>••••</span>
+      <span>7890</span>
+
+    </div>
+
+    {/* Bottom */}
+    <div className="flex justify-between">
+
+      <div>
+        <p className="text-xs text-gray-400">CARD HOLDER</p>
+        <p className="text-yellow-100 font-semibold">YOUR NAME</p>
+      </div>
+
+      <div className="text-right">
+        <p className="text-xs text-gray-400">EXPIRES</p>
+        <p className="text-yellow-100 font-semibold">12/28</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div>
         </div>
       </div>
     </section>
