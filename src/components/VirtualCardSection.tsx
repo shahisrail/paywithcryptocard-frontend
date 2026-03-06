@@ -34,7 +34,7 @@ const VirtualCardSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -43,15 +43,15 @@ const VirtualCardSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Your Virtual Visa Card
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             A fully functional virtual card for all your online payments
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -61,15 +61,15 @@ const VirtualCardSection = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-xl p-4 h-full border border-gray-200 hover:border-gray-300 transition-all duration-200">
-                  <div className="flex items-start gap-3">
+                <div className="bg-white rounded-xl p-5 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start gap-4">
                     <div className="shrink-0">
-                      <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-black" />
+                      <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-white" />
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold mb-1 text-black">{feature.title}</h3>
+                      <h3 className="text-lg font-semibold mb-2 text-black">{feature.title}</h3>
                       <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>

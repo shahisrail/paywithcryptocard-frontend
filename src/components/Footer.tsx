@@ -7,56 +7,57 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-50 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div>
-            <h3 className="text-lg font-bold mb-3 text-black">PayWithCryptoCard</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Turn cryptocurrency into a virtual Visa card for online payments.
-            </p>
-          </div>
+      <div className="max-w-5xl mx-auto px-4 py-12 sm:py-16 lg:py-20 text-center">
 
-          {/* Legal */}
-          <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-black">Legal</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/terms" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
+        {/* Top Navigation */}
+        <nav className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm mb-8 sm:mb-10">
+          <Link href="#support" className="text-black hover:text-gray-600 px-2 py-1">
+            Support
+          </Link>
+          <span className="text-gray-400 hidden sm:inline">|</span>
 
-          {/* Company */}
-          <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-black">Company</h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#how-it-works" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="text-gray-600 text-sm hover:text-black transition-colors">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+          <Link href="#faq" className="text-black hover:text-gray-600 px-2 py-1">
+            FAQ
+          </Link>
+          <span className="text-gray-400 hidden sm:inline">|</span>
 
-        <div className="pt-8 border-t border-gray-200">
-          <p className="text-gray-500 text-sm text-center">
-            © {currentYear} PayWithCryptoCard. All rights reserved.
+          <Link href="/terms" className="text-black hover:text-gray-600 px-2 py-1">
+            Terms
+          </Link>
+          <span className="text-gray-400 hidden sm:inline">|</span>
+
+          <Link href="/privacy" className="text-black hover:text-gray-600 px-2 py-1">
+            Privacy
+          </Link>
+        </nav>
+
+        {/* Brand */}
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-3 sm:mb-4">
+          PayWithCryptoCard
+        </h2>
+
+        {/* Copyright */}
+        <p className="text-gray-600 text-xs sm:text-sm mb-6 sm:mb-10">
+          © {currentYear} PayWithCryptoCard, Inc. All Rights Reserved
+        </p>
+
+        {/* Disclaimer */}
+        <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4 px-2">
+          <p className="text-gray-500 text-[10px] sm:text-xs leading-relaxed">
+            PayWithCryptoCard is a financial technology company, NOT A BANK.
+            PayWithCryptoCard will automatically convert all cryptocurrency to
+            U.S. dollars for use in purchases. The PayWithCryptoCard Virtual
+            Visa® Card is issued by our partner Financial Institutions,
+            pursuant to a license from V.S.A. Inc.
+          </p>
+
+          <p className="text-gray-500 text-[10px] sm:text-xs leading-relaxed">
+            Visa is a registered trademark of Visa International Service
+            Association. All trademarks displayed on this website are held by
+            their respective owners.
           </p>
         </div>
+
       </div>
     </footer>
   );

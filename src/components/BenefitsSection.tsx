@@ -34,7 +34,7 @@ const BenefitsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -43,15 +43,15 @@ const BenefitsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Why Choose PayWithCryptoCard
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Everything you need to spend crypto anywhere
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
@@ -67,7 +67,7 @@ const BenefitsSection = () => {
                   <benefit.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-black mb-1">{benefit.title}</h3>
+                  <h3 className="text-lg font-semibold text-black mb-2">{benefit.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>

@@ -12,7 +12,7 @@ const CTASection = () => {
   });
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           ref={ref}
@@ -24,7 +24,7 @@ const CTASection = () => {
             Ready to Start Spending Crypto?
           </h2>
 
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
             Get your virtual Visa card in seconds. No KYC, no paperwork, just instant access to spend your crypto anywhere.
           </p>
 

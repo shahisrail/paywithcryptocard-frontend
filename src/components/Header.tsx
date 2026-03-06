@@ -5,62 +5,75 @@ import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "@/redux/slices/authSlice";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     dispatch(logoutUser() as any);
     router.push("/");
+    setMobileMenuOpen(false);
   };
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#faq", label: "FAQ" },
+    { href: "#support", label: "Support" },
+  ];
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-black tracking-tight">PayWithCryptoCard</span>
+          <Link href="/" className="flex items-center flex-shrink-0">
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-black tracking-tight">
+              PayWithCryptoCard
+            </span>
           </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-12">
-            <Link href="/" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
-              Home
-            </Link>
-            <Link href="#how-it-works" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
-              How It Works
-            </Link>
-            <Link href="#faq" className="text-base font-medium text-black hover:text-gray-700 transition-colors">
-              FAQ
-            </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* Auth Buttons - Desktop Only */}
-          <div className="flex items-center gap-3">
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center gap-2 sm:gap-3">
             {isAuthenticated && user ? (
               <>
-                {/* Show Dashboard button if logged in */}
                 {user.role === "admin" ? (
                   <Link
                     href="/admin"
-                    className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
-                    Admin Dashboard
+                    Admin
                   </Link>
                 ) : (
                   <Link
                     href="/dashboard"
-                    className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     Dashboard
                   </Link>
                 )}
                 <button
                   onClick={handleLogout}
-                  className="px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  className="px-3 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
                 >
                   Sign Out
                 </button>
@@ -69,21 +82,101 @@ const Header = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  className="px-4 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                  className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                 >
                   Create account
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+            ) : (
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="px-3 sm:px-6 lg:px-8 py-4 space-y-3">
+            {/* Navigation Links */}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* Auth Buttons */}
+            <div className="pt-4 border-t border-gray-200 space-y-3">
+              {isAuthenticated && user ? (
+                <>
+                  {user.role === "admin" ? (
+                    <Link
+                      href="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-5 py-3 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-5 py-3 text-center text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                  >
+                    Create account
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

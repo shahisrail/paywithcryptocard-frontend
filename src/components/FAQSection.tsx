@@ -89,7 +89,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-16 bg-gray-50">
+    <section id="faq" className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -98,10 +98,10 @@ const FAQSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Quick answers to common questions
           </p>
         </motion.div>
@@ -119,7 +119,7 @@ const FAQSection = () => {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full bg-white rounded-xl px-4 py-3 text-left border border-gray-200 hover:border-gray-300 transition-all duration-200"
+                className="w-full bg-white rounded-xl px-5 py-4 text-left border border-gray-200 hover:border-black hover:shadow-md transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-black pr-4">
@@ -132,7 +132,7 @@ const FAQSection = () => {
                     transition={{ duration: 0.3 }}
                     className="shrink-0"
                   >
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
                   </motion.div>
                 </div>
 
@@ -145,7 +145,7 @@ const FAQSection = () => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-3 text-sm text-gray-600 leading-relaxed">
+                      <div className="pt-4 text-sm text-gray-600 leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -160,14 +160,14 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-8 text-center"
+          className="mt-10 text-center"
         >
           <p className="text-sm text-gray-600 mb-2">Still have questions?</p>
           <a
-            href="#"
+            href="#support"
             className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700 transition-colors"
           >
-            Chat with our team
+            Contact our support
             <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
           </a>
         </motion.div>

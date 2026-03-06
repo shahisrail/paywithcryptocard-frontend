@@ -1,7 +1,6 @@
-[00:00:02.063] Server  LOG      ✓ Ready in 1676ms
-[00:02:53.478] Server  LOG      ✓ Compiled in 121ms
-[00:02:53.584] Server  LOG      ✓ Compiled in 87ms
-[00:55:03.706] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:02.147] Server  LOG      ✓ Ready in 1754ms
+[00:00:20.739] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:20.970] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -34,23 +33,20 @@ It can also happen if the client has a browser extension installed which messes 
                       <script>
                       <script>
                       <RootLayout>
-                        <html lang="en" className="inter_2fe1...">
-                          <body
-                            className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
--                           cz-shortcut-listen="true"
-                          >
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
                   ...
 
-[00:55:37.820] Server  LOG      ✓ Compiled in 256ms
-[00:55:47.143] Server  LOG      ✓ Compiled in 16ms
-[00:56:15.195] Server  LOG      ✓ Compiled in 23ms
-[00:56:17.728] Server  LOG      ✓ Compiled in 17ms
-[00:56:31.621] Server  LOG      ✓ Compiled in 25ms
-[01:01:09.697] Server  LOG      ✓ Compiled in 37ms
-[01:02:41.442] Server  LOG      ✓ Compiled in 692ms
-[01:04:12.107] Server  LOG      ✓ Compiled in 50ms
-[01:04:15.096] Server  LOG      ✓ Compiled in 51ms
-[01:04:17.735] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:05:31.432] Server  LOG      ✓ Compiled in 193ms
+[00:05:40.687] Server  LOG      ✓ Compiled in 42ms
+[00:05:55.588] Server  LOG      ✓ Compiled in 39ms
+[00:06:01.993] Server  LOG      ✓ Compiled in 62ms
+[00:12:33.052] Server  LOG      ✓ Compiled in 108ms
+[00:13:40.358] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:40.585] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -83,34 +79,144 @@ It can also happen if the client has a browser extension installed which messes 
                       <script>
                       <script>
                       <RootLayout>
-                        <html lang="en" className="inter_2fe1...">
-                          <body
-                            className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
--                           cz-shortcut-listen="true"
-                          >
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
                   ...
 
-[01:05:37.483] Server  LOG      ✓ Compiled in 40ms
-[01:05:40.470] Server  LOG      ✓ Compiled in 30ms
-[01:06:23.289] Server  LOG      ✓ Compiled in 66ms
-[01:06:34.813] Server  LOG      ✓ Compiled in 23ms
-[01:06:41.004] Server  LOG      ✓ Compiled in 17ms
-[01:06:53.689] Server  LOG      ✓ Compiled in 34ms
-[01:06:58.566] Server  LOG      ✓ Compiled in 21ms
-[01:07:03.987] Server  LOG      ✓ Compiled in 37ms
-[01:10:46.892] Server  LOG      ✓ Compiled in 131ms
-[01:10:47.074] Server  LOG      ✓ Compiled in 26ms
-[01:10:47.170] Server  LOG      ✓ Compiled in 35ms
-[01:10:47.307] Server  LOG      ✓ Compiled in 14ms
-[01:10:47.545] Server  LOG      ✓ Compiled in 37ms
-[01:11:48.317] Server  LOG      ✓ Compiled in 26ms
-[01:11:48.459] Server  LOG      ✓ Compiled in 23ms
-[01:15:49.724] Server  LOG      ✓ Compiled in 40ms
-[01:16:56.155] Server  LOG      ✓ Compiled in 45ms
-[01:18:43.528] Server  LOG      ✓ Compiled in 79ms
-[02:34:49.875] Server  LOG      ✓ Compiled in 1070ms
-[02:39:11.866] Server  LOG      ✓ Compiled in 57ms
-[02:40:48.992] Server  LOG      ✓ Compiled in 29ms
-[02:40:50.194] Server  LOG      ✓ Compiled in 20ms
-[02:40:56.241] Server  LOG      ✓ Compiled in 45ms
-[02:40:58.235] Server  LOG      ✓ Compiled in 24ms
+[00:29:45.574] Server  LOG      ✓ Compiled in 47ms
+[00:29:57.814] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:58.036] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[00:30:22.347] Server  LOG      ✓ Compiled in 48ms
+[00:30:25.904] Server  LOG      ✓ Compiled in 23ms
+[00:39:53.108] Server  LOG      ✓ Compiled in 443ms
+[00:39:54.064] Server  LOG      ✓ Compiled in 51ms
+[00:40:53.234] Server  LOG      ✓ Compiled in 52ms
+[00:41:35.836] Server  LOG      ✓ Compiled in 56ms
+[00:52:59.786] Server  LOG      ✓ Compiled in 417ms
+[01:07:58.050] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:08:04.557] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `Home`.
+[01:08:04.756] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `Home`.
+[01:08:06.597] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[01:08:06.597] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[01:08:06.800] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:08:06.807] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:08:07.756] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[01:08:14.093] Server  LOG      ✓ Compiled in 76ms
+[01:08:18.917] Server  LOG      ✓ Compiled in 46ms
+[01:10:03.623] Server  LOG      ✓ Compiled in 188ms
+[01:12:19.087] Server  LOG      ✓ Compiled in 42ms
+[01:13:38.095] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:21.216] Server  LOG      ✓ Compiled in 326ms
+[01:15:28.121] Server  LOG      ✓ Compiled in 72ms
+[01:15:49.974] Server  LOG      ✓ Compiled in 136ms
+[01:16:03.259] Server  LOG      ✓ Compiled in 134ms
+[01:16:10.279] Server  LOG      ✓ Compiled in 33ms
+[01:16:27.146] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:16:27.874] Server  LOG      ✓ Compiled in 266ms
+[01:17:53.467] Server  LOG      ✓ Compiled in 148ms
+[01:18:05.060] Server  LOG      ✓ Compiled in 39ms
+[01:18:06.411] Server  LOG      ✓ Compiled in 30ms
+[01:18:08.686] Server  LOG      ✓ Compiled in 31ms
+[01:19:00.427] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:19:16.206] Server  LOG      ✓ Compiled in 72ms
+[01:19:25.870] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:30.190] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:20:02.607] Server  LOG      ✓ Compiled in 65ms
+[01:20:06.195] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:20:09.552] Server  LOG      ✓ Compiled in 46ms
+[01:20:15.252] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:21:03.986] Server  LOG      ✓ Compiled in 59ms
+[01:21:50.253] Server  LOG      ✓ Compiled in 67ms
+[02:00:52.430] Server  LOG      ✓ Compiled in 618ms
+[02:00:59.570] Server  LOG      ✓ Compiled in 330ms
+[02:01:16.201] Server  LOG      ✓ Compiled in 71ms
+[02:01:39.397] Server  LOG      ✓ Compiled in 72ms
+[02:01:50.090] Server  LOG      ✓ Compiled in 56ms
+[02:02:02.894] Server  LOG      ✓ Compiled in 26ms
+[02:02:09.132] Server  LOG      ✓ Compiled in 31ms
+[02:05:14.755] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
