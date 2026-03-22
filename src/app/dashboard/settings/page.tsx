@@ -4,10 +4,11 @@ import { useState } from "react";
 import {
   User,
   Shield,
-  Bell,
   ArrowRight,
-  Save,
 } from "lucide-react";
+import { useGetCurrentUserQuery } from "@/redux/services/authApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { updateUser } from "@/redux/slices/authSlice";
 
 interface Tab {
   id: string;
@@ -17,11 +18,14 @@ interface Tab {
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("profile");
+  const dispatch = useAppDispatch();
+
+  const { data: userData } = useGetCurrentUserQuery();
+  const user = userData?.data;
 
   const tabs: Tab[] = [
     { id: "profile", label: "Profile", icon: User },
     { id: "security", label: "Security", icon: Shield },
-    { id: "notification", label: "Notification", icon: Bell },
   ];
 
   return (
@@ -55,57 +59,80 @@ export default function SettingsPage() {
 
             {/* Tab Content */}
             {activeTab === "profile" && (
-              <div className="bg-white border border-gray-200 rounded-lg p-8">
-                <h2 className="text-xl font-semibold text-black mb-8">Update Profile</h2>
+              <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-8">
+                <h2 className="text-xl font-semibold text-black mb-6 md:mb-8">Profile Information</h2>
 
-                <form className="space-y-6">
+                <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-black mb-2">
-                      First name:
+                      Email Address
                     </label>
                     <input
-                      type="text"
-                      defaultValue="Sandra"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 text-black"
+                      type="email"
+                      value={user?.email || ""}
+                      disabled
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-black mb-2">
-                      Last name:
+                      Full Name
                     </label>
                     <input
                       type="text"
-                      defaultValue="Drake"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 text-black"
+                      value={user?.fullName || ""}
+                      disabled
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-black mb-2">
-                      Username:
+                      Account Type
                     </label>
                     <input
                       type="text"
-                      defaultValue="solimylax"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 text-black"
+                      value={user?.role === 'admin' ? 'Administrator' : 'User'}
+                      disabled
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed capitalize"
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-                  >
-                    Update
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </form>
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Account Status
+                    </label>
+                    <input
+                      type="text"
+                      value={user?.isActive ? 'Active' : 'Inactive'}
+                      disabled
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed capitalize"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Member Since
+                    </label>
+                    <input
+                      type="text"
+                      value={user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      }) : 'N/A'}
+                      disabled
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
             {activeTab === "security" && (
-              <div className="bg-white border border-gray-200 rounded-lg p-8">
-                <h2 className="text-xl font-semibold text-black mb-8">Security Settings</h2>
+              <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-8">
+                <h2 className="text-xl font-semibold text-black mb-6 md:mb-8">Security Settings</h2>
 
                 <form className="space-y-6">
                   <div>
@@ -146,44 +173,6 @@ export default function SettingsPage() {
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
-              </div>
-            )}
-
-            {activeTab === "notification" && (
-              <div className="bg-white border border-gray-200 rounded-lg p-8">
-                <h2 className="text-xl font-semibold text-black mb-8">Notification Preferences</h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between pb-6 border-b border-gray-200">
-                    <div>
-                      <p className="font-medium text-black">Email Notifications</p>
-                      <p className="text-sm text-gray-600">Receive updates about your account via email</p>
-                    </div>
-                    <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-black transition-colors">
-                      <span className="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-6" />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-6 border-b border-gray-200">
-                    <div>
-                      <p className="font-medium text-black">Push Notifications</p>
-                      <p className="text-sm text-gray-600">Receive notifications on your device</p>
-                    </div>
-                    <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 transition-colors">
-                      <span className="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-1" />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-black">Transaction Alerts</p>
-                      <p className="text-sm text-gray-600">Get notified for every transaction</p>
-                    </div>
-                    <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-black transition-colors">
-                      <span className="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-6" />
-                    </button>
-                  </div>
-                </div>
               </div>
             )}
           </div>

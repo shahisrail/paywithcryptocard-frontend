@@ -102,18 +102,18 @@ export default function Dashboard() {
   return (
     <>
       {/* Balance Card */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
+      <div className="bg-white border border-gray-200 rounded-xl p-4 md:p-6 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+          <div className="flex-1">
             <p className="text-sm text-gray-600 mb-1">Total Balance</p>
-            <p className="text-4xl font-bold text-black">
+            <p className="text-3xl md:text-4xl font-bold text-black">
               {showBalance ? formatCurrency(totalBalance) : "••••••"}
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <button
               onClick={() => setShowBalance(!showBalance)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors self-center sm:self-auto"
             >
               {showBalance ? (
                 <EyeOff className="w-5 h-5 text-gray-600" />
@@ -125,7 +125,7 @@ export default function Dashboard() {
             {totalBalance === 0 ? (
               <Link
                 href="/dashboard/topup"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
               >
                 <Plus className="w-5 h-5" />
                 Add Funds
@@ -134,7 +134,7 @@ export default function Dashboard() {
               <button
                 onClick={handleCreateCard}
                 disabled={isCreatingCard}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
               >
                 {isCreatingCard ? (
                   <>
@@ -182,7 +182,7 @@ export default function Dashboard() {
 
       {/* Cards Section */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
           <h2 className="text-lg font-semibold text-black">
             Your Cards {cards.length > 0 && `(${cards.length})`}
           </h2>
@@ -190,7 +190,7 @@ export default function Dashboard() {
             <button
               onClick={handleCreateCard}
               disabled={isCreatingCard}
-              className="text-sm text-black hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+              className="text-sm text-black hover:underline disabled:opacity-50 disabled:cursor-not-allowed self-start sm:self-auto"
             >
               {isCreatingCard ? "Creating..." : "Create new card"}
             </button>
@@ -301,11 +301,11 @@ export default function Dashboard() {
 
       {/* Recent Transactions */}
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
           <h2 className="text-lg font-semibold text-black">Recent Transactions</h2>
           <Link
             href="/dashboard/transactions"
-            className="text-sm text-black hover:underline"
+            className="text-sm text-black hover:underline self-start sm:self-auto"
           >
             View all
           </Link>

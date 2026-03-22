@@ -1,5 +1,6 @@
-[00:00:02.842] Server  LOG      ✓ Ready in 2.4s
-[00:01:22.559] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:04.750] Server  LOG      ✓ Ready in 4s
+[00:00:07.763] Server  LOG      ○ Compiling /_not-found/page ...
+[00:00:34.721] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -12,62 +13,117 @@ It can also happen if the client has a browser extension installed which messes 
 https://react.dev/link/hydration-mismatch
 
   ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html lang="en" className="inter_2fe1...">
-                          <body
-                            className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
--                           cz-shortcut-listen="true"
-                          >
+    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+      <RedirectBoundary>
+        <RedirectErrorBoundary router={{...}}>
+          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
+            <SegmentViewNode type="page" pagePath="page.tsx">
+              <SegmentTrieNode>
+              <Home>
+                <div className="min-h-scre...">
+                  <Header>
+                    <header className="bg-gray-20...">
+                      <div className="max-w-7xl ...">
+                        <div className="flex items...">
+                          <LinkComponent>
+                          <nav>
+                          <div className="hidden lg:...">
+                            <LinkComponent href="/dashboard" className="px-4 sm:px...">
+                              <a
++                               className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hove..."
+-                               className="px-4 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rou..."
+                                ref={function}
+                                onClick={function onClick}
+                                onMouseEnter={function onMouseEnter}
+                                onTouchStart={function onTouchStart}
++                               href="/dashboard"
+-                               href="/login"
+                              >
++                               Dashboard
+-                               Sign In
                             ...
-                              <div className="hidden lg:...">
-                                <LinkComponent href="/dashboard" className="px-4 sm:px...">
-                                  <a
-+                                   className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg ..."
--                                   className="px-4 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300..."
-                                    ref={function}
-                                    onClick={function onClick}
-                                    onMouseEnter={function onMouseEnter}
-                                    onTouchStart={function onTouchStart}
-+                                   href="/dashboard"
--                                   href="/login"
-                                  >
-+                                   Dashboard
--                                   Sign In
-                                ...
-                            ...
+                          ...
                   ...
+            ...
+          ...
 
-[00:01:25.433] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:06:09.546] Server  LOG      ✓ Compiled in 107ms
-[00:06:09.594] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:06:09.595] Browser ERROR   uncaughtError: ReferenceError: CARD_ISSUANCE_FEE is not defined
-[00:06:09.813] Server  LOG      ✓ Compiled in 107ms
-[00:06:09.986] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:06:10.007] Server  LOG      ✓ Compiled in 3ms
-[00:16:59.884] Server  LOG      ✓ Compiled in 78ms
-[00:17:00.079] Server  LOG      ✓ Compiled in 144ms
-[00:17:00.160] Server  LOG      ✓ Compiled in 19ms
-[00:21:05.290] Server  LOG      ✓ Compiled in 42ms
-[00:27:14.852] Server  LOG      ✓ Compiled in 138ms
-[00:27:23.973] Server  LOG      ✓ Compiled in 42ms
-[00:43:26.170] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:43:36.127] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:36.570] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:02:33.477] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:02:48.257] Server  LOG      ✓ Compiled in 165ms
+[00:03:36.910] Server  LOG      ✓ Compiled in 44ms
+[00:04:43.281] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+      <RedirectBoundary>
+        <RedirectErrorBoundary router={{...}}>
+          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
+            <SegmentViewNode type="page" pagePath="page.tsx">
+              <SegmentTrieNode>
+              <Home>
+                <div className="min-h-scre...">
+                  <Header>
+                    <header className="bg-gray-20...">
+                      <div className="max-w-7xl ...">
+                        <div className="flex items...">
+                          <LinkComponent>
+                          <nav>
+                          <div className="hidden lg:...">
+                            <LinkComponent href="/dashboard" className="px-4 sm:px...">
+                              <a
++                               className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hove..."
+-                               className="px-4 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rou..."
+                                ref={function}
+                                onClick={function onClick}
+                                onMouseEnter={function onMouseEnter}
+                                onTouchStart={function onTouchStart}
++                               href="/dashboard"
+-                               href="/login"
+                              >
++                               Dashboard
+-                               Sign In
+                            ...
+                          ...
+                  ...
+            ...
+          ...
+
+[00:04:52.698] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:05:35.320] Server  LOG      ✓ Compiled in 110ms
+[00:06:00.264] Server  LOG      ✓ Compiled in 0ms
+[00:06:10.933] Server  LOG      ✓ Compiled in 244ms
+[00:06:24.607] Server  LOG      ✓ Compiled in 48ms
+[00:06:27.441] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:06:30.703] Server  LOG      ✓ Compiled in 62ms
+[00:06:38.056] Server  LOG      ✓ Compiled in 36ms
+[00:06:44.035] Server  LOG      ✓ Compiled in 34ms
+[00:08:14.766] Browser ERROR   Error fetching crypto prices: {}
+[00:08:14.766] Browser ERROR   Error fetching crypto price: {}
+[00:08:24.654] Browser ERROR   Error fetching crypto prices: {}
+[00:08:24.654] Browser ERROR   Error fetching crypto price: {}
+[00:08:25.139] Browser ERROR   Error fetching crypto prices: {}
+[00:08:25.139] Browser ERROR   Error fetching crypto price: {}
+[00:09:09.701] Browser ERROR   Error fetching crypto prices: {}
+[00:09:09.701] Browser ERROR   Error fetching crypto price: {}
+[00:09:11.778] Browser ERROR   Error fetching crypto prices: {}
+[00:09:11.778] Browser ERROR   Error fetching crypto price: {}
+[00:21:52.562] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:24.150] Server  LOG      ✓ Compiled in 699ms
+[00:23:28.594] Server  LOG      ✓ Compiled in 60ms
+[00:23:32.662] Server  LOG      ✓ Compiled in 33ms
+[00:23:41.091] Server  LOG      ✓ Compiled in 87ms
+[00:23:59.303] Server  LOG      ✓ Compiled in 107ms
+[00:24:06.615] Server  LOG      ✓ Compiled in 19ms
+[00:25:43.617] Server  LOG      ✓ Compiled in 79ms
+[00:25:48.496] Server  LOG      ✓ Compiled in 29ms
+[00:26:04.322] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

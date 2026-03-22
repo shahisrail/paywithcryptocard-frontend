@@ -205,7 +205,7 @@ export default function TopUpPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-black mb-2">Add Funds</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">Add Funds</h1>
         <p className="text-gray-600">Top up your account with cryptocurrency</p>
       </div>
 
@@ -283,7 +283,7 @@ export default function TopUpPage() {
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder="0.00"
                         min={minimumDeposit}
-                        className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-xl md:text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-600">
@@ -292,7 +292,7 @@ export default function TopUpPage() {
                   </div>
 
                   {/* Quick Amount Buttons */}
-                  <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                     {[50, 100, 250, 500].map((amt) => (
                       <button
                         key={amt}
@@ -312,7 +312,7 @@ export default function TopUpPage() {
                           <p className="text-sm text-green-700 font-medium mb-1">
                             You will send
                           </p>
-                          <p className="text-2xl font-bold text-green-900">
+                          <p className="text-xl md:text-2xl font-bold text-green-900">
                             {isConverting ? (
                               <span className="flex items-center gap-2">
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -348,7 +348,7 @@ export default function TopUpPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-3">
                       Select Cryptocurrency
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => {
                         const Icon = crypto.icon;
                         return (

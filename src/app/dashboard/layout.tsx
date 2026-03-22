@@ -21,9 +21,9 @@ export default function DashboardLayout({
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Header */}
           <header className="bg-white border-b border-gray-200 flex-shrink-0">
-            <div className="px-8">
+            <div className="px-4 md:px-8">
               <div className="flex items-center justify-between h-16">
-                <h1 className="text-xl font-semibold text-black">Dashboard</h1>
+                <h1 className="text-lg md:text-xl font-semibold text-black">Dashboard</h1>
 
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
@@ -38,7 +38,7 @@ export default function DashboardLayout({
 
           {/* Page Content */}
           <main className="flex-1 overflow-y-auto">
-            <div className="p-8">
+            <div className="p-4 md:p-8">
               {children}
             </div>
           </main>

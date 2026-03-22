@@ -105,15 +105,15 @@ export default function CardsPage() {
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
+        <div className="flex-1">
           <h1 className="text-2xl font-bold text-black">My Cards</h1>
           <p className="text-gray-600 mt-1">Manage your virtual cards</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <button
             onClick={() => setShowBalance(!showBalance)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors self-center sm:self-auto"
           >
             {showBalance ? (
               <EyeOff className="w-5 h-5 text-gray-600" />
@@ -125,7 +125,7 @@ export default function CardsPage() {
             <button
               onClick={handleCreateCard}
               disabled={isCreatingCard}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
             >
               {isCreatingCard ? (
                 <>
@@ -142,7 +142,7 @@ export default function CardsPage() {
           ) : (
             <Link
               href="/dashboard/topup"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
             >
               <Plus className="w-5 h-5" />
               Add Funds
