@@ -62,12 +62,7 @@ const HowItWorksSection = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="relative"
               >
-                {/* Number Circle */}
-                <div className="absolute -top-3 -left-3 w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md z-10">
-                  {index + 1}
-                </div>
-
-                <div className="bg-gray-50 rounded-xl p-5 pt-6 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">
+                <div className="bg-white rounded-xl p-5 pt-6 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">
                   <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-3">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
@@ -84,7 +79,7 @@ const HowItWorksSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 bg-gray-50 rounded-xl p-6 border border-gray-200"
+          className="mt-10 bg-white rounded-xl p-6 border border-gray-200"
         >
           <h3 className="text-center text-sm font-semibold text-black mb-4">
             Supported Cryptocurrencies

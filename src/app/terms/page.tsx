@@ -15,12 +15,6 @@ import {
 } from "lucide-react";
 
 export default function TermsAndConditions() {
-  const lastUpdated = new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="responsive-container py-16 lg:py-24">
@@ -32,22 +26,19 @@ export default function TermsAndConditions() {
           className="text-center mb-12"
         >
           <Link href="/" className="inline-flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
               <span className="text-white font-bold text-lg">P</span>
             </div>
-            <span className="text-2xl font-bold text-gray-900">PayWithCrypto</span>
+            <span className="text-2xl font-bold text-black">PayWithCryptoCard</span>
           </Link>
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Gavel className="w-8 h-8 text-indigo-600" />
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
+            <Gavel className="w-8 h-8 text-black" />
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">
               Terms & Conditions
             </h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Please read these terms and conditions carefully before using PayWithCryptoCard services.
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Last updated: {lastUpdated}
           </p>
         </motion.div>
 
@@ -62,8 +53,8 @@ export default function TermsAndConditions() {
             <div className="prose prose-lg max-w-none">
               {/* Agreement */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <FileText className="w-6 h-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-3">
+                  <FileText className="w-6 h-6 text-black" />
                   Agreement to Terms
                 </h2>
 
@@ -72,11 +63,11 @@ export default function TermsAndConditions() {
                   Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our Service.
                 </p>
 
-                <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-6">
-                  <p className="text-indigo-900 font-semibold">
+                <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
+                  <p className="text-black font-semibold">
                     By creating an account or using our Service, you:
                   </p>
-                  <ul className="list-disc list-inside text-indigo-700 space-y-2 ml-6 mt-3">
+                  <ul className="list-disc list-inside text-gray-700 space-y-2 ml-6 mt-3">
                     <li>Confirm you are at least 18 years of age</li>
                     <li>Agree to provide accurate information</li>
                     <li>Accept responsibility for your account activities</li>
@@ -87,8 +78,8 @@ export default function TermsAndConditions() {
 
               {/* Services Description */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <CreditCard className="w-6 h-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-3">
+                  <CreditCard className="w-6 h-6 text-black" />
                   Service Description
                 </h2>
 
@@ -97,35 +88,35 @@ export default function TermsAndConditions() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                    <h4 className="font-semibold text-green-900 mb-2">Create Virtual Cards</h4>
-                    <p className="text-green-700 text-sm">Generate virtual Visa cards for online purchases</p>
+                  <div className="bg-gray-100 border border-gray-300 rounded-xl p-4">
+                    <h4 className="font-semibold text-black mb-2">Create Virtual Cards</h4>
+                    <p className="text-gray-700 text-sm">Generate virtual Visa cards for online purchases</p>
                   </div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                    <h4 className="font-semibold text-blue-900 mb-2">Top-up with Crypto</h4>
-                    <p className="text-blue-700 text-sm">Fund cards using various cryptocurrencies</p>
+                  <div className="bg-gray-100 border border-gray-300 rounded-xl p-4">
+                    <h4 className="font-semibold text-black mb-2">Top-up with Crypto</h4>
+                    <p className="text-gray-700 text-sm">Fund cards using various cryptocurrencies</p>
                   </div>
-                  <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
-                    <h4 className="font-semibold text-purple-900 mb-2">Global Acceptance</h4>
-                    <p className="text-purple-700 text-sm">Use cards anywhere Visa is accepted worldwide</p>
+                  <div className="bg-gray-100 border border-gray-300 rounded-xl p-4">
+                    <h4 className="font-semibold text-black mb-2">Global Acceptance</h4>
+                    <p className="text-gray-700 text-sm">Use cards anywhere Visa is accepted worldwide</p>
                   </div>
-                  <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
-                    <h4 className="font-semibold text-orange-900 mb-2">No KYC Required</h4>
-                    <p className="text-orange-700 text-sm">Access services without identity verification</p>
+                  <div className="bg-gray-100 border border-gray-300 rounded-xl p-4">
+                    <h4 className="font-semibold text-black mb-2">No KYC Required</h4>
+                    <p className="text-gray-700 text-sm">Access services without identity verification</p>
                   </div>
                 </div>
               </section>
 
               {/* User Responsibilities */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <Users className="w-6 h-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-3">
+                  <Users className="w-6 h-6 text-black" />
                   User Responsibilities
                 </h2>
 
                 <div className="space-y-4">
-                  <div className="bg-gray-50 rounded-xl p-6">
-                    <h3 className="font-semibold text-gray-900 mb-3">As a user, you must:</h3>
+                  <div className="bg-gray-100 rounded-xl p-6">
+                    <h3 className="font-semibold text-black mb-3">As a user, you must:</h3>
                     <ul className="list-disc list-inside text-gray-600 space-y-2 ml-6">
                       <li>Provide accurate and complete information when creating an account</li>
                       <li>Maintain the confidentiality of your account credentials</li>
@@ -136,10 +127,10 @@ export default function TermsAndConditions() {
                     </ul>
                   </div>
 
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                    <h3 className="font-semibold text-red-900 mb-3">Prohibited Activities</h3>
-                    <p className="text-red-700 text-sm mb-3">You are strictly prohibited from:</p>
-                    <ul className="list-disc list-inside text-red-700 space-y-2 ml-6">
+                  <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
+                    <h3 className="font-semibold text-black mb-3">Prohibited Activities</h3>
+                    <p className="text-gray-700 text-sm mb-3">You are strictly prohibited from:</p>
+                    <ul className="list-disc list-inside text-gray-700 space-y-2 ml-6">
                       <li>Using the Service for illegal transactions</li>
                       <li>Money laundering or terrorist financing</li>
                       <li>Unauthorized access to others' accounts</li>
@@ -152,22 +143,22 @@ export default function TermsAndConditions() {
 
               {/* Cryptocurrency Risks */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <DollarSign className="w-6 h-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-3">
+                  <DollarSign className="w-6 h-6 text-black" />
                   Cryptocurrency Risks
                 </h2>
 
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
+                <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-6 h-6 text-amber-600 mt-0.5 flex-shrink-0" />
+                    <AlertTriangle className="w-6 h-6 text-black mt-0.5 flex-shrink-0" />
                     <div>
-                      <h3 className="font-semibold text-amber-900 mb-3">Important Risk Disclosure</h3>
-                      <p className="text-amber-800 leading-relaxed">
+                      <h3 className="font-semibold text-black mb-3">Important Risk Disclosure</h3>
+                      <p className="text-gray-700 leading-relaxed">
                         Cryptocurrency transactions are irreversible. Once sent, funds cannot be recovered.
                         You acknowledge that cryptocurrency values can be volatile and that PayWithCryptoCard
                         is not responsible for any losses resulting from cryptocurrency price fluctuations.
                       </p>
-                      <ul className="list-disc list-inside text-amber-700 space-y-1 mt-3 ml-6">
+                      <ul className="list-disc list-inside text-gray-700 space-y-1 mt-3 ml-6">
                         <li>Market volatility risk</li>
                         <li>Regulatory changes</li>
                         <li>Technical failures</li>
@@ -207,8 +198,8 @@ export default function TermsAndConditions() {
 
               {/* Privacy and Data */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <Shield className="w-6 h-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-3">
+                  <Shield className="w-6 h-6 text-black" />
                   Privacy and Data Protection
                 </h2>
 
@@ -219,15 +210,15 @@ export default function TermsAndConditions() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-5 h-5 text-black" />
                     <span className="text-gray-700">No KYC required</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-5 h-5 text-black" />
                     <span className="text-gray-700">Data encryption</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-5 h-5 text-black" />
                     <span className="text-gray-700">Anonymous usage</span>
                   </div>
                 </div>
@@ -237,14 +228,14 @@ export default function TermsAndConditions() {
               <section className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Limitation of Liability</h2>
 
-                <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                  <p className="text-red-900 font-semibold mb-3">Limitation of Liability</p>
-                  <p className="text-red-800 leading-relaxed">
+                <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
+                  <p className="text-black font-semibold mb-3">Limitation of Liability</p>
+                  <p className="text-gray-700 leading-relaxed">
                     PayWithCryptoCard shall not be liable for any direct, indirect, incidental, special,
                     consequential, or punitive damages arising from your use of the Service. This includes
                     but is not limited to loss of funds, data, or business opportunities.
                   </p>
-                  <p className="text-red-800 text-sm mt-4">
+                  <p className="text-gray-700 text-sm mt-4">
                     Our total liability shall not exceed the amount you paid for our services in the
                     preceding three months.
                   </p>
@@ -295,15 +286,15 @@ export default function TermsAndConditions() {
                   If you have any questions about these Terms and Conditions, please contact us:
                 </p>
 
-                <div className="bg-gray-50 rounded-xl p-6">
+                <div className="bg-gray-100 rounded-xl p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <p className="font-semibold text-gray-900">Email:</p>
-                      <p className="text-indigo-600">legal@paywithcryptocard.net</p>
+                      <p className="font-semibold text-black">Email:</p>
+                      <p className="text-black">legal@paywithcryptocard.net</p>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Support:</p>
-                      <p className="text-indigo-600">support@paywithcryptocard.net</p>
+                      <p className="font-semibold text-black">Support:</p>
+                      <p className="text-black">support@paywithcryptocard.net</p>
                     </div>
                   </div>
                 </div>

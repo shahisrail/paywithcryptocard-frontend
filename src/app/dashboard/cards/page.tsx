@@ -9,16 +9,41 @@ import {
   Copy,
   Check,
   Loader2,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useGetMyCardsQuery } from "@/redux/services/cardApi";
+import { useGetMyCardsQuery, useCreateCardMutation } from "@/redux/services/cardApi";
+import { useGetCurrentUserQuery } from "@/redux/services/authApi";
 
 export default function CardsPage() {
   const [showBalance, setShowBalance] = useState(true);
   const [copiedCard, setCopiedCard] = useState<string | null>(null);
+  const [cardSuccess, setCardSuccess] = useState(false);
+  const [cardError, setCardError] = useState("");
 
   const { data: cardsData, isLoading, error } = useGetMyCardsQuery();
+  const { data: userData } = useGetCurrentUserQuery();
+  const [createCard, { isLoading: isCreatingCard }] = useCreateCardMutation();
+
   const cards = cardsData?.data || [];
+  const userBalance = userData?.data?.balance || 0;
+
+  const canCreateCard = userBalance > 0;
+
+  const handleCreateCard = async () => {
+    try {
+      setCardError("");
+      await createCard({
+        spendingLimit: 10000,
+      }).unwrap();
+      setCardSuccess(true);
+      setTimeout(() => setCardSuccess(false), 3000);
+    } catch (err: any) {
+      setCardError(err.data?.message || "Failed to create card");
+      setTimeout(() => setCardError(""), 5000);
+    }
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -50,9 +75,9 @@ export default function CardsPage() {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+      <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
         <div className="flex items-center gap-2">
-          <p className="text-red-900 font-medium">Failed to load cards</p>
+          <p className="text-black font-medium">Failed to load cards</p>
         </div>
       </div>
     );
@@ -60,6 +85,25 @@ export default function CardsPage() {
 
   return (
     <>
+      {/* Card creation feedback */}
+      {cardSuccess && (
+        <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-5 h-5 text-black" />
+            <p className="text-sm text-black font-medium">Card created successfully!</p>
+          </div>
+        </div>
+      )}
+
+      {cardError && (
+        <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6">
+          <div className="flex items-center gap-2">
+            <XCircle className="w-5 h-5 text-black" />
+            <p className="text-sm text-black font-medium">{cardError}</p>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -77,13 +121,33 @@ export default function CardsPage() {
               <Eye className="w-5 h-5 text-gray-600" />
             )}
           </button>
-          <Link
-            href="/dashboard/create-card"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-          >
-            <Plus className="w-5 h-5" />
-            Create Card
-          </Link>
+          {canCreateCard ? (
+            <button
+              onClick={handleCreateCard}
+              disabled={isCreatingCard}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isCreatingCard ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                <>
+                  <Plus className="w-5 h-5" />
+                  Create Card
+                </>
+              )}
+            </button>
+          ) : (
+            <Link
+              href="/dashboard/topup"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+            >
+              <Plus className="w-5 h-5" />
+              Add Funds
+            </Link>
+          )}
         </div>
       </div>
 
@@ -173,13 +237,26 @@ export default function CardsPage() {
         <div className="text-center py-16">
           <CreditCard className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 text-lg mb-4">You don't have any cards yet</p>
-          <Link
-            href="/dashboard/create-card"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-          >
-            <Plus className="w-5 h-5" />
-            Create Your First Card
-          </Link>
+          {canCreateCard ? (
+            <Link
+              href="/dashboard/create-card"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+            >
+              <Plus className="w-5 h-5" />
+              Create Your First Card
+            </Link>
+          ) : (
+            <>
+              <p className="text-gray-600 mb-4">Add funds to create your first virtual card.</p>
+              <Link
+                href="/dashboard/topup"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+              >
+                <Plus className="w-5 h-5" />
+                Add Funds
+              </Link>
+            </>
+          )}
         </div>
       )}
     </>

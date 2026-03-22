@@ -11,18 +11,18 @@ const BrandLogosSection = () => {
 
   const brands = [
     { name: "Amazon", logo: "/logos/amazon.png", alt: "Amazon" },
-    { name: "MIAN", logo: "/logos/Mian.png", alt: "MIAN" },
+    { name: "netflix", logo: "/logos/images1.png", alt: "netflix" },
     { name: "Spotify", logo: "/logos/BDA-desktop.jpg", alt: "Spotify" },
-    { name: "Uber", logo: "/logos/uber.png", alt: "Uber" },
+    { name: "ebay", logo: "/logos/images2.png", alt: "ebay" },
     { name: "Apple", logo: "/logos/apple.png", alt: "Apple" },
     { name: "Google", logo: "/logos/google.png", alt: "Google" },
     { name: "PayPal", logo: "/logos/paypal.png", alt: "PayPal" },
+    { name: "nike", logo: "/logos/Nike-Logo.png", alt: "Nike" },
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Logos grid */}
         <div
           ref={ref}
@@ -36,13 +36,11 @@ const BrandLogosSection = () => {
               transition={{ duration: 0.45, delay: index * 0.06 }}
             >
               <div className="group bg-white rounded-2xl h-32 border border-gray-200 hover:border-black hover:shadow-xl transition-all duration-300 flex items-center justify-center p-6">
-
                 <img
                   src={brand.logo}
                   alt={brand.alt}
                   className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
-
               </div>
             </motion.div>
           ))}
@@ -56,7 +54,6 @@ const BrandLogosSection = () => {
           <span className="text-gray-400">•</span>
           <span>Secure Payments</span>
         </div>
-
       </div>
     </section>
   );

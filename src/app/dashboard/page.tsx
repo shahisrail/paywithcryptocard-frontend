@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Eye, EyeOff, ArrowUpRight, ArrowDownLeft, Loader2 } from "lucide-react";
+import { Plus, Eye, EyeOff, ArrowUpRight, ArrowDownLeft, Loader2, CheckCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useGetMyCardsQuery } from "@/redux/services/cardApi";
 import { useGetMyTransactionsQuery } from "@/redux/services/transactionApi";
@@ -14,6 +14,8 @@ export default function Dashboard() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [showBalance, setShowBalance] = useState(true);
+  const [cardSuccess, setCardSuccess] = useState(false);
+  const [cardError, setCardError] = useState("");
 
   // Fetch user data
   const { data: userData, isLoading: userLoading, refetch: refetchUser } = useGetCurrentUserQuery();
@@ -21,6 +23,9 @@ export default function Dashboard() {
   const { data: transactionsData, isLoading: transactionsLoading } = useGetMyTransactionsQuery({
     limit: 5
   });
+
+  // Import mutation hook
+  const [createCard, { isLoading: isCreatingCard }] = require('@/redux/services/cardApi').useCreateCardMutation();
 
   // Refetch user data on mount to get latest balance
   useEffect(() => {
@@ -72,6 +77,20 @@ export default function Dashboard() {
     }
   };
 
+  const handleCreateCard = async () => {
+    try {
+      setCardError("");
+      await createCard({
+        spendingLimit: 10000,
+      }).unwrap();
+      setCardSuccess(true);
+      setTimeout(() => setCardSuccess(false), 3000);
+    } catch (err: any) {
+      setCardError(err.data?.message || "Failed to create card");
+      setTimeout(() => setCardError(""), 5000);
+    }
+  };
+
   if (userLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -102,15 +121,63 @@ export default function Dashboard() {
                 <Eye className="w-5 h-5 text-gray-600" />
               )}
             </button>
-            <Link
-              href="/dashboard/topup"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              Add Funds
-            </Link>
+            {/* Dynamic Primary Action */}
+            {totalBalance === 0 ? (
+              <Link
+                href="/dashboard/topup"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+              >
+                <Plus className="w-5 h-5" />
+                Add Funds
+              </Link>
+            ) : (
+              <button
+                onClick={handleCreateCard}
+                disabled={isCreatingCard}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {isCreatingCard ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-5 h-5" />
+                    Create Card
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
+        {/* Balance warning */}
+        {totalBalance === 0 && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">Step 1:</span> Add funds to your account to create a virtual card.
+            </p>
+          </div>
+        )}
+
+        {/* Card creation feedback */}
+        {cardSuccess && (
+          <div className="mt-4 p-4 bg-gray-100 border border-gray-300 rounded-lg">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-black" />
+              <p className="text-sm text-black font-medium">Card created successfully! Check your cards below.</p>
+            </div>
+          </div>
+        )}
+
+        {cardError && (
+          <div className="mt-4 p-4 bg-gray-100 border border-gray-300 rounded-lg">
+            <div className="flex items-center gap-2">
+              <XCircle className="w-5 h-5 text-black" />
+              <p className="text-sm text-black font-medium">{cardError}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Cards Section */}
@@ -119,12 +186,19 @@ export default function Dashboard() {
           <h2 className="text-lg font-semibold text-black">
             Your Cards {cards.length > 0 && `(${cards.length})`}
           </h2>
-          <Link
-            href="/dashboard/create-card"
-            className="text-sm text-black hover:underline"
-          >
-            Create new card
-          </Link>
+          {totalBalance > 0 ? (
+            <button
+              onClick={handleCreateCard}
+              disabled={isCreatingCard}
+              className="text-sm text-black hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isCreatingCard ? "Creating..." : "Create new card"}
+            </button>
+          ) : (
+            <span className="text-sm text-gray-400 cursor-not-allowed">
+              Create new card
+            </span>
+          )}
         </div>
 
         {cardsLoading ? (
@@ -133,14 +207,39 @@ export default function Dashboard() {
           </div>
         ) : cards.length === 0 ? (
           <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
-            <p className="text-gray-600 mb-4">You don't have any cards yet.</p>
-            <Link
-              href="/dashboard/create-card"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              Create Your First Card
-            </Link>
+            {totalBalance === 0 ? (
+              <>
+                <p className="text-gray-600 mb-4">Add funds to create your first virtual card.</p>
+                <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-500 font-medium rounded-lg cursor-not-allowed">
+                  <Plus className="w-5 h-5" />
+                  Create Your First Card
+                </div>
+                <p className="text-sm text-gray-500 mt-4">
+                  Add funds first to unlock card creation
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-gray-600 mb-4">You don't have any cards yet.</p>
+                <button
+                  onClick={handleCreateCard}
+                  disabled={isCreatingCard}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {isCreatingCard ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-5 h-5" />
+                      Create Your First Card
+                    </>
+                  )}
+                </button>
+              </>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -152,10 +251,10 @@ export default function Dashboard() {
                     <span className="text-white font-bold text-xl">VISA</span>
                     <span className={`text-xs font-medium border px-3 py-1 rounded-full ${
                       card.status === 'active'
-                        ? 'border-green-500 text-green-400'
+                        ? 'border-gray-500 text-gray-400'
                         : card.status === 'frozen'
-                        ? 'border-blue-500 text-blue-400'
-                        : 'border-red-500 text-red-400'
+                        ? 'border-gray-500 text-gray-400'
+                        : 'border-gray-500 text-gray-400'
                     }`}>
                       {card.status}
                     </span>
@@ -239,17 +338,17 @@ export default function Dashboard() {
                   </div>
                   <div className="text-right">
                     <p className={`font-semibold ${
-                      transaction.amount > 0 ? "text-green-600" : "text-black"
+                      transaction.amount > 0 ? "text-black" : "text-black"
                     }`}>
                       {transaction.amount > 0 ? "+" : ""}
                       {formatCurrency(transaction.amount)}
                     </p>
                     <p className={`text-xs ${
                       transaction.status === 'completed'
-                        ? 'text-green-600'
+                        ? 'text-black'
                         : transaction.status === 'pending'
-                        ? 'text-yellow-600'
-                        : 'text-red-600'
+                        ? 'text-gray-600'
+                        : 'text-black'
                     }`}>
                       {transaction.status}
                     </p>

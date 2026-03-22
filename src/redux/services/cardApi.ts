@@ -16,7 +16,6 @@ export interface Card {
 }
 
 export interface CreateCardRequest {
-  cardHolder: string;
   spendingLimit?: number;
 }
 
@@ -54,7 +53,7 @@ export const cardApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Card'],
+      invalidatesTags: ['Card', 'User'], // Invalidate User to refetch updated balance
     }),
 
     // Load card with funds
@@ -70,6 +69,7 @@ export const cardApi = baseApi.injectEndpoints({
       invalidatesTags: (result, error, { cardId }) => [
         'Card',
         { type: 'Card', id: cardId },
+        'User', // Invalidate User to refetch updated balance
       ],
     }),
 
@@ -100,6 +100,7 @@ export const cardApi = baseApi.injectEndpoints({
       invalidatesTags: (result, error, cardId) => [
         'Card',
         { type: 'Card', id: cardId },
+        'User', // Invalidate User to refetch updated balance (refund)
       ],
     }),
   }),

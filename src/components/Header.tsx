@@ -20,6 +20,14 @@ const Header = () => {
     setMobileMenuOpen(false);
   };
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "#how-it-works", label: "How It Works" },
@@ -28,13 +36,13 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-gray-200 border-b border-gray-300 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="flex items-center justify-between h-16 sm:h-18">
 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
-            <span className="text-lg sm:text-xl md:text-2xl font-bold text-black tracking-tight">
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">
               PayWithCryptoCard
             </span>
           </Link>
@@ -42,13 +50,24 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
-              >
-                {link.label}
-              </Link>
+              link.href.startsWith('#') ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleScroll(e, link.href.substring(1))}
+                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -113,18 +132,32 @@ const Header = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-200 bg-white">
+        <div className="lg:hidden border-t border-gray-300 bg-gray-200">
           <div className="px-3 sm:px-6 lg:px-8 py-4 space-y-3">
             {/* Navigation Links */}
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
-              >
-                {link.label}
-              </Link>
+              link.href.startsWith('#') ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    handleScroll(e, link.href.substring(1));
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
 
             {/* Auth Buttons */}
