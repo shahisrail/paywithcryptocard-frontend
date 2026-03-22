@@ -117,11 +117,7 @@ export default function SettingsPage() {
                     </label>
                     <input
                       type="text"
-                      value={user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      }) : 'N/A'}
+                      value="N/A"
                       disabled
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
                     />
