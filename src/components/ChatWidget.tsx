@@ -18,7 +18,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi! How can I help you today?",
+      text: "Tell us what you need help with and we'll get back to you as soon as possible.",
       sender: "support",
       timestamp: new Date(),
     },
@@ -52,7 +52,7 @@ const ChatWidget = () => {
     setTimeout(() => {
       const supportMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Thanks for your message! Our support team will get back to you soon. For immediate assistance, email us at support@paywithcryptocard.net",
+        text: "Thanks for your message! We've received it and will get back to you as soon as possible. For immediate assistance, email us at support@paywithcryptocard.net",
         sender: "support",
         timestamp: new Date(),
       };
@@ -80,11 +80,12 @@ const ChatWidget = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3, delay: 1 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 ${
+        className={`fixed bottom-6 right-6 px-4 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 gap-2 ${
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
       >
-        <MessageCircle className="w-6 h-6" />
+        <MessageCircle className="w-5 h-5" />
+        <span className="text-sm font-medium">Need support?</span>
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
       </motion.button>
 
@@ -106,7 +107,7 @@ const ChatWidget = () => {
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <div>
                   <h3 className="font-semibold text-white">Support</h3>
-                  <p className="text-xs text-gray-400">We typically reply instantly</p>
+                  <p className="text-xs text-gray-400">Online</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">

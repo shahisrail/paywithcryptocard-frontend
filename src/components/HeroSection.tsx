@@ -12,7 +12,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section id="home" className="relative min-h-[70vh] py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gray-100 flex items-center">
+    <section id="home" className="relative min-h-[70vh] mt-8 sm:mt-12 lg:mt-16 py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-white flex items-center mb-16 sm:mb-20 lg:mb-24">
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
 
@@ -93,64 +93,14 @@ const HeroSection = () => {
           {/* Right Content - Card */}
           <div className="relative flex justify-center items-center mt-8 sm:mt-10 lg:mt-0">
 
-            <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[380px] aspect-[420/250] rounded-2xl sm:rounded-3xl bg-gradient-to-br from-black via-[#0a0a0a] to-black shadow-[0_25px_80px_rgba(0,0,0,0.6)] border border-[#1f1f1f] overflow-hidden">
-
-              {/* Gold Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent"></div>
-
-              {/* Shine */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent"></div>
-
-              <div className="relative z-10 p-4 sm:p-5 md:p-6 h-full flex flex-col justify-between">
-
-                {/* Top */}
-                <div className="flex justify-between items-start">
-
-                  <div className="px-2.5 sm:px-3 md:px-4 py-1 bg-yellow-200 text-black text-[10px] sm:text-xs font-bold rounded-full">
-                    VIRTUAL
-                  </div>
-
-                  <div className="text-yellow-200 text-2xl sm:text-3xl font-bold tracking-wider sm:tracking-widest">
-                    VISA
-                  </div>
-
-                </div>
-
-                {/* Card Number */}
-                <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 text-base sm:text-lg md:text-xl font-mono tracking-[2px] sm:tracking-[4px] md:tracking-[6px] text-white font-bold">
-                  <span>••••</span>
-                  <span>••••</span>
-                  <span>••••</span>
-                  <span>7890</span>
-                </div>
-
-                {/* Bottom */}
-                <div className="flex justify-between gap-2">
-
-                  <div className="min-w-0">
-                    <p className="text-[10px] sm:text-xs text-gray-400">CARD HOLDER</p>
-                    <p className="text-yellow-100 text-sm sm:text-base font-semibold truncate">
-                      YOUR NAME
-                    </p>
-                  </div>
-
-                  <div className="text-right">
-                    <p className="text-[10px] sm:text-xs text-gray-400">EXPIRES</p>
-                    <p className="text-yellow-100 text-sm sm:text-base font-semibold">
-                      12/28
-                    </p>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
+         <img src="/logos/hero3.png" alt="" />
           </div>
 
         </div>
       </div>
+
+      {/* Visual Separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent"></div>
     </section>
   );
 };

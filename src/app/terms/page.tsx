@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import {
   FileText,
   Shield,
@@ -17,6 +19,7 @@ import {
 export default function TermsAndConditions() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
       <div className="responsive-container py-16 lg:py-24">
         {/* Header */}
         <motion.div
@@ -303,6 +306,7 @@ export default function TermsAndConditions() {
           </div>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }

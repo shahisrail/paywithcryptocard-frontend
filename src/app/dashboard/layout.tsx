@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import ChatWidget from "@/components/ChatWidget";
 import { useAppSelector } from "@/redux/hooks";
 
 export default function DashboardLayout({
@@ -43,6 +44,7 @@ export default function DashboardLayout({
             </div>
           </main>
         </div>
+        <ChatWidget />
       </div>
     </ProtectedRoute>
   );

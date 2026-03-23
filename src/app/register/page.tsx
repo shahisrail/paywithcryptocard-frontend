@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRegisterMutation } from "@/redux/services/authApi";
 import { setCredentials, selectIsAuthenticated, selectUserRole } from "@/redux/slices/authSlice";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -76,6 +77,7 @@ export default function RegisterPage() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <nav className="border-b border-gray-200">
@@ -283,5 +285,7 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+    <ChatWidget />
+  </>
   );
 }

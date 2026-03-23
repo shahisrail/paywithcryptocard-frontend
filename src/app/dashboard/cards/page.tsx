@@ -16,7 +16,7 @@ import Link from "next/link";
 import { useGetMyCardsQuery, useCreateCardMutation } from "@/redux/services/cardApi";
 import { useGetCurrentUserQuery } from "@/redux/services/authApi";
 
-export default function CardsPage() {
+function CardsPageContent() {
   const [showBalance, setShowBalance] = useState(true);
   const [copiedCard, setCopiedCard] = useState<string | null>(null);
   const [cardSuccess, setCardSuccess] = useState(false);
@@ -261,4 +261,8 @@ export default function CardsPage() {
       )}
     </>
   );
+}
+
+export default function CardsPage() {
+  return <CardsPageContent />;
 }

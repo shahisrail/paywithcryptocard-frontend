@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useLoginMutation } from "@/redux/services/authApi";
 import { setCredentials, selectIsAuthenticated, selectUserRole } from "@/redux/slices/authSlice";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,19 +33,19 @@ export default function LoginPage() {
     }
   }, [isAuthenticated, userRole, router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
-      const response = await login({
+      const result = await login({
         email: formData.email,
         password: formData.password,
       }).unwrap();
 
-      dispatch(setCredentials(response));
+      dispatch(setCredentials(result));
 
-      if (response.user.role === 'admin') {
+      if (result.user.role === 'admin') {
         router.push('/admin');
       } else {
         router.push('/dashboard');
@@ -55,47 +56,43 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Header */}
-      <nav className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="text-xl font-bold text-black tracking-tight">
-              PayWithCryptoCard
-            </Link>
-            <Link
-              href="/register"
-              className="text-sm font-medium text-black hover:underline"
-            >
-         Sign Up
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-black mb-2 tracking-tight">Sign In</h1>
-            <p className="text-gray-600">Welcome back to your dashboard</p>
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 mb-6">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium text-red-800">Sign In Failed</p>
-                <p className="text-sm text-red-700">{error}</p>
-              </div>
+    <>
+      <div className="min-h-screen bg-white flex flex-col">
+        {/* Header */}
+        <nav className="border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="flex items-center justify-between h-20">
+              <Link href="/" className="text-xl font-bold text-black tracking-tight">
+                PayWithCryptoCard
+              </Link>
+              <Link
+                href="/register"
+                className="text-sm font-medium text-black hover:underline"
+              >
+                Sign Up
+              </Link>
             </div>
-          )}
+          </div>
+        </nav>
 
-          {/* Login Form */}
-          <div className="bg-white border border-gray-200 rounded-xl p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email Field */}
+        {/* Main Content */}
+        <div className="flex-1 flex items-center justify-center p-8">
+          <div className="w-full max-w-md">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-black mb-2 tracking-tight">Sign In</h1>
+              <p className="text-gray-600">Welcome back to your dashboard</p>
+            </div>
+
+            {error && (
+              <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                  <p className="text-sm text-red-800">{error}</p>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email address
@@ -109,23 +106,17 @@ export default function LoginPage() {
                     id="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400"
                     placeholder="you@example.com"
                     required
                   />
                 </div>
               </div>
 
-              {/* Password Field */}
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="password" className="block text-sm font-medium text-black">
-                    Password
-                  </label>
-                  <Link href="#" className="text-sm text-gray-600 hover:text-black">
-                    Forgot password?
-                  </Link>
-                </div>
+                <label htmlFor="password" className="block text-sm font-medium text-black mb-2">
+                  Password
+                </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Lock className="h-5 w-5 text-gray-400" />
@@ -180,6 +171,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-    </div>
+      <ChatWidget />
+    </>
   );
 }

@@ -22,9 +22,27 @@ const Header = () => {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+
+    // First check if the element exists on current page
     const element = document.getElementById(targetId);
+
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Element exists on current page, scroll to it
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 80;
+
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      // Element doesn't exist on current page, redirect to home page with hash
+      if (typeof window !== 'undefined') {
+        window.location.href = '/#' + targetId;
+      }
     }
   };
 

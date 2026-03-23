@@ -11,6 +11,21 @@ const FAQSection = () => {
     threshold: 0.1,
   });
 
+  const handleScrollToSupport = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById('support');
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
@@ -89,7 +104,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section id="faq" className="py-20 bg-gray-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -165,7 +180,8 @@ const FAQSection = () => {
           <p className="text-sm text-gray-600 mb-2">Still have questions?</p>
           <a
             href="#support"
-            className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700 transition-colors"
+            onClick={handleScrollToSupport}
+            className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700 transition-colors cursor-pointer"
           >
             Contact our support
             <ChevronDown className="w-4 h-4 rotate-[-90deg]" />

@@ -16,7 +16,7 @@ interface Tab {
   icon: any;
 }
 
-export default function SettingsPage() {
+function SettingsPageContent() {
   const [activeTab, setActiveTab] = useState("profile");
   const dispatch = useAppDispatch();
 
@@ -174,4 +174,8 @@ export default function SettingsPage() {
           </div>
     </>
   );
+}
+
+export default function SettingsPage() {
+  return <SettingsPageContent />;
 }
