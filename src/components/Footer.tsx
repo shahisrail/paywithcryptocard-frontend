@@ -25,7 +25,7 @@ const Footer = () => {
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-16 lg:py-20 text-center">
 
         {/* Top Navigation */}
-        <nav className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm mb-8 sm:mb-10">
+        <nav className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm mb-8 sm:mb-10">
           <a
             href="#support"
             onClick={(e) => handleScroll(e, 'support')}
@@ -33,7 +33,6 @@ const Footer = () => {
           >
             Support
           </a>
-          <span className="text-gray-400 hidden sm:inline">|</span>
 
           <a
             href="#faq"
@@ -42,12 +41,10 @@ const Footer = () => {
           >
             FAQ
           </a>
-          <span className="text-gray-400 hidden sm:inline">|</span>
 
           <Link href="/terms" className="text-black hover:text-gray-600 px-2 py-1">
             Terms
           </Link>
-          <span className="text-gray-400 hidden sm:inline">|</span>
 
           <Link href="/privacy" className="text-black hover:text-gray-600 px-2 py-1">
             Privacy

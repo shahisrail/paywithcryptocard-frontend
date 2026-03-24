@@ -80,12 +80,12 @@ const ChatWidget = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3, delay: 1 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 px-4 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 gap-2 ${
+        className={`fixed bottom-4 right-4 px-3 sm:px-4 h-12 sm:h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 gap-2 ${
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
       >
-        <MessageCircle className="w-5 h-5" />
-        <span className="text-sm font-medium">Need support?</span>
+        <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="text-xs sm:text-sm font-medium hidden sm:inline">Need support?</span>
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
       </motion.button>
 
@@ -97,7 +97,7 @@ const ChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`fixed bottom-6 right-6 w-96 h-[500px] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 z-50 flex flex-col ${
+            className={`fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 sm:h-[500px] h-[calc(100vh-120px)] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 z-50 flex flex-col ${
               isMinimized ? "h-14" : ""
             }`}
           >

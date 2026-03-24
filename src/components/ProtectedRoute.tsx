@@ -36,7 +36,7 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
       if (userRole === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
       return;
     }

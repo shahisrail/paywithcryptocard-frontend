@@ -60,7 +60,7 @@ const Header = () => {
 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">
+            <span className="text-2xl sm:text-3xl md:text-3xl font-bold text-black tracking-tight">
               PayWithCryptoCard
             </span>
           </Link>
@@ -90,27 +90,27 @@ const Header = () => {
           </nav>
 
           {/* Desktop Auth Buttons */}
-          <div className="hidden lg:flex items-center gap-2 sm:gap-3">
+          <div className="hidden lg:flex items-center gap-3 sm:gap-4">
             {isAuthenticated && user ? (
               <>
                 {user.role === "admin" ? (
                   <Link
                     href="/admin"
-                    className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     Admin
                   </Link>
                 ) : (
                   <Link
-                    href="/dashboard"
-                    className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    href="/dashboard/topup"
+                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     Dashboard
                   </Link>
                 )}
                 <button
                   onClick={handleLogout}
-                  className="px-3 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  className="px-4 sm:px-6 py-2.5 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
                 >
                   Sign Out
                 </button>
@@ -119,15 +119,15 @@ const Header = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-4 sm:px-5 py-2 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 sm:px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                 >
-                  Create account
+                  Create Account
                 </Link>
               </>
             )}
@@ -192,7 +192,7 @@ const Header = () => {
                     </Link>
                   ) : (
                     <Link
-                      href="/dashboard"
+                      href="/dashboard/topup"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                     >
@@ -211,16 +211,16 @@ const Header = () => {
                   <Link
                     href="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-5 py-3 text-center text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                    className="block w-full px-5 py-3.5 text-center text-base font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="block w-full px-5 py-3.5 text-center text-base font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
                   >
-                    Create account
+                    Create Account
                   </Link>
                 </>
               )}

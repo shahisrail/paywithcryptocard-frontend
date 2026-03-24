@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.user.role === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
     }
   };
@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const response = await api.register({ email, password, fullName }) as { success: boolean; user?: User };
     if (response.success && response.user) {
       setUser(response.user);
-      router.push('/dashboard');
+      router.push('/dashboard/topup');
     }
   };
 

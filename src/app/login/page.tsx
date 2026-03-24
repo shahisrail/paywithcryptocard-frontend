@@ -28,7 +28,7 @@ export default function LoginPage() {
       if (userRole === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
     }
   }, [isAuthenticated, userRole, router]);
@@ -48,7 +48,7 @@ export default function LoginPage() {
       if (result.user.role === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
     } catch (err: any) {
       setError(err.data?.message || "Login failed. Please check your credentials.");
@@ -67,24 +67,24 @@ export default function LoginPage() {
               </Link>
               <Link
                 href="/register"
-                className="text-sm font-medium text-black hover:underline"
+                className="text-sm font-semibold text-black hover:underline"
               >
-                Sign Up
+                Create Account
               </Link>
             </div>
           </div>
         </nav>
 
         {/* Main Content */}
-        <div className="flex-1 flex items-center justify-center p-8">
+        <div className="flex-1 flex items-start justify-center pt-12 sm:pt-16 pb-12 px-4 sm:px-8">
           <div className="w-full max-w-md">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-black mb-2 tracking-tight">Sign In</h1>
+            <div className="mb-6 sm:mb-8">
+              <h1 className="text-3xl sm:text-4xl font-bold text-black mb-2 tracking-tight">Sign In</h1>
               <p className="text-gray-600">Welcome back to your dashboard</p>
             </div>
 
             {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="mb-5 sm:mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
                   <p className="text-sm text-red-800">{error}</p>
@@ -92,7 +92,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email address
@@ -107,7 +107,7 @@ export default function LoginPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400"
-                    placeholder="you@example.com"
+                    placeholder=""
                     required
                   />
                 </div>
@@ -127,7 +127,7 @@ export default function LoginPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400"
-                    placeholder="••••••••"
+                    placeholder=""
                     required
                   />
                   <button
@@ -148,7 +148,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center py-3 px-4 bg-black text-white font-medium rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full flex items-center justify-center py-3.5 px-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
               >
                 {isLoading ? (
                   <div className="flex items-center">
@@ -162,9 +162,9 @@ export default function LoginPage() {
             </form>
 
             {/* Sign Up Link */}
-            <p className="mt-6 text-center text-sm text-gray-600">
+            <p className="mt-6 text-center text-sm sm:text-base text-gray-600">
               Don't have an account?{" "}
-              <Link href="/register" className="font-medium text-black hover:underline">
+              <Link href="/register" className="font-semibold text-black hover:underline">
                 Create account
               </Link>
             </p>

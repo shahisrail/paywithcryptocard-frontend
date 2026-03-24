@@ -21,7 +21,7 @@ const BrandLogosSection = () => {
   ];
 
   return (
-    <section className="py-24 sm:py-28 lg:py-32 bg-gray-200">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logos grid */}
         <div
@@ -47,11 +47,9 @@ const BrandLogosSection = () => {
         </div>
 
         {/* Trust badges */}
-        <div className="mt-12 flex flex-wrap justify-center items-center gap-4 text-sm text-gray-600 font-medium">
+        <div className="mt-12 flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-sm text-gray-600 font-medium">
           <span>Instant Activation</span>
-          <span className="text-gray-400">•</span>
           <span>186+ Countries</span>
-          <span className="text-gray-400">•</span>
           <span>Secure Payments</span>
         </div>
       </div>

@@ -52,13 +52,13 @@ const SupportSection = () => {
   ];
 
   return (
-    <section id="support" className="py-24 bg-gray-200">
+    <section id="support" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
       <div className="max-w-4xl mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <h2 className="text-4xl font-bold text-black mb-4 tracking-tight">
             Need to contact us?

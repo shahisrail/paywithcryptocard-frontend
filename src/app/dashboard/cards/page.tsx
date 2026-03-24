@@ -73,16 +73,6 @@ function CardsPageContent() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
-        <div className="flex items-center gap-2">
-          <p className="text-black font-medium">Failed to load cards</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       {/* Card creation feedback */}
@@ -236,26 +226,34 @@ function CardsPageContent() {
       {cards.length === 0 && !isLoading && (
         <div className="text-center py-16">
           <CreditCard className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 text-lg mb-4">You don't have any cards yet</p>
+          <p className="text-gray-600 text-lg mb-2">You don't have any cards yet.</p>
+          <p className="text-gray-500 text-sm mb-6">Add funds to create a new card.</p>
           {canCreateCard ? (
+            <button
+              onClick={handleCreateCard}
+              disabled={isCreatingCard}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isCreatingCard ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                <>
+                  <Plus className="w-5 h-5" />
+                  Create Your First Card
+                </>
+              )}
+            </button>
+          ) : (
             <Link
-              href="/dashboard/create-card"
+              href="/dashboard/topup"
               className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              Create Your First Card
+              Add Funds
             </Link>
-          ) : (
-            <>
-              <p className="text-gray-600 mb-4">Add funds to create your first virtual card.</p>
-              <Link
-                href="/dashboard/topup"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
-              >
-                <Plus className="w-5 h-5" />
-                Add Funds
-              </Link>
-            </>
           )}
         </div>
       )}

@@ -32,7 +32,7 @@ export default function RegisterPage() {
       if (userRole === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
     }
   }, [isAuthenticated, userRole, router]);
@@ -69,7 +69,7 @@ export default function RegisterPage() {
       if (response.user.role === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/dashboard/topup');
       }
     } catch (err: any) {
       setApiError(err.data?.message || "Registration failed. Please try again.");
@@ -88,7 +88,7 @@ export default function RegisterPage() {
             </Link>
             <Link
               href="/login"
-              className="text-sm font-medium text-black hover:underline"
+              className="text-sm font-semibold text-black hover:underline"
             >
               Sign In
             </Link>
@@ -97,16 +97,16 @@ export default function RegisterPage() {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-start justify-center pt-12 sm:pt-16 pb-12 px-4 sm:px-8">
         <div className="w-full max-w-md">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-black mb-2 tracking-tight">Create Account</h1>
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-black mb-2 tracking-tight">Create Account</h1>
             <p className="text-gray-600">Get your virtual Visa card today</p>
           </div>
 
           {/* API Error Message */}
           {apiError && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 mb-6">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 mb-5 sm:mb-6">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-medium text-red-800">Registration Failed</p>
@@ -116,8 +116,8 @@ export default function RegisterPage() {
           )}
 
           {/* Registration Form */}
-          <div className="bg-white border border-gray-200 rounded-xl p-8">
-            <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               {/* Full Name Field */}
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-black mb-2">
@@ -135,7 +135,7 @@ export default function RegisterPage() {
                     className={`w-full pl-10 pr-3 py-3 border ${
                       errors.fullName ? "border-red-300" : "border-gray-300"
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400`}
-                    placeholder="John Doe"
+                    placeholder=""
                     required
                   />
                 </div>
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                     className={`w-full pl-10 pr-3 py-3 border ${
                       errors.email ? "border-red-300" : "border-gray-300"
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400`}
-                    placeholder="you@example.com"
+                    placeholder=""
                     required
                   />
                 </div>
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                     className={`w-full pl-10 pr-10 py-3 border ${
                       errors.password ? "border-red-300" : "border-gray-300"
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400`}
-                    placeholder="••••••••"
+                    placeholder=""
                     required
                   />
                   <button
@@ -224,7 +224,7 @@ export default function RegisterPage() {
                     className={`w-full pl-10 pr-10 py-3 border ${
                       errors.confirmPassword ? "border-red-300" : "border-gray-300"
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-black placeholder-gray-400`}
-                    placeholder="••••••••"
+                    placeholder=""
                     required
                   />
                   <button
@@ -261,7 +261,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center py-3 px-4 bg-black text-white font-medium rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full flex items-center justify-center py-3.5 px-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
               >
                 {isLoading ? (
                   <div className="flex items-center">
@@ -275,9 +275,9 @@ export default function RegisterPage() {
             </form>
 
             {/* Sign In Link */}
-            <p className="mt-6 text-center text-sm text-gray-600">
+            <p className="mt-6 text-center text-sm sm:text-base text-gray-600">
               Already have an account?{" "}
-              <Link href="/login" className="font-medium text-black hover:underline">
+              <Link href="/login" className="font-semibold text-black hover:underline">
                 Sign In
               </Link>
             </p>

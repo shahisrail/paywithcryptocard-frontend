@@ -34,14 +34,14 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-gray-200">
+    <section id="how-it-works" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             How It Works

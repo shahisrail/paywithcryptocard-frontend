@@ -18,19 +18,14 @@ export default function DashboardSidebar() {
 
   const navigation = [
     {
-      name: "Dashboard",
-      href: "/dashboard",
-      icon: Home,
+      name: "Add Funds",
+      href: "/dashboard/topup",
+      icon: ArrowDownLeft,
     },
     {
       name: "My Cards",
       href: "/dashboard/cards",
       icon: CreditCard,
-    },
-    {
-      name: "Add Funds",
-      href: "/dashboard/topup",
-      icon: ArrowDownLeft,
     },
     {
       name: "Transactions",
@@ -92,7 +87,7 @@ export default function DashboardSidebar() {
         </div>
 
         {/* User Info */}
-        <div className="px-6 pb-4 border-b border-gray-200">
+        <div className="px-6 pb-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
               <span className="text-white font-medium text-sm">
@@ -108,11 +103,11 @@ export default function DashboardSidebar() {
               </p>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-gray-100">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-500">Balance</span>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-black">
+          <div className="mt-6 pt-6 border-t border-gray-100">
+            <div className="flex flex-col gap-2">
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Balance</span>
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-bold text-black">
                   {showBalance
                     ? new Intl.NumberFormat("en-US", {
                         style: "currency",
@@ -122,11 +117,11 @@ export default function DashboardSidebar() {
                 </span>
                 <button
                   onClick={() => setShowBalance(!showBalance)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   {showBalance ? (
                     <svg
-                      className="w-4 h-4"
+                      className="w-5 h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -140,7 +135,7 @@ export default function DashboardSidebar() {
                     </svg>
                   ) : (
                     <svg
-                      className="w-4 h-4"
+                      className="w-5 h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -165,17 +160,17 @@ export default function DashboardSidebar() {
           </div>
         </div>
 
-        <nav className="px-4 space-y-1 mt-6">
+        <nav className="px-4 space-y-2 mt-8">
           {navigation.map((item) => {
             const isActive =
               pathname === item.href ||
-              (item.href !== "/dashboard" && pathname.startsWith(item.href));
+              pathname.startsWith(item.href);
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={closeMenu}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                className={`flex items-center gap-3 px-4 py-4 rounded-lg transition-colors ${
                   isActive
                     ? "bg-black text-white font-medium"
                     : "text-gray-600 hover:text-black hover:bg-gray-50"
@@ -192,7 +187,7 @@ export default function DashboardSidebar() {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-3 px-4 py-4 text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <LogOut className="w-5 h-5" />
             {isLoggingOut ? "Signing Out..." : "Sign Out"}

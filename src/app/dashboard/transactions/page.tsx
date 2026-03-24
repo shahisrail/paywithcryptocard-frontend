@@ -170,16 +170,6 @@ export default function TransactionsPage() {
     );
   }
 
-  if (txError) {
-    return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <div className="flex items-center gap-2">
-          <p className="text-red-900 font-medium">Failed to load transactions</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       {/* Header */}
@@ -479,7 +469,8 @@ export default function TransactionsPage() {
             className="text-center py-16 text-slate-500"
           >
             <ArrowRightLeft className="w-12 h-12 mx-auto mb-4 text-slate-400" />
-            <p>No transactions or deposits found matching your criteria.</p>
+            <p className="text-lg text-gray-600 mb-2">You haven't made any transactions yet.</p>
+            <p className="text-sm text-gray-500">Your recent transactions will appear here.</p>
           </motion.div>
         )}
 
