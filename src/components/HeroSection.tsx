@@ -12,7 +12,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section id="home" className="relative min-h-[45vh] sm:min-h-[50vh] pt-6 sm:pt-8 lg:pt-10 pb-8 sm:pb-10 lg:pb-12 px-4 sm:px-6 lg:px-8 bg-white flex items-center">
+    <section id="home" className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-4.5rem)] px-4 sm:px-6 lg:px-8 bg-white flex items-center">
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
 
