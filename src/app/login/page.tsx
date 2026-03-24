@@ -66,7 +66,7 @@ export default function LoginPage() {
             </Link>
               <Link
                 href="/register"
-                className="text-base font-semibold text-black hover:underline"
+                className="text-[18px] font-semibold text-black hover:underline"
               >
         Sign up
               </Link>

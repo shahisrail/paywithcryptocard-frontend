@@ -87,7 +87,7 @@ export default function RegisterPage() {
             </Link>
             <Link
               href="/login"
-              className="text-base sm:text-lg font-semibold text-black hover:underline px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="text-[18px] sm:text-lg font-semibold text-black hover:underline px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               Sign In
             </Link>

@@ -395,33 +395,7 @@ export default function TopUpPage() {
                 </button>
               </div>
 
-              {/* Info Card */}
-              <div className="lg:col-span-1">
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 sticky top-24">
-                  <div className="flex items-start gap-2 mb-4">
-                    <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold text-blue-900 mb-2">
-                        Deposit Instructions
-                      </h3>
-                      <ul className="text-sm text-blue-800 space-y-2">
-                        <li>1. Select cryptocurrency</li>
-                        <li>2. Enter USD amount</li>
-                        <li>3. Get deposit address</li>
-                        <li>4. Send crypto to address</li>
-                        <li>5. Submit transaction hash</li>
-                        <li>6. Wait for admin approval</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="bg-blue-100 rounded-lg p-3">
-                    <p className="text-xs text-blue-900">
-                      <strong>Important:</strong> Deposits are manually reviewed by admin.
-                      Approval typically takes 1-24 hours.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          
             </div>
           ) : (
             /* Step 2: Deposit Address & Submit */

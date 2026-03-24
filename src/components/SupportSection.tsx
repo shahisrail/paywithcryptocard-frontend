@@ -86,7 +86,7 @@ const SupportSection = () => {
                 {option.email ? (
                   <a
                     href={`mailto:${option.email}`}
-                    onClick={(e) => {
+                    onClick={() => {
                       setTimeout(() => {
                         window.open(
                           `https://mail.google.com/mail/?view=cm&fs=1&to=${option.email}`,

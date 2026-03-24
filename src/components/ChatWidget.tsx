@@ -75,10 +75,6 @@ const ChatWidget = () => {
     }
   };
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  };
-
   return (
     <>
       {/* Chat Button */}
@@ -93,7 +89,6 @@ const ChatWidget = () => {
       >
         <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
         <span className="text-xs sm:text-sm font-medium hidden sm:inline">Need support?</span>
-        <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
       </motion.button>
 
       {/* Chat Window */}
@@ -111,10 +106,8 @@ const ChatWidget = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800 rounded-t-2xl">
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <div>
                   <h3 className="font-semibold text-white">Support</h3>
-                  <p className="text-xs text-gray-400">Online</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -153,9 +146,6 @@ const ChatWidget = () => {
                         }`}
                       >
                         <p className="text-sm">{msg.text}</p>
-                        <p className="text-xs mt-1 opacity-70">
-                          {formatTime(msg.timestamp)}
-                        </p>
                       </div>
                     </motion.div>
                   ))}

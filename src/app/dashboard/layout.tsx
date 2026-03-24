@@ -25,13 +25,13 @@ export default function DashboardLayout({
               <div className="flex items-center justify-between h-16">
                 <h1 className="text-lg md:text-xl font-semibold text-black">Dashboard</h1>
 
-                <div className="flex items-center gap-4">
+                {/* <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
                     <span className="text-white font-medium text-sm">
                       {user?.fullName?.charAt(0) || "U"}
                     </span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </header>

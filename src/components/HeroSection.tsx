@@ -12,7 +12,10 @@ const HeroSection = () => {
   });
 
   return (
-    <section id="home" className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-4.5rem)] px-4 sm:px-6 lg:px-8 bg-white flex items-center">
+    <section
+      id="home"
+      className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-4.5rem)] px-4 sm:px-6 lg:px-8 bg-white flex items-center"
+    >
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
 
@@ -22,15 +25,15 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto lg:mx-0 -mt-6 sm:-mt-8"
+            className="max-w-2xl mx-auto lg:mx-0 flex flex-col justify-center"
           >
-            
+
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight tracking-tight text-black"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5  leading-tight tracking-tight text-black"
             >
               Turn Crypto Into a Virtual Visa Card
             </motion.h1>
@@ -40,13 +43,13 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-5 sm:mb-6 leading-relaxed"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
               Get your virtual Visa card in seconds. Top up with crypto and pay online anywhere Visa is accepted.
             </motion.p>
 
             {/* Value + CTA Row */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 md:justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mt-6 sm:mt-8">
 
               {/* No KYC */}
               <motion.div
@@ -78,10 +81,9 @@ const HeroSection = () => {
               >
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center px-5 sm:px-8 py-3 sm:py-4 bg-black text-white font-semibold text-sm sm:text-base rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-fit"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-black text-white font-semibold text-sm sm:text-base rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-fit"
                 >
                   <span>Create Free Account</span>
-
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </motion.div>
@@ -90,15 +92,17 @@ const HeroSection = () => {
 
           </motion.div>
 
-          {/* Right Content - Card */}
+          {/* Right Content - Image */}
           <div className="relative flex justify-center items-center mt-6 sm:mt-8 lg:mt-0">
-
-         <img src="/logos/hero3.png" alt="" className="w-full max-w-md lg:max-w-lg" />
+            <img
+              src="/logos/hero3.png"
+              alt=""
+              className="w-full max-w-md lg:max-w-lg"
+            />
           </div>
 
         </div>
       </div>
-
     </section>
   );
 };

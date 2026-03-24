@@ -142,6 +142,7 @@
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
+      --tw-space-x-reverse: 0;
       --tw-divide-y-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;
@@ -852,8 +853,12 @@
     margin-block: calc(var(--spacing) * 6);
   }
 
-  .-mt-6 {
-    margin-top: calc(var(--spacing) * -6);
+  .-mt-8 {
+    margin-top: calc(var(--spacing) * -8);
+  }
+
+  .-mt-12 {
+    margin-top: calc(var(--spacing) * -12);
   }
 
   .mt-0\.5 {
@@ -900,6 +905,10 @@
     margin-right: calc(var(--spacing) * 2);
   }
 
+  .-mb-10 {
+    margin-bottom: calc(var(--spacing) * -10);
+  }
+
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
   }
@@ -926,6 +935,10 @@
 
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
+  }
+
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
 
   .mb-12 {
@@ -1394,6 +1407,10 @@
     gap: calc(var(--spacing) * 4);
   }
 
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
+
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
@@ -1446,6 +1463,42 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
+  :where(.space-y-10 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 10) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 10) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
+  :where(.space-x-0 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 0) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 0) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  :where(.space-x-10 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 10) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 10) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  :where(.space-x-20 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 20) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 20) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  :where(.space-x-40 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 40) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 40) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  :where(.space-x-50 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 50) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 50) * calc(1 - var(--tw-space-x-reverse)));
   }
 
   :where(.divide-y > :not(:last-child)) {
@@ -2358,6 +2411,10 @@
     padding-top: calc(var(--spacing) * 12);
   }
 
+  .pt-16 {
+    padding-top: calc(var(--spacing) * 16);
+  }
+
   .pr-3 {
     padding-right: calc(var(--spacing) * 3);
   }
@@ -2474,10 +2531,6 @@
 
   .text-\[18px\] {
     font-size: 18px;
-  }
-
-  .text-\[20px\] {
-    font-size: 20px;
   }
 
   .leading-relaxed {
@@ -3368,8 +3421,20 @@
   }
 
   @media (min-width: 40rem) {
-    .sm\:-mt-8 {
-      margin-top: calc(var(--spacing) * -8);
+    .sm\:-mt-10 {
+      margin-top: calc(var(--spacing) * -10);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:-mt-16 {
+      margin-top: calc(var(--spacing) * -16);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:-mt-20 {
+      margin-top: calc(var(--spacing) * -20);
     }
   }
 
@@ -3726,6 +3791,12 @@
   }
 
   @media (min-width: 40rem) {
+    .sm\:pt-20 {
+      padding-top: calc(var(--spacing) * 20);
+    }
+  }
+
+  @media (min-width: 40rem) {
     .sm\:text-2xl {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -4029,6 +4100,12 @@
   }
 
   @media (min-width: 64rem) {
+    .lg\:pt-24 {
+      padding-top: calc(var(--spacing) * 24);
+    }
+  }
+
+  @media (min-width: 64rem) {
     .lg\:text-3xl {
       font-size: var(--text-3xl);
       line-height: var(--tw-leading, var(--text-3xl--line-height));
@@ -4319,6 +4396,12 @@ body {
 }
 
 @property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-space-x-reverse {
   syntax: "*";
   inherits: false;
   initial-value: 0;
