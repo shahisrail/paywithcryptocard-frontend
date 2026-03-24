@@ -22,7 +22,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto lg:mx-0"
+            className="max-w-2xl mx-auto lg:mx-0 -mt-6 sm:-mt-8"
           >
             
             {/* Headline */}

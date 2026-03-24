@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRegisterMutation } from "@/redux/services/authApi";
 import { setCredentials, selectIsAuthenticated, selectUserRole } from "@/redux/slices/authSlice";
-import ChatWidget from "@/components/ChatWidget";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -83,12 +82,12 @@ export default function RegisterPage() {
       <nav className="border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="text-xl font-bold text-black tracking-tight">
+            <Link href="/" className="text-[18px]  font-bold text-black tracking-tight">
               PayWithCryptoCard
             </Link>
             <Link
               href="/login"
-              className="text-sm font-semibold text-black hover:underline"
+              className="text-base sm:text-lg font-semibold text-black hover:underline px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               Sign In
             </Link>
@@ -275,7 +274,7 @@ export default function RegisterPage() {
             </form>
 
             {/* Sign In Link */}
-            <p className="mt-6 text-center text-sm sm:text-base text-gray-600">
+            <p className="mt-6 text-center text-xl sm:text-lg text-gray-600">
               Already have an account?{" "}
               <Link href="/login" className="font-semibold text-black hover:underline">
                 Sign In
@@ -285,7 +284,6 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
-    <ChatWidget />
   </>
   );
 }

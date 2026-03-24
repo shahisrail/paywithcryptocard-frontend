@@ -34,6 +34,13 @@ const ChatWidget = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Listen for custom event to open chat from SupportSection
+  useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-chat-widget', handleOpenChat);
+    return () => window.removeEventListener('open-chat-widget', handleOpenChat);
+  }, []);
+
   const sendMessage = async () => {
     if (message.trim() === "") return;
 

@@ -293,7 +293,7 @@ export default function TopUpPage() {
 
                   {/* Quick Amount Buttons */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                    {[50, 100, 250, 500].map((amt) => (
+                    {[100, 250, 500, 1000].map((amt) => (
                       <button
                         key={amt}
                         onClick={() => setAmount(amt.toString())}

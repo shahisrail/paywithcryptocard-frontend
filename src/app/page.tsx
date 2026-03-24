@@ -8,7 +8,6 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import SupportSection from "@/components/SupportSection";
 import Footer from "@/components/Footer";
-import ChatWidget from "@/components/ChatWidget";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
         <SupportSection />
       </main>
       <Footer />
-      <ChatWidget />
     </div>
   );
 }
