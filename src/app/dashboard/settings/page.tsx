@@ -46,7 +46,7 @@ function SettingsPageContent() {
                   className={`flex-1 pb-3 text-sm font-medium transition-colors relative ${
                     activeTab === tab.id
                       ? "text-black"
-                      : "text-gray-600 hover:text-black"
+                      : "text-black hover:text-black"
                   }`}
                 >
                   {tab.label}
@@ -71,7 +71,7 @@ function SettingsPageContent() {
                       type="email"
                       value={user?.email || ""}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed"
                     />
                   </div>
 
@@ -83,7 +83,7 @@ function SettingsPageContent() {
                       type="text"
                       value={user?.fullName || ""}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed"
                     />
                   </div>
 
@@ -95,7 +95,7 @@ function SettingsPageContent() {
                       type="text"
                       value={user?.role === 'admin' ? 'Administrator' : 'User'}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed capitalize"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed capitalize"
                     />
                   </div>
 
@@ -107,7 +107,7 @@ function SettingsPageContent() {
                       type="text"
                       value={user?.isActive ? 'Active' : 'Inactive'}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed capitalize"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed capitalize"
                     />
                   </div>
 
@@ -119,7 +119,7 @@ function SettingsPageContent() {
                       type="text"
                       value="N/A"
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed"
                     />
                   </div>
                 </div>

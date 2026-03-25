@@ -180,10 +180,10 @@ export default function TransactionsPage() {
         </h1>
         <div className="flex items-center gap-3 self-start sm:self-auto">
           <button className="p-2.5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50">
-            <Calendar className="w-5 h-5 text-slate-700" />
+            <Calendar className="w-5 h-5 text-black" />
           </button>
           <button className="p-2.5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50">
-            <Download className="w-5 h-5 text-slate-700" />
+            <Download className="w-5 h-5 text-black" />
           </button>
         </div>
       </div>
@@ -203,8 +203,8 @@ export default function TransactionsPage() {
                   <ArrowDownLeft className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Income</p>
-                  <p className="text-lg font-semibold text-slate-900">{formatCurrency(totalIncome)}</p>
+                  <p className="text-sm text-black">Income</p>
+                  <p className="text-lg font-semibold text-black">{formatCurrency(totalIncome)}</p>
                 </div>
               </div>
             </div>
@@ -221,8 +221,8 @@ export default function TransactionsPage() {
                   <ArrowUpRight className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Expenses</p>
-                  <p className="text-lg font-semibold text-slate-900">{formatCurrency(totalExpenses)}</p>
+                  <p className="text-sm text-black">Expenses</p>
+                  <p className="text-lg font-semibold text-black">{formatCurrency(totalExpenses)}</p>
                 </div>
               </div>
             </div>
@@ -239,7 +239,7 @@ export default function TransactionsPage() {
                   <ArrowRightLeft className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Net Balance</p>
+                  <p className="text-sm font-bold text-black">Net Balance</p>
                   <p
                     className={`text-lg font-semibold ${
                       netBalance >= 0 ? "text-emerald-600" : "text-rose-600"
@@ -263,8 +263,8 @@ export default function TransactionsPage() {
                   <ArrowRightLeft className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Total Transactions</p>
-                  <p className="text-lg font-semibold text-slate-900">{transactions.length}</p>
+                  <p className="text-sm text-black">Total Transactions</p>
+                  <p className="text-lg font-semibold text-black">{transactions.length}</p>
                 </div>
               </div>
             </div>
@@ -275,7 +275,7 @@ export default function TransactionsPage() {
         <div className="mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-black w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search transactions..."
@@ -311,7 +311,7 @@ export default function TransactionsPage() {
               </select>
 
               <button className="p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
-                <Filter className="w-5 h-5 text-slate-700" />
+                <Filter className="w-5 h-5 text-black" />
               </button>
             </div>
           </div>
@@ -323,22 +323,22 @@ export default function TransactionsPage() {
             <table className="w-full min-w-[800px]">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left p-5 text-sm font-medium text-slate-600">
+                  <th className="text-left p-5 text-sm font-medium text-black">
                     Transaction
                   </th>
-                  <th className="text-left p-5 text-sm font-medium text-slate-600">
+                  <th className="text-left p-5 text-sm font-medium text-black">
                     Date & Time
                   </th>
-                  <th className="text-left p-5 text-sm font-medium text-slate-600">
+                  <th className="text-left p-5 text-sm font-medium text-black">
                     Card
                   </th>
-                  <th className="text-right p-5 text-sm font-medium text-slate-600">
+                  <th className="text-right p-5 text-sm font-medium text-black">
                     Amount
                   </th>
-                  <th className="text-center p-5 text-sm font-medium text-slate-600">
+                  <th className="text-center p-5 text-sm font-medium text-black">
                     Status
                   </th>
-                  <th className="text-center p-5 text-sm font-medium text-slate-600">
+                  <th className="text-center p-5 text-sm font-medium text-black">
                     Actions
                   </th>
                 </tr>
@@ -372,15 +372,15 @@ export default function TransactionsPage() {
                             <span className="text-xl">{getCategoryIcon(item.type, item.itemType, item.currency)}</span>
                           </div>
                           <div>
-                            <p className="font-semibold text-slate-900">
+                            <p className="font-semibold text-black">
                               {item.description || item.type.replace("_", " ")}
                             </p>
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-black">
                               {item._id.slice(-8).toUpperCase()}
                               {isDeposit && <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Pending Deposit</span>}
                             </p>
                             {isDeposit && item.txHash && (
-                              <p className="text-xs text-slate-500 font-mono truncate max-w-xs mt-1">
+                              <p className="text-xs text-black font-mono truncate max-w-xs mt-1">
                                 TX: {item.txHash}
                               </p>
                             )}
@@ -390,25 +390,25 @@ export default function TransactionsPage() {
 
                       <td className="p-5 bg-white">
                         <div>
-                          <p className="text-sm text-slate-700">{date}</p>
-                          <p className="text-xs text-slate-500">{time}</p>
+                          <p className="text-sm text-black">{date}</p>
+                          <p className="text-xs text-black">{time}</p>
                         </div>
                       </td>
 
                       <td className="p-5 bg-white">
                         {card ? (
-                          <div className="flex items-center gap-2 text-slate-700">
-                            <CreditCard className="w-4 h-4 text-slate-400" />
+                          <div className="flex items-center gap-2 text-black">
+                            <CreditCard className="w-4 h-4 text-black" />
                             <span className="text-sm">{card.cardHolder}</span>
-                            <span className="text-xs text-slate-500">•••• {card.cardNumber?.slice(-4)}</span>
+                            <span className="text-xs text-black">•••• {card.cardNumber?.slice(-4)}</span>
                           </div>
                         ) : isDeposit ? (
-                          <div className="flex items-center gap-2 text-slate-700">
-                            <Bitcoin className="w-4 h-4 text-slate-400" />
+                          <div className="flex items-center gap-2 text-black">
+                            <Bitcoin className="w-4 h-4 text-black" />
                             <span className="text-sm">{item.currency}</span>
                           </div>
                         ) : (
-                          <span className="text-sm text-slate-500">-</span>
+                          <span className="text-sm text-black">-</span>
                         )}
                       </td>
 
@@ -451,7 +451,7 @@ export default function TransactionsPage() {
 
                       <td className="p-5 bg-white text-center">
                         <button className="p-2 bg-gray-50 border border-gray-100 rounded-lg hover:bg-gray-100">
-                          <Eye className="w-4 h-4 text-slate-700" />
+                          <Eye className="w-4 h-4 text-black" />
                         </button>
                       </td>
                     </motion.tr>
@@ -466,11 +466,11 @@ export default function TransactionsPage() {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16 text-slate-500"
+            className="text-center py-16 text-black"
           >
-            <ArrowRightLeft className="w-12 h-12 mx-auto mb-4 text-slate-400" />
-            <p className="text-lg text-gray-600 mb-2">You haven't made any transactions yet.</p>
-            <p className="text-sm text-gray-500">Your recent transactions will appear here.</p>
+            <ArrowRightLeft className="w-12 h-12 mx-auto mb-4 text-black" />
+            <p className="text-lg text-black mb-2">You haven't made any transactions yet.</p>
+            <p className="text-sm text-black">Your recent transactions will appear here.</p>
           </motion.div>
         )}
 
@@ -489,26 +489,26 @@ export default function TransactionsPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-slate-900">Transaction Details</h3>
+                <h3 className="text-lg font-semibold text-black">Transaction Details</h3>
                 <button
                   onClick={() => setSelectedTransaction(null)}
-                  className="p-1 text-slate-500 hover:text-slate-700"
+                  className="p-1 text-black hover:text-black"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="space-y-3 text-sm text-slate-700">
+              <div className="space-y-3 text-sm text-black">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Type</span>
+                  <span className="text-black">Type</span>
                   <span className="font-medium">{selectedTransaction.type?.replace("_", " ") || "N/A"}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Description</span>
+                  <span className="text-black">Description</span>
                   <span>{selectedTransaction.description || "N/A"}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Amount</span>
+                  <span className="text-black">Amount</span>
                   <span
                     className={`font-semibold ${
                       selectedTransaction.amount > 0 ? "text-emerald-600" : "text-rose-600"
@@ -519,15 +519,15 @@ export default function TransactionsPage() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Date</span>
+                  <span className="text-black">Date</span>
                   <span>{formatDate(selectedTransaction.createdAt).date}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Time</span>
+                  <span className="text-black">Time</span>
                   <span>{formatDate(selectedTransaction.createdAt).time}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Status</span>
+                  <span className="text-black">Status</span>
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-semibold ${
                       selectedTransaction.status === "completed"

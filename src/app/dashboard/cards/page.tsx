@@ -98,7 +98,7 @@ function CardsPageContent() {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-black">My Cards</h1>
-          <p className="text-gray-600 mt-1">Manage your virtual cards</p>
+          <p className="text-black mt-1">Manage your virtual cards</p>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <button
@@ -106,9 +106,9 @@ function CardsPageContent() {
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors self-center sm:self-auto"
           >
             {showBalance ? (
-              <EyeOff className="w-5 h-5 text-gray-600" />
+              <EyeOff className="w-5 h-5 text-black" />
             ) : (
-              <Eye className="w-5 h-5 text-gray-600" />
+              <Eye className="w-5 h-5 text-black" />
             )}
           </button>
           {canCreateCard ? (
@@ -170,12 +170,12 @@ function CardsPageContent() {
 
               <div className="flex items-end justify-between">
                 <div>
-                  <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">Card Holder</p>
+                  <p className="text-black text-xs mb-1 uppercase tracking-wider">Card Holder</p>
                   <p className="text-white text-sm font-medium">{card.cardHolder}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">Expires</p>
+                    <p className="text-black text-xs mb-1 uppercase tracking-wider">Expires</p>
                     <p className="text-white text-sm font-medium">{card.expiryDate}</p>
                   </div>
                   <button
@@ -196,13 +196,13 @@ function CardsPageContent() {
             <div className="p-4 border-t border-gray-200">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Balance</span>
+                  <span className="text-sm font-bold text-black">Balance</span>
                   <span className="text-lg font-semibold text-black">
                     {showBalance ? formatCurrency(card.balance) : "••••"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Spending Limit</span>
+                  <span className="text-sm text-black">Spending Limit</span>
                   <span className="text-sm font-medium text-black">
                     {formatCurrency(card.spendingLimit)}
                   </span>
@@ -225,9 +225,9 @@ function CardsPageContent() {
 
       {cards.length === 0 && !isLoading && (
         <div className="text-center py-16">
-          <CreditCard className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 text-lg mb-2">You don't have any cards yet.</p>
-          <p className="text-gray-500 text-sm mb-6">Add funds to create a new card.</p>
+          <CreditCard className="w-16 h-16 text-black mx-auto mb-4" />
+          <p className="text-black text-lg mb-2">You don't have any cards yet.</p>
+          <p className="text-black text-sm mb-6">Add funds to create a new card.</p>
           {canCreateCard ? (
             <button
               onClick={handleCreateCard}

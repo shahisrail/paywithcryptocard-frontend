@@ -98,14 +98,14 @@ export default function DashboardSidebar() {
               <p className="text-sm font-medium text-black truncate">
                 {user?.fullName || "User"}
               </p>
-              <p className="text-xs text-gray-500 truncate">
+              <p className="text-xs text-black truncate">
                 {user?.email || ""}
               </p>
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-100">
             <div className="flex flex-col gap-2">
-              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Balance</span>
+              <span className="text-3xl font-bold text-black uppercase tracking-wide">Balance</span>
               <div className="flex items-center justify-between">
                 <span className="text-3xl font-bold text-black">
                   {showBalance
@@ -117,7 +117,7 @@ export default function DashboardSidebar() {
                 </span>
                 <button
                   onClick={() => setShowBalance(!showBalance)}
-                  className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="text-black hover:text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   {showBalance ? (
                     <svg
@@ -173,7 +173,7 @@ export default function DashboardSidebar() {
                 className={`flex items-center gap-3 px-4 py-4 rounded-lg transition-colors ${
                   isActive
                     ? "bg-black text-white font-medium"
-                    : "text-gray-600 hover:text-black hover:bg-gray-50"
+                    : "text-black hover:text-black hover:bg-gray-50 font-medium"
                 }`}
               >
                 <item.icon className="w-5 h-5" />
@@ -187,7 +187,7 @@ export default function DashboardSidebar() {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="flex items-center gap-3 px-4 py-4 text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-3 px-4 py-4 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
             <LogOut className="w-5 h-5" />
             {isLoggingOut ? "Signing Out..." : "Sign Out"}

@@ -200,7 +200,7 @@ export default function TopUpPage() {
         <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">
           Add Funds
         </h1>
-        <p className="text-gray-600">Top up your account with cryptocurrency</p>
+        <p className="text-black">Top up your account with cryptocurrency</p>
       </div>
 
       {/* Tabs */}
@@ -210,7 +210,7 @@ export default function TopUpPage() {
           className={`px-6 py-3 font-medium transition-colors relative ${
             activeTab === "deposit"
               ? "text-black"
-              : "text-gray-600 hover:text-black"
+              : "text-black hover:text-black"
           }`}
         >
           Deposit
@@ -223,7 +223,7 @@ export default function TopUpPage() {
           className={`px-6 py-3 font-medium transition-colors relative ${
             activeTab === "history"
               ? "text-black"
-              : "text-gray-600 hover:text-black"
+              : "text-black hover:text-black"
           }`}
         >
           History
@@ -270,11 +270,11 @@ export default function TopUpPage() {
                   </h2>
 
                   <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-black mb-2">
                       USD Amount
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black text-lg">
                         $
                       </span>
                       <input
@@ -286,7 +286,7 @@ export default function TopUpPage() {
                         className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-xl md:text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                       />
                     </div>
-                    <p className="mt-2 text-sm text-gray-600">
+                    <p className="mt-2 text-sm text-black">
                       Minimum deposit: ${minimumDeposit}
                     </p>
                   </div>
@@ -357,9 +357,9 @@ export default function TopUpPage() {
                           </span>
                         </div>
                       </div>
-                      <p className="text-xs text-green-700 mt-2">
+                      {/* <p className="text-xs text-green-700 mt-2">
                         ✓ Real-time conversion using CoinGecko API
-                      </p>
+                      </p> */}
                     </div>
                   )}
 
@@ -372,13 +372,13 @@ export default function TopUpPage() {
                   disabled={!selectedCrypto || !amount}
                   className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                 >
-                  <ArrowDownLeft className="w-5 h-5" />
+               
                   Pay with your chosen crypto
                 </button>
               </div>
               <div>
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <label className="block text-sm font-medium text-gray-700  ">
+                  <label className="block text-sm font-medium text-black  mb-2">
                     Select Cryptocurrency
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ">
@@ -432,11 +432,11 @@ export default function TopUpPage() {
                   </h2>
 
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-black mb-2">
                       Send {selectedCrypto} to this address:
                     </label>
                     <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg mb-4">
-                      <div className="flex-1 font-mono text-xs text-gray-600 break-all">
+                      <div className="flex-1 font-mono text-xs text-black break-all">
                         {(cryptoAddresses[
                           selectedCrypto as keyof typeof cryptoAddresses
                         ] as string) || "Address not configured"}
@@ -459,7 +459,7 @@ export default function TopUpPage() {
                         {copiedAddress ? (
                           <Check className="w-4 h-4 text-green-600" />
                         ) : (
-                          <Copy className="w-4 h-4 text-gray-600" />
+                          <Copy className="w-4 h-4 text-black" />
                         )}
                       </button>
                     </div>
@@ -484,7 +484,7 @@ export default function TopUpPage() {
                               alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
                               className="w-48 h-48 object-contain"
                             />
-                            <p className="text-xs text-gray-500 text-center mt-2">
+                            <p className="text-xs text-black text-center mt-2">
                               Scan with your crypto wallet app
                             </p>
                           </div>
@@ -524,7 +524,7 @@ export default function TopUpPage() {
                   </h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-black">
                         Cryptocurrency
                       </span>
                       <span className="text-sm font-medium text-black flex items-center gap-2">
@@ -539,7 +539,7 @@ export default function TopUpPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">You send</span>
+                      <span className="text-sm text-black">You send</span>
                       <span className="text-sm font-bold text-black">
                         {cryptoAmount !== null
                           ? `${
@@ -551,13 +551,13 @@ export default function TopUpPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">USD Value</span>
+                      <span className="text-sm text-black">USD Value</span>
                       <span className="text-sm font-medium text-black">
                         {formatCurrency(parseFloat(amount))}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-black">
                         Exchange Fee (2.5%)
                       </span>
                       <span className="text-sm font-medium text-red-600">
@@ -592,8 +592,8 @@ export default function TopUpPage() {
             </div>
           ) : deposits.length === 0 ? (
             <div className="p-16 text-center">
-              <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-4">No deposit history yet.</p>
+              <Clock className="w-16 h-16 text-black mx-auto mb-4" />
+              <p className="text-black mb-4">No deposit history yet.</p>
               <button
                 onClick={() => setActiveTab("deposit")}
                 className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
@@ -607,7 +607,7 @@ export default function TopUpPage() {
                 <h3 className="text-lg font-semibold text-black">
                   Deposit History
                 </h3>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black">
                   Total: {deposits.length} deposit
                   {deposits.length !== 1 ? "s" : ""}
                 </div>
@@ -673,12 +673,12 @@ export default function TopUpPage() {
                                   deposit.status.slice(1)}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-700 font-medium">
+                            <p className="text-sm text-black font-medium">
                               {deposit.amount} {deposit.currency}
                             </p>
                             {deposit.txHash && (
                               <p
-                                className="text-xs text-gray-500 font-mono truncate max-w-md mt-1"
+                                className="text-xs text-black font-mono truncate max-w-md mt-1"
                                 title={deposit.txHash}
                               >
                                 TX: {deposit.txHash}
@@ -686,7 +686,7 @@ export default function TopUpPage() {
                             )}
                             {deposit.walletAddress && (
                               <p
-                                className="text-xs text-gray-500 font-mono truncate max-w-md mt-1"
+                                className="text-xs text-black font-mono truncate max-w-md mt-1"
                                 title={deposit.walletAddress}
                               >
                                 To: {deposit.walletAddress}
@@ -703,7 +703,7 @@ export default function TopUpPage() {
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-black">
                             {formatDate(deposit.createdAt)}
                           </p>
                           {deposit.usdAmount && (
