@@ -63,6 +63,7 @@ export default function TopUpPage() {
   const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Submit deposit
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
 
   // Convert USD to crypto when amount or crypto changes
   useEffect(() => {
@@ -108,6 +109,13 @@ export default function TopUpPage() {
     USDT_TRC20: "",
     XMR: "",
     minimumDeposit: 10,
+  };
+  const qrCodeImages = addressesData?.data?.qrCodeImages || {
+    BTC: "",
+    ETH: "",
+    USDT_ERC20: "",
+    USDT_TRC20: "",
+    XMR: "",
   };
   const minimumDeposit = cryptoAddresses.minimumDeposit || 10;
   const deposits = depositsData?.data?.deposits || [];
@@ -337,6 +345,20 @@ export default function TopUpPage() {
                           </p>
                         </div>
                       </div>
+                      <div className="mt-3 pt-3 border-t border-green-200">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-green-700">Exchange Fee (2.5%)</span>
+                          <span className="font-semibold text-red-600">
+                            -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className="text-green-700 font-medium">You will receive</span>
+                          <span className="text-lg font-bold text-green-900">
+                            {formatCurrency(parseFloat(amount) * (1 - EXCHANGE_FEE))}
+                          </span>
+                        </div>
+                      </div>
                       <p className="text-xs text-green-700 mt-2">
                         ✓ Real-time conversion using CoinGecko API
                       </p>
@@ -411,7 +433,7 @@ export default function TopUpPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Send {selectedCrypto} to this address:
                     </label>
-                    <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg">
+                    <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg mb-4">
                       <div className="flex-1 font-mono text-xs text-gray-600 break-all">
                         {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) || "Address not configured"}
                       </div>
@@ -431,6 +453,29 @@ export default function TopUpPage() {
                         )}
                       </button>
                     </div>
+
+                    {/* QR Code */}
+                    {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) && (
+                      <div className="flex justify-center mb-4">
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                          {(qrCodeImages[selectedCrypto as keyof typeof qrCodeImages] as string) ? (
+                            <img
+                              src={(qrCodeImages[selectedCrypto as keyof typeof qrCodeImages] as string)}
+                              alt={`${CRYPTOCURRENCIES[selectedCrypto!].name} QR Code`}
+                              className="w-48 h-48 object-contain"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <div className="w-48 h-48 flex items-center justify-center bg-gray-100 text-gray-400 text-sm text-center p-4">
+                              QR code not configured by admin
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     {!(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) && (
                       <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded">
                         <p className="text-xs text-yellow-800">
@@ -459,21 +504,7 @@ export default function TopUpPage() {
                       </p>
                     </div>
 
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <div className="flex items-start gap-2">
-                        <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-                        <div className="text-sm text-yellow-900">
-                          <p className="font-medium mb-1">Before submitting:</p>
-                          <ul className="space-y-1 text-yellow-800">
-                            <li>• Send exactly {formatCurrency(parseFloat(amount))}</li>
-                            <li>• Use the correct network</li>
-                            <li>• Copy the transaction hash from your wallet</li>
-                            <li>• Deposit will be reviewed by admin</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
+                    
                     <div className="flex gap-4">
                       <button
                         type="button"
@@ -539,11 +570,17 @@ export default function TopUpPage() {
                         {formatCurrency(parseFloat(amount))}
                       </span>
                     </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Exchange Fee (2.5%)</span>
+                      <span className="text-sm font-medium text-red-600">
+                        -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
+                      </span>
+                    </div>
                     <div className="border-t border-gray-300 pt-3">
                       <div className="flex justify-between">
                         <span className="text-sm font-medium text-black">You will receive</span>
                         <span className="text-lg font-bold text-green-600">
-                          {formatCurrency(parseFloat(amount))}
+                          {formatCurrency(parseFloat(amount) * (1 - EXCHANGE_FEE))}
                         </span>
                       </div>
                     </div>

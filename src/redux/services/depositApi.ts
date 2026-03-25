@@ -9,10 +9,19 @@ export interface CryptoAddress {
   XMR: string;
 }
 
+export interface QrCodeImages {
+  BTC: string;
+  ETH: string;
+  USDT_ERC20: string;
+  USDT_TRC20: string;
+  XMR: string;
+}
+
 export interface DepositAddressResponse {
   success: boolean;
   data: CryptoAddress & {
     minimumDeposit?: number;
+    qrCodeImages?: QrCodeImages;
   };
 }
 

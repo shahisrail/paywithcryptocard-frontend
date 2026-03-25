@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import {
-  Settings,
   Wallet,
   Save,
   CheckCircle,
@@ -38,6 +37,13 @@ export default function AdminSettingsPage() {
       usdtTrc20: "",
       xmr: "",
     },
+    qrCodeImages: {
+      btc: "",
+      eth: "",
+      usdtErc20: "",
+      usdtTrc20: "",
+      xmr: "",
+    },
     minimumDeposit: 10,
     cardIssuanceFee: 5,
     isActive: true,
@@ -48,7 +54,17 @@ export default function AdminSettingsPage() {
   // Update local settings when data loads
   useEffect(() => {
     if (settingsData?.data) {
-      setLocalSettings(settingsData.data);
+      setLocalSettings({
+        ...settingsData.data,
+        qrCodeImages: {
+          btc: "",
+          eth: "",
+          usdtErc20: "",
+          usdtTrc20: "",
+          xmr: "",
+          ...(settingsData.data.qrCodeImages || {}),
+        },
+      });
     }
   }, [settingsData]);
 
@@ -57,6 +73,16 @@ export default function AdminSettingsPage() {
       ...prev,
       cryptoAddresses: {
         ...prev.cryptoAddresses,
+        [cryptoKey]: value,
+      },
+    }));
+  };
+
+  const handleQrCodeChange = (cryptoKey: string, value: string) => {
+    setLocalSettings(prev => ({
+      ...prev,
+      qrCodeImages: {
+        ...(prev.qrCodeImages || {}),
         [cryptoKey]: value,
       },
     }));
@@ -112,20 +138,7 @@ export default function AdminSettingsPage() {
         </div>
       )}
 
-      {/* Info Banner */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-        <div className="flex items-start gap-3">
-          <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-blue-900">
-            <p className="font-medium mb-1">Crypto Deposit Addresses</p>
-            <p className="text-blue-800">
-              These are the wallet addresses where users will send their cryptocurrency deposits.
-              When users select a cryptocurrency, they will see the corresponding address from this page.
-              Make sure to update these addresses with your actual wallet addresses.
-            </p>
-          </div>
-        </div>
-      </div>
+  
 
       <div className="space-y-8">
         {/* Crypto Addresses Section */}
@@ -138,8 +151,9 @@ export default function AdminSettingsPage() {
           <div className="space-y-6">
             {CRYPTOCURRENCIES.map((crypto) => {
               const Icon = crypto.icon;
+              const qrCodeImage = localSettings.qrCodeImages?.[crypto.key as keyof typeof localSettings.qrCodeImages] || "";
               return (
-                <div key={crypto.key} className="space-y-2">
+                <div key={crypto.key} className="space-y-4 p-4 border border-gray-200 rounded-lg">
                   <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                     <Icon className={`w-5 h-5 ${crypto.color}`} />
                     {crypto.name} Address
@@ -154,123 +168,48 @@ export default function AdminSettingsPage() {
                   <p className="text-xs text-gray-500">
                     Users will see this address when they select {crypto.name} for deposits
                   </p>
+
+                  {/* QR Code Image URL */}
+                  <div className="pt-2 border-t border-gray-100">
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                      <Info className="w-4 h-4 text-blue-500" />
+                      {crypto.name} QR Code Image URL
+                    </label>
+                    <input
+                      type="text"
+                      value={qrCodeImage}
+                      onChange={(e) => handleQrCodeChange(crypto.key, e.target.value)}
+                      placeholder="https://example.com/qr-codes/btc.png"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Upload QR code image to your hosting and paste the URL here
+                    </p>
+                    {qrCodeImage && (
+                      <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <p className="text-xs text-gray-600 mb-2">QR Code Preview:</p>
+                        <img
+                          src={qrCodeImage}
+                          alt={`${crypto.name} QR Code`}
+                          className="w-32 h-32 object-contain border border-gray-300 rounded bg-white"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f3f4f6' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%239ca3af' font-size='12'%3ENo Image%3C/text%3E%3C/svg%3E";
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Platform Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Settings className="w-6 h-6 text-black" />
-            <h2 className="text-xl font-semibold text-gray-900">Platform Settings</h2>
-          </div>
-
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Minimum Deposit Amount (USD)
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    value={localSettings.minimumDeposit}
-                    onChange={(e) =>
-                      setLocalSettings({
-                        ...localSettings,
-                        minimumDeposit: parseFloat(e.target.value) || 0,
-                      })
-                    }
-                    min="0"
-                    step="0.01"
-                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                </div>
-                <p className="mt-2 text-xs text-gray-500">
-                  Minimum amount users can deposit
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Card Issuance Fee (USD)
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    value={localSettings.cardIssuanceFee}
-                    onChange={(e) =>
-                      setLocalSettings({
-                        ...localSettings,
-                        cardIssuanceFee: parseFloat(e.target.value) || 0,
-                      })
-                    }
-                    min="0"
-                    step="0.01"
-                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                </div>
-                <p className="mt-2 text-xs text-gray-500">
-                  Fee charged when users create virtual cards
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Platform Status</p>
-                <p className="text-sm text-gray-500">
-                  {localSettings.isActive ? "Platform is active" : "Platform is disabled"}
-                </p>
-              </div>
-              <button
-                onClick={() =>
-                  setLocalSettings({
-                    ...localSettings,
-                    isActive: !localSettings.isActive,
-                  })
-                }
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  localSettings.isActive ? "bg-black" : "bg-gray-300"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    localSettings.isActive ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Important Notice */}
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-          <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-            <div className="text-sm text-amber-900">
-              <p className="font-medium mb-2">Important Notice</p>
-              <ul className="space-y-1 text-amber-800">
-                <li>• Only update these addresses if you have access to the corresponding wallets</li>
-                <li>• Users will send deposits to these addresses</li>
-                <li>• Changing addresses will immediately affect what users see</li>
-                <li>• Make sure addresses are correct before saving</li>
-                <li>• Always test with small amounts first</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+    
+      
 
         {/* Save Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-center pb-24 lg:pb-8">
           <button
             onClick={handleSave}
             disabled={isUpdating}

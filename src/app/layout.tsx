@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
-import ChatWidget from "@/components/ChatWidget";
+import ChatWidgetWrapper from "@/components/ChatWidgetWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,7 +40,7 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
-        <ChatWidget />
+        <ChatWidgetWrapper />
       </body>
     </html>
   );

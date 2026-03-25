@@ -47,6 +47,13 @@ export interface AdminSettings {
     usdtTrc20: string;
     xmr: string;
   };
+  qrCodeImages?: {
+    btc?: string;
+    eth?: string;
+    usdtErc20?: string;
+    usdtTrc20?: string;
+    xmr?: string;
+  };
   minimumDeposit: number;
   cardIssuanceFee: number;
   isActive: boolean;
