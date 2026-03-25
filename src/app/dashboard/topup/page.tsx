@@ -126,6 +126,30 @@ export default function TopUpPage() {
   const minimumDeposit = cryptoAddresses.minimumDeposit || 10;
   const deposits = depositsData?.data?.deposits || [];
 
+  // Format amount with appropriate decimals for each cryptocurrency
+  const formatAmount = (crypto: string, amount: number | null): string => {
+    if (amount === null) return "0";
+
+    const value = parseFloat(amount.toString());
+
+    switch (crypto) {
+      case "BTC":
+        return value.toFixed(8); // max 8 decimals (Bitcoin standard)
+      case "ETH":
+        return value.toFixed(6); // UI safe
+      case "USDT_ERC20":
+        return value.toFixed(2); // stablecoin
+      case "USDT_TRC20":
+        return value.toFixed(2); // stablecoin
+      case "USDC_ERC20":
+        return value.toFixed(2); // stablecoin
+      case "XMR":
+        return value.toFixed(6); // safe for UI
+      default:
+        return value.toString();
+    }
+  };
+
   // Generate QR data for different crypto types
   const getQRData = (
     crypto: string,
@@ -137,13 +161,14 @@ export default function TopUpPage() {
       return "";
     }
 
-    // For Bitcoin, use BIP21 URI scheme with amount
+    // For Bitcoin, use BIP21 URI scheme with formatted amount
     if (crypto === "BTC") {
       // Format: bitcoin:ADDRESS?amount=AMOUNT
-      return `bitcoin:${address}?amount=${amount}`;
+      const cleanAmount = formatAmount(crypto, amount);
+      return `bitcoin:${address}?amount=${cleanAmount}`;
     }
 
-    // For all other cryptocurrencies, just return the address
+    // For all other cryptocurrencies, just return the address (no amount in URI)
     return address;
   };
 
