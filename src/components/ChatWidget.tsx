@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Send, X, Minimize2, Maximize2 } from "lucide-react";
+import { Send, X, Minimize2, Maximize2 } from "lucide-react";
 
 interface Message {
   id: string;
@@ -77,20 +77,6 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* Chat Button */}
-      <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.3, delay: 1 }}
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-4 right-4 px-3 sm:px-4 h-12 sm:h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 gap-2 ${
-          isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
-        }`}
-      >
-        <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-        <span className="text-xs sm:text-sm font-medium hidden sm:inline">Need support?</span>
-      </motion.button>
-
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (

@@ -11,14 +11,16 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  Info,
   Loader2,
   XCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useGetDepositAddressesQuery } from "@/redux/services/depositApi";
-import { useCreateDepositMutation } from "@/redux/services/depositApi";
-import { useGetMyDepositsQuery } from "@/redux/services/depositApi";
+import {
+  useGetDepositAddressesQuery,
+  useCreateDepositMutation,
+  useGetMyDepositsQuery,
+  Deposit,
+} from "@/redux/services/depositApi";
 import { convertUsdToCrypto } from "@/utils/coingecko";
 
 const CRYPTOCURRENCIES = {
@@ -42,6 +44,11 @@ const CRYPTOCURRENCIES = {
     icon: Wallet,
     color: "from-red-400 to-red-600",
   },
+  USDC_ERC20: {
+    name: "USDC (ERC20)",
+    icon: Wallet,
+    color: "from-blue-400 to-blue-600",
+  },
   XMR: {
     name: "Monero",
     icon: Wallet,
@@ -53,14 +60,15 @@ type CryptoCurrency = keyof typeof CRYPTOCURRENCIES;
 
 export default function TopUpPage() {
   const router = useRouter();
-  const [selectedCrypto, setSelectedCrypto] = useState<CryptoCurrency | null>(null);
+  const [selectedCrypto, setSelectedCrypto] = useState<CryptoCurrency | null>(
+    null
+  );
   const [amount, setAmount] = useState("");
   const [cryptoAmount, setCryptoAmount] = useState<number | null>(null);
   const [isConverting, setIsConverting] = useState(false);
-  const [txHash, setTxHash] = useState("");
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [activeTab, setActiveTab] = useState<"deposit" | "history">("deposit");
-  const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Submit deposit
+  const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Show address
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
@@ -84,7 +92,7 @@ export default function TopUpPage() {
         const converted = await convertUsdToCrypto(usdAmount, selectedCrypto);
         setCryptoAmount(converted);
       } catch (err) {
-        console.error('Conversion error:', err);
+        console.error("Conversion error:", err);
         setCryptoAmount(null);
       } finally {
         setIsConverting(false);
@@ -95,11 +103,15 @@ export default function TopUpPage() {
   }, [amount, selectedCrypto]);
 
   // API calls
-  const { data: addressesData, isLoading: addressesLoading } = useGetDepositAddressesQuery();
-  const { data: depositsData, isLoading: depositsLoading, refetch } = useGetMyDepositsQuery({
+  const { data: addressesData, isLoading: addressesLoading } =
+    useGetDepositAddressesQuery();
+  const {
+    data: depositsData,
+    isLoading: depositsLoading,
+    refetch,
+  } = useGetMyDepositsQuery({
     limit: 20,
   });
-  const [createDeposit, { isLoading: isCreating }] = useCreateDepositMutation();
 
   // API returns addresses directly with uppercase keys: BTC, ETH, USDT_ERC20, etc.
   const cryptoAddresses = addressesData?.data || {
@@ -107,18 +119,33 @@ export default function TopUpPage() {
     ETH: "",
     USDT_ERC20: "",
     USDT_TRC20: "",
+    USDC_ERC20: "",
     XMR: "",
     minimumDeposit: 10,
   };
-  const qrCodeImages = addressesData?.data?.qrCodeImages || {
-    BTC: "",
-    ETH: "",
-    USDT_ERC20: "",
-    USDT_TRC20: "",
-    XMR: "",
-  };
   const minimumDeposit = cryptoAddresses.minimumDeposit || 10;
   const deposits = depositsData?.data?.deposits || [];
+
+  // Generate QR data for different crypto types
+  const getQRData = (
+    crypto: string,
+    address: string,
+    amount: number | null
+  ) => {
+    // Validate address first
+    if (!address || address.trim() === "") {
+      return "";
+    }
+
+    // For Bitcoin, use BIP21 URI scheme with amount
+    if (crypto === "BTC") {
+      // Format: bitcoin:ADDRESS?amount=AMOUNT
+      return `bitcoin:${address}?amount=${amount}`;
+    }
+
+    // For all other cryptocurrencies, just return the address
+    return address;
+  };
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
@@ -135,49 +162,6 @@ export default function TopUpPage() {
     }
     setError("");
     setStep(2);
-  };
-
-  const handleSubmitDeposit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedCrypto || !amount || !txHash || !cryptoAmount) {
-      setError("Please fill in all fields");
-      return;
-    }
-
-    const usdAmount = parseFloat(amount);
-    // API uses uppercase keys matching the currency enum
-    const walletAddress = cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string;
-
-    if (!walletAddress) {
-      setError("Deposit address not available. Please contact support.");
-      return;
-    }
-
-    try {
-      setError("");
-      // Send crypto amount and USD amount
-      await createDeposit({
-        currency: selectedCrypto,
-        amount: cryptoAmount, // Send the crypto amount
-        walletAddress: walletAddress,
-        txHash,
-        usdAmount: usdAmount, // Send the USD amount for admin to see
-      }).unwrap();
-
-      setSuccess("Deposit request submitted successfully!");
-      setStep(1);
-      setSelectedCrypto(null);
-      setAmount("");
-      setCryptoAmount(null);
-      setTxHash("");
-      refetch();
-
-      setTimeout(() => {
-        setSuccess("");
-      }, 3000);
-    } catch (err: any) {
-      setError(err.data?.message || "Failed to submit deposit. Please try again.");
-    }
   };
 
   const formatCurrency = (amount: number) => {
@@ -213,7 +197,9 @@ export default function TopUpPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">Add Funds</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">
+          Add Funds
+        </h1>
         <p className="text-gray-600">Top up your account with cryptocurrency</p>
       </div>
 
@@ -222,7 +208,9 @@ export default function TopUpPage() {
         <button
           onClick={() => setActiveTab("deposit")}
           className={`px-6 py-3 font-medium transition-colors relative ${
-            activeTab === "deposit" ? "text-black" : "text-gray-600 hover:text-black"
+            activeTab === "deposit"
+              ? "text-black"
+              : "text-gray-600 hover:text-black"
           }`}
         >
           Deposit
@@ -233,7 +221,9 @@ export default function TopUpPage() {
         <button
           onClick={() => setActiveTab("history")}
           className={`px-6 py-3 font-medium transition-colors relative ${
-            activeTab === "history" ? "text-black" : "text-gray-600 hover:text-black"
+            activeTab === "history"
+              ? "text-black"
+              : "text-gray-600 hover:text-black"
           }`}
         >
           History
@@ -271,11 +261,13 @@ export default function TopUpPage() {
             </div>
           ) : step === 1 ? (
             /* Step 1: Select Crypto & Amount */
-            <div className="grid lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
+            <div className="grid lg:grid-cols-2 gap-6">
+              <div className="  space-y-6">
                 {/* Amount Input */}
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h2 className="text-lg font-semibold text-black mb-4">Enter Amount</h2>
+                  <h2 className="text-lg font-semibold text-black mb-4">
+                    Enter Amount
+                  </h2>
 
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -330,7 +322,7 @@ export default function TopUpPage() {
                               <>
                                 {cryptoAmount < 0.01
                                   ? cryptoAmount.toFixed(8)
-                                  : cryptoAmount.toFixed(6)}{' '}
+                                  : cryptoAmount.toFixed(6)}{" "}
                                 {selectedCrypto}
                               </>
                             )}
@@ -347,15 +339,21 @@ export default function TopUpPage() {
                       </div>
                       <div className="mt-3 pt-3 border-t border-green-200">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-green-700">Exchange Fee (2.5%)</span>
+                          <span className="text-green-700">
+                            Exchange Fee (2.5%)
+                          </span>
                           <span className="font-semibold text-red-600">
                             -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between mt-2">
-                          <span className="text-green-700 font-medium">You will receive</span>
+                          <span className="text-green-700 font-medium">
+                            You will receive
+                          </span>
                           <span className="text-lg font-bold text-green-900">
-                            {formatCurrency(parseFloat(amount) * (1 - EXCHANGE_FEE))}
+                            {formatCurrency(
+                              parseFloat(amount) * (1 - EXCHANGE_FEE)
+                            )}
                           </span>
                         </div>
                       </div>
@@ -366,44 +364,6 @@ export default function TopUpPage() {
                   )}
 
                   {/* Crypto Selection */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Select Cryptocurrency
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => {
-                        const Icon = crypto.icon;
-                        return (
-                          <button
-                            key={key}
-                            onClick={() => setSelectedCrypto(key as CryptoCurrency)}
-                            className={`p-4 rounded-lg border transition-all ${
-                              selectedCrypto === key
-                                ? "bg-black text-white border-black"
-                                : "bg-white border-gray-200 hover:border-gray-300"
-                            }`}
-                          >
-                            <div className="flex items-center gap-3 mb-2">
-                              <div
-                                className={`w-8 h-8 bg-gradient-to-br ${crypto.color} rounded-lg flex items-center justify-center`}
-                              >
-                                <Icon className="w-4 h-4 text-white" />
-                              </div>
-                              <div className="text-left">
-                                <p
-                                  className={`font-semibold text-sm ${
-                                    selectedCrypto === key ? "text-white" : "text-black"
-                                  }`}
-                                >
-                                  {crypto.name}
-                                </p>
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
                 </div>
 
                 {/* Generate Button */}
@@ -416,8 +376,50 @@ export default function TopUpPage() {
                   Generate Deposit Address
                 </button>
               </div>
-
-          
+              <div>
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <label className="block text-sm font-medium text-gray-700  ">
+                    Select Cryptocurrency
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ">
+                    {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => {
+                      const Icon = crypto.icon;
+                      return (
+                        <button
+                          key={key}
+                          onClick={() =>
+                            setSelectedCrypto(key as CryptoCurrency)
+                          }
+                          className={`p-4 rounded-lg border transition-all ${
+                            selectedCrypto === key
+                              ? "bg-black text-white border-black"
+                              : "bg-white border-gray-200 hover:border-gray-300"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 mb-2">
+                            <div
+                              className={`w-8 h-8 bg-gradient-to-br ${crypto.color} rounded-lg flex items-center justify-center`}
+                            >
+                              <Icon className="w-4 h-4 text-white" />
+                            </div>
+                            <div className="text-left">
+                              <p
+                                className={`font-semibold text-sm ${
+                                  selectedCrypto === key
+                                    ? "text-white"
+                                    : "text-black"
+                                }`}
+                              >
+                                {crypto.name}
+                              </p>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             /* Step 2: Deposit Address & Submit */
@@ -435,16 +437,24 @@ export default function TopUpPage() {
                     </label>
                     <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg mb-4">
                       <div className="flex-1 font-mono text-xs text-gray-600 break-all">
-                        {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) || "Address not configured"}
+                        {(cryptoAddresses[
+                          selectedCrypto as keyof typeof cryptoAddresses
+                        ] as string) || "Address not configured"}
                       </div>
                       <button
                         onClick={() =>
                           handleCopyAddress(
-                            (cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) || ""
+                            (cryptoAddresses[
+                              selectedCrypto as keyof typeof cryptoAddresses
+                            ] as string) || ""
                           )
                         }
                         className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0"
-                        disabled={!cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses]}
+                        disabled={
+                          !cryptoAddresses[
+                            selectedCrypto as keyof typeof cryptoAddresses
+                          ]
+                        }
                       >
                         {copiedAddress ? (
                           <Check className="w-4 h-4 text-green-600" />
@@ -455,99 +465,74 @@ export default function TopUpPage() {
                     </div>
 
                     {/* QR Code */}
-                    {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) && (
+                    {(cryptoAddresses[
+                      selectedCrypto as keyof typeof cryptoAddresses
+                    ] as string) && (
                       <div className="flex justify-center mb-4">
                         <div className="bg-white p-4 rounded-lg border border-gray-200">
-                          {(qrCodeImages[selectedCrypto as keyof typeof qrCodeImages] as string) ? (
-                            <img
-                              src={(qrCodeImages[selectedCrypto as keyof typeof qrCodeImages] as string)}
-                              alt={`${CRYPTOCURRENCIES[selectedCrypto!].name} QR Code`}
-                              className="w-48 h-48 object-contain"
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).style.display = 'none';
-                              }}
-                            />
-                          ) : (
-                            <div className="w-48 h-48 flex items-center justify-center bg-gray-100 text-gray-400 text-sm text-center p-4">
-                              QR code not configured by admin
-                            </div>
-                          )}
+                          <img
+                            src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
+                              getQRData(
+                                selectedCrypto,
+                                cryptoAddresses[
+                                  selectedCrypto as keyof typeof cryptoAddresses
+                                ] as string,
+                                cryptoAmount || 0
+                              )
+                            )}`}
+                            alt={`${
+                              CRYPTOCURRENCIES[selectedCrypto!].name
+                            } QR Code`}
+                            className="w-48 h-48 object-contain"
+                          />
+                          <p className="text-xs text-gray-500 text-center mt-2">
+                            Scan with your crypto wallet app
+                          </p>
                         </div>
                       </div>
                     )}
 
-                    {!(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) && (
+                    {!(cryptoAddresses[
+                      selectedCrypto as keyof typeof cryptoAddresses
+                    ] as string) && (
                       <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded">
                         <p className="text-xs text-yellow-800">
-                          ⚠️ Deposit address not configured. Please contact support or try again later.
+                          ⚠️ Deposit address not configured. Please contact
+                          support or try again later.
                         </p>
                       </div>
                     )}
                   </div>
 
-                  {/* Submit Transaction Hash */}
-                  <form onSubmit={handleSubmitDeposit} className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Transaction Hash (TXID) *
-                      </label>
-                      <input
-                        type="text"
-                        value={txHash}
-                        onChange={(e) => setTxHash(e.target.value)}
-                        placeholder="Paste your transaction hash here"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                        required
-                      />
-                      <p className="mt-2 text-sm text-gray-600">
-                        You can find this in your wallet after sending the transaction
-                      </p>
-                    </div>
-
-                    
-                    <div className="flex gap-4">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setStep(1);
-                          setError("");
-                        }}
-                        className="flex-1 px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        Back
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isCreating}
-                        className="flex-1 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-                      >
-                        {isCreating ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Submitting...
-                          </>
-                        ) : (
-                          <>
-                            <CheckCircle className="w-4 h-4" />
-                            Submit Deposit
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </form>
+                  {/* Back Button */}
+                  <button
+                    onClick={() => {
+                      setStep(1);
+                      setError("");
+                    }}
+                    className="w-full px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Back
+                  </button>
                 </div>
               </div>
 
               {/* Summary Card */}
               <div className="lg:col-span-1">
                 <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 sticky top-24">
-                  <h3 className="font-semibold text-black mb-4">Deposit Summary</h3>
+                  <h3 className="font-semibold text-black mb-4">
+                    Deposit Summary
+                  </h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Cryptocurrency</span>
+                      <span className="text-sm text-gray-600">
+                        Cryptocurrency
+                      </span>
                       <span className="text-sm font-medium text-black flex items-center gap-2">
                         {CRYPTOCURRENCIES[selectedCrypto!].name}
-                        {(cryptoAddresses[selectedCrypto as keyof typeof cryptoAddresses] as string) ? (
+                        {(cryptoAddresses[
+                          selectedCrypto as keyof typeof cryptoAddresses
+                        ] as string) ? (
                           <CheckCircle className="w-4 h-4 text-green-600" />
                         ) : (
                           <AlertCircle className="w-4 h-4 text-yellow-600" />
@@ -558,10 +543,12 @@ export default function TopUpPage() {
                       <span className="text-sm text-gray-600">You send</span>
                       <span className="text-sm font-bold text-black">
                         {cryptoAmount !== null
-                          ? `${cryptoAmount < 0.01
-                              ? cryptoAmount.toFixed(8)
-                              : cryptoAmount.toFixed(6)} ${selectedCrypto}`
-                          : '-'}
+                          ? `${
+                              cryptoAmount < 0.01
+                                ? cryptoAmount.toFixed(8)
+                                : cryptoAmount.toFixed(6)
+                            } ${selectedCrypto}`
+                          : "-"}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -571,16 +558,22 @@ export default function TopUpPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Exchange Fee (2.5%)</span>
+                      <span className="text-sm text-gray-600">
+                        Exchange Fee (2.5%)
+                      </span>
                       <span className="text-sm font-medium text-red-600">
                         -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
                       </span>
                     </div>
                     <div className="border-t border-gray-300 pt-3">
                       <div className="flex justify-between">
-                        <span className="text-sm font-medium text-black">You will receive</span>
+                        <span className="text-sm font-medium text-black">
+                          You will receive
+                        </span>
                         <span className="text-lg font-bold text-green-600">
-                          {formatCurrency(parseFloat(amount) * (1 - EXCHANGE_FEE))}
+                          {formatCurrency(
+                            parseFloat(amount) * (1 - EXCHANGE_FEE)
+                          )}
                         </span>
                       </div>
                     </div>
@@ -612,14 +605,18 @@ export default function TopUpPage() {
           ) : (
             <div>
               <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-black">Deposit History</h3>
+                <h3 className="text-lg font-semibold text-black">
+                  Deposit History
+                </h3>
                 <div className="text-sm text-gray-500">
-                  Total: {deposits.length} deposit{deposits.length !== 1 ? 's' : ''}
+                  Total: {deposits.length} deposit
+                  {deposits.length !== 1 ? "s" : ""}
                 </div>
               </div>
               <div className="divide-y divide-gray-200">
-                {deposits.map((deposit: any) => {
-                  const crypto = CRYPTOCURRENCIES[deposit.currency as CryptoCurrency];
+                {deposits.map((deposit: Deposit) => {
+                  const crypto =
+                    CRYPTOCURRENCIES[deposit.currency as CryptoCurrency];
                   const Icon = crypto?.icon || Wallet;
 
                   // Status badge colors
@@ -649,36 +646,50 @@ export default function TopUpPage() {
                   };
 
                   return (
-                    <div key={deposit._id} className="p-4 hover:bg-gray-50 transition-colors">
+                    <div
+                      key={deposit._id}
+                      className="p-4 hover:bg-gray-50 transition-colors"
+                    >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-4 flex-1">
                           <div
-                            className={`w-12 h-12 bg-gradient-to-br ${crypto?.color || "from-gray-500 to-gray-700"} rounded-lg flex items-center justify-center flex-shrink-0`}
+                            className={`w-12 h-12 bg-gradient-to-br ${
+                              crypto?.color || "from-gray-500 to-gray-700"
+                            } rounded-lg flex items-center justify-center flex-shrink-0`}
                           >
                             <Icon className="w-6 h-6 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <p className="font-semibold text-black">{crypto?.name || deposit.currency}</p>
+                              <p className="font-semibold text-black">
+                                {crypto?.name || deposit.currency}
+                              </p>
                               <span
                                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusBadge(
                                   deposit.status
                                 )}`}
                               >
                                 {getStatusIcon(deposit.status)}
-                                {deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}
+                                {deposit.status.charAt(0).toUpperCase() +
+                                  deposit.status.slice(1)}
                               </span>
                             </div>
                             <p className="text-sm text-gray-700 font-medium">
                               {deposit.amount} {deposit.currency}
                             </p>
                             {deposit.txHash && (
-                              <p className="text-xs text-gray-500 font-mono truncate max-w-md mt-1" title={deposit.txHash}>
+                              <p
+                                className="text-xs text-gray-500 font-mono truncate max-w-md mt-1"
+                                title={deposit.txHash}
+                              >
                                 TX: {deposit.txHash}
                               </p>
                             )}
                             {deposit.walletAddress && (
-                              <p className="text-xs text-gray-500 font-mono truncate max-w-md mt-1" title={deposit.walletAddress}>
+                              <p
+                                className="text-xs text-gray-500 font-mono truncate max-w-md mt-1"
+                                title={deposit.walletAddress}
+                              >
                                 To: {deposit.walletAddress}
                               </p>
                             )}
@@ -693,23 +704,25 @@ export default function TopUpPage() {
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="text-xs text-gray-500">{formatDate(deposit.createdAt)}</p>
+                          <p className="text-xs text-gray-500">
+                            {formatDate(deposit.createdAt)}
+                          </p>
                           {deposit.usdAmount && (
                             <p className="text-sm font-semibold text-green-600 mt-1">
                               +{formatCurrency(deposit.usdAmount)}
                             </p>
                           )}
-                          {deposit.status === 'pending' && (
+                          {deposit.status === "pending" && (
                             <p className="text-xs text-yellow-600 mt-1">
                               ⏳ Awaiting approval
                             </p>
                           )}
-                          {deposit.status === 'approved' && (
+                          {deposit.status === "approved" && (
                             <p className="text-xs text-green-600 mt-1">
                               ✓ Approved
                             </p>
                           )}
-                          {deposit.status === 'rejected' && (
+                          {deposit.status === "rejected" && (
                             <p className="text-xs text-red-600 mt-1">
                               ✗ Rejected
                             </p>

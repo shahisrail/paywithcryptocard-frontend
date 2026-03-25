@@ -18,6 +18,7 @@ const CRYPTOCURRENCIES = [
   { key: "eth", name: "Ethereum (ETH)", icon: Wallet, color: "text-blue-500" },
   { key: "usdtErc20", name: "USDT (ERC20)", icon: Wallet, color: "text-green-500" },
   { key: "usdtTrc20", name: "USDT (TRC20)", icon: Wallet, color: "text-red-500" },
+  { key: "usdcErc20", name: "USDC (ERC20)", icon: Wallet, color: "text-blue-400" },
   { key: "xmr", name: "Monero (XMR)", icon: Wallet, color: "text-gray-500" },
 ];
 
@@ -35,13 +36,7 @@ export default function AdminSettingsPage() {
       eth: "",
       usdtErc20: "",
       usdtTrc20: "",
-      xmr: "",
-    },
-    qrCodeImages: {
-      btc: "",
-      eth: "",
-      usdtErc20: "",
-      usdtTrc20: "",
+      usdcErc20: "",
       xmr: "",
     },
     minimumDeposit: 10,
@@ -54,17 +49,7 @@ export default function AdminSettingsPage() {
   // Update local settings when data loads
   useEffect(() => {
     if (settingsData?.data) {
-      setLocalSettings({
-        ...settingsData.data,
-        qrCodeImages: {
-          btc: "",
-          eth: "",
-          usdtErc20: "",
-          usdtTrc20: "",
-          xmr: "",
-          ...(settingsData.data.qrCodeImages || {}),
-        },
-      });
+      setLocalSettings(settingsData.data);
     }
   }, [settingsData]);
 
@@ -73,16 +58,6 @@ export default function AdminSettingsPage() {
       ...prev,
       cryptoAddresses: {
         ...prev.cryptoAddresses,
-        [cryptoKey]: value,
-      },
-    }));
-  };
-
-  const handleQrCodeChange = (cryptoKey: string, value: string) => {
-    setLocalSettings(prev => ({
-      ...prev,
-      qrCodeImages: {
-        ...(prev.qrCodeImages || {}),
         [cryptoKey]: value,
       },
     }));
@@ -151,7 +126,6 @@ export default function AdminSettingsPage() {
           <div className="space-y-6">
             {CRYPTOCURRENCIES.map((crypto) => {
               const Icon = crypto.icon;
-              const qrCodeImage = localSettings.qrCodeImages?.[crypto.key as keyof typeof localSettings.qrCodeImages] || "";
               return (
                 <div key={crypto.key} className="space-y-4 p-4 border border-gray-200 rounded-lg">
                   <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
@@ -168,37 +142,6 @@ export default function AdminSettingsPage() {
                   <p className="text-xs text-gray-500">
                     Users will see this address when they select {crypto.name} for deposits
                   </p>
-
-                  {/* QR Code Image URL */}
-                  <div className="pt-2 border-t border-gray-100">
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                      <Info className="w-4 h-4 text-blue-500" />
-                      {crypto.name} QR Code Image URL
-                    </label>
-                    <input
-                      type="text"
-                      value={qrCodeImage}
-                      onChange={(e) => handleQrCodeChange(crypto.key, e.target.value)}
-                      placeholder="https://example.com/qr-codes/btc.png"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Upload QR code image to your hosting and paste the URL here
-                    </p>
-                    {qrCodeImage && (
-                      <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        <p className="text-xs text-gray-600 mb-2">QR Code Preview:</p>
-                        <img
-                          src={qrCodeImage}
-                          alt={`${crypto.name} QR Code`}
-                          className="w-32 h-32 object-contain border border-gray-300 rounded bg-white"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f3f4f6' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%239ca3af' font-size='12'%3ENo Image%3C/text%3E%3C/svg%3E";
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
                 </div>
               );
             })}

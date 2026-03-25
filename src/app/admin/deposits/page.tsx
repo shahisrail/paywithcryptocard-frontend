@@ -7,11 +7,9 @@ import {
   XCircle,
   Loader2,
   Bitcoin,
-  AlertCircle,
   Info,
   Filter,
   Eye,
-  Ban,
   Copy,
 } from "lucide-react";
 import { useGetAllDepositsQuery } from "@/redux/services/adminApi";

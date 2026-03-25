@@ -23,7 +23,7 @@ import type { User } from "@/redux/services/adminApi";
 import { useToast } from "@/contexts/ToastContext";
 
 export default function AdminUsersPage() {
-  const { showSuccess, showError, showWarning, showInfo } = useToast();
+  const { showSuccess, showError } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);

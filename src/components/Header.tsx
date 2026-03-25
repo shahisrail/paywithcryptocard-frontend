@@ -23,6 +23,13 @@ const Header = () => {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
 
+    // Special handling for Support link - open chat widget
+    if (targetId === 'support') {
+      window.dispatchEvent(new CustomEvent('open-chat-widget'));
+      setMobileMenuOpen(false);
+      return;
+    }
+
     // First check if the element exists on current page
     const element = document.getElementById(targetId);
 

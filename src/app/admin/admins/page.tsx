@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import {
-  Users,
   Plus,
   Search,
-  MoreVertical,
   Lock,
   Ban,
   Trash2,
