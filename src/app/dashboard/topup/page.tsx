@@ -373,7 +373,7 @@ export default function TopUpPage() {
                   className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                 >
                   <ArrowDownLeft className="w-5 h-5" />
-                  Generate Deposit Address
+                  Pay with your chosen crypto
                 </button>
               </div>
               <div>
@@ -465,32 +465,31 @@ export default function TopUpPage() {
                     </div>
 
                     {/* QR Code */}
-                    {(cryptoAddresses[
-                      selectedCrypto as keyof typeof cryptoAddresses
-                    ] as string) && (
-                      <div className="flex justify-center mb-4">
-                        <div className="bg-white p-4 rounded-lg border border-gray-200">
-                          <img
-                            src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
-                              getQRData(
-                                selectedCrypto,
-                                cryptoAddresses[
-                                  selectedCrypto as keyof typeof cryptoAddresses
-                                ] as string,
-                                cryptoAmount || 0
-                              )
-                            )}`}
-                            alt={`${
-                              CRYPTOCURRENCIES[selectedCrypto!].name
-                            } QR Code`}
-                            className="w-48 h-48 object-contain"
-                          />
-                          <p className="text-xs text-gray-500 text-center mt-2">
-                            Scan with your crypto wallet app
-                          </p>
+                    {selectedCrypto &&
+                      (cryptoAddresses[
+                        selectedCrypto as keyof typeof cryptoAddresses
+                      ] as string) && (
+                        <div className="flex justify-center mb-4">
+                          <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <img
+                              src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
+                                getQRData(
+                                  selectedCrypto,
+                                  cryptoAddresses[
+                                    selectedCrypto as keyof typeof cryptoAddresses
+                                  ] as string,
+                                  cryptoAmount || 0
+                                )
+                              )}`}
+                              alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
+                              className="w-48 h-48 object-contain"
+                            />
+                            <p className="text-xs text-gray-500 text-center mt-2">
+                              Scan with your crypto wallet app
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
                     {!(cryptoAddresses[
                       selectedCrypto as keyof typeof cryptoAddresses

@@ -23,9 +23,27 @@ const Header = () => {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
 
-    // Special handling for Support link - open chat widget
+    // Special handling for Support link - open chat widget AND scroll to support section
     if (targetId === 'support') {
+      // Open the chat widget
       window.dispatchEvent(new CustomEvent('open-chat-widget'));
+
+      // Also scroll to support section if it exists on current page
+      const element = document.getElementById(targetId);
+      if (element) {
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+        setTimeout(() => {
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 300); // Slight delay to let chat widget open first
+      }
+
       setMobileMenuOpen(false);
       return;
     }
