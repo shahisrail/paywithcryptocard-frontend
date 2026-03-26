@@ -29,7 +29,7 @@ const BenefitsSection = () => {
     {
       icon: Zap,
       title: "Instant Conversion",
-      description: "Crypto to USD in seconds at market rates with low fees."
+      description: "Crypto to USD in minutes at market rates with low fees."
     }
   ];
 

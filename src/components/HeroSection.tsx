@@ -49,7 +49,7 @@ const HeroSection = () => {
             </motion.p>
 
             {/* Value + CTA Row */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mt-6 sm:mt-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mt-6 sm:mt-8 justify-between ">
 
               {/* No KYC */}
               <motion.div

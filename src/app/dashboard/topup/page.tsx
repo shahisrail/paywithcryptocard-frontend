@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   ArrowDownLeft,
   Copy,
   Check,
-  Bitcoin,
-  Wallet,
   Clock,
   CheckCircle,
   AlertCircle,
@@ -26,33 +25,27 @@ import { convertUsdToCrypto } from "@/utils/coingecko";
 const CRYPTOCURRENCIES = {
   BTC: {
     name: "Bitcoin",
-    icon: Bitcoin,
-    color: "from-orange-400 to-orange-600",
+    icon: "/deposit/bitcoin.jpeg",
   },
   ETH: {
     name: "Ethereum",
-    icon: Wallet,
-    color: "from-blue-400 to-blue-600",
+    icon: "/deposit/ETH.jpeg",
   },
   USDT_ERC20: {
-    name: "USDT (ERC20)",
-    icon: Wallet,
-    color: "from-green-400 to-green-600",
+    name: "Tether (ERC20)",
+    icon: "/deposit/USDT.jpeg",
   },
   USDT_TRC20: {
-    name: "USDT (TRC20)",
-    icon: Wallet,
-    color: "from-red-400 to-red-600",
+    name: "Tether (TRC20)",
+    icon: "/deposit/USDT.jpeg", // same icon
   },
   USDC_ERC20: {
-    name: "USDC (ERC20)",
-    icon: Wallet,
-    color: "from-blue-400 to-blue-600",
+    name: "USD Coin (ERC20)",
+    icon: "/deposit/USDC.jpeg",
   },
   XMR: {
     name: "Monero",
-    icon: Wallet,
-    color: "from-gray-400 to-gray-600",
+    icon: "/deposit/XMR.jpeg",
   },
 };
 
@@ -407,41 +400,42 @@ export default function TopUpPage() {
                     Select Cryptocurrency
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ">
-                    {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => {
-                      const Icon = crypto.icon;
-                      return (
-                        <button
-                          key={key}
-                          onClick={() =>
-                            setSelectedCrypto(key as CryptoCurrency)
-                          }
-                          className={`p-4 rounded-lg border transition-all ${
-                            selectedCrypto === key
-                              ? "bg-black text-white border-black"
-                              : "bg-white border-gray-200 hover:border-gray-300"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 mb-2">
-                            <div
-                              className={`w-8 h-8 bg-gradient-to-br ${crypto.color} rounded-lg flex items-center justify-center`}
-                            >
-                              <Icon className="w-4 h-4 text-white" />
-                            </div>
-                            <div className="text-left">
-                              <p
-                                className={`font-semibold text-sm ${
-                                  selectedCrypto === key
-                                    ? "text-white"
-                                    : "text-black"
-                                }`}
-                              >
-                                {crypto.name}
-                              </p>
-                            </div>
+                    {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => (
+                      <button
+                        key={key}
+                        onClick={() =>
+                          setSelectedCrypto(key as CryptoCurrency)
+                        }
+                        className={`p-4 rounded-lg border transition-all ${
+                          selectedCrypto === key
+                            ? "bg-black text-white border-black"
+                            : "bg-white border-gray-200 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12   rounded-lg flex items-center justify-center flex-shrink-0">
+                            <img
+                              src={crypto.icon}
+                              alt={crypto.name}
+                              width={40}
+                              height={40}
+                              className="object-contain"
+                            />
                           </div>
-                        </button>
-                      );
-                    })}
+                          <div className="text-left flex-1">
+                            <p
+                              className={`font-semibold text-sm ${
+                                selectedCrypto === key
+                                  ? "text-white"
+                                  : "text-black"
+                              }`}
+                            >
+                              {crypto.name}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -496,7 +490,7 @@ export default function TopUpPage() {
                       ] as string) && (
                         <div className="flex justify-center mb-4">
                           <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <img
+                            <Image
                               src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
                                 getQRData(
                                   selectedCrypto,
@@ -507,7 +501,10 @@ export default function TopUpPage() {
                                 )
                               )}`}
                               alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
+                              width={192}
+                              height={192}
                               className="w-48 h-48 object-contain"
+                              unoptimized
                             />
                             <p className="text-xs text-black text-center mt-2">
                               Scan with your crypto wallet app
@@ -641,7 +638,6 @@ export default function TopUpPage() {
                 {deposits.map((deposit: Deposit) => {
                   const crypto =
                     CRYPTOCURRENCIES[deposit.currency as CryptoCurrency];
-                  const Icon = crypto?.icon || Wallet;
 
                   // Status badge colors
                   const getStatusBadge = (status: string) => {
@@ -676,12 +672,14 @@ export default function TopUpPage() {
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-4 flex-1">
-                          <div
-                            className={`w-12 h-12 bg-gradient-to-br ${
-                              crypto?.color || "from-gray-500 to-gray-700"
-                            } rounded-lg flex items-center justify-center flex-shrink-0`}
-                          >
-                            <Icon className="w-6 h-6 text-white" />
+                          <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <img
+                              src={crypto?.icon || "/deposit/btc.svg"}
+                              alt={crypto?.name || deposit.currency}
+                              width={40}
+                              height={40}
+                              className="object-contain"
+                            />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">

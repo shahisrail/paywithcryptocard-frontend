@@ -51,7 +51,7 @@ const FAQSection = () => {
     },
     {
       question: "Are there any fees when using the PayWithCryptoCard Virtual Visa® Card?",
-      answer: "Whenever you top up your account with crypto, we convert it into USD and apply a flat 3% conversion fee. There are no monthly subscription charges and no hidden extras, just one clear fee every time you add funds. PayWithCryptoCard does not add extra usage fees for paying online with the virtual card."
+      answer: "Whenever you top up your account with crypto, we convert it into USD and apply a flat 2.5% conversion fee. There are no monthly subscription charges and no hidden extras, just one clear fee every time you add funds. PayWithCryptoCard does not add extra usage fees for paying online with the virtual card."
     },
     {
       question: "Can I reload a PayWithCryptoCard Virtual Visa® Card?",
@@ -63,7 +63,7 @@ const FAQSection = () => {
     },
     {
       question: "What cryptocurrencies do you accept?",
-      answer: "We accept Bitcoin (BTC), Ethereum (ETH), Tether (USDT), and USD Coin (USDC). Simply send any of these cryptocurrencies to your unique wallet address, and the funds will be automatically converted to USD."
+      answer: "We accept Bitcoin (BTC), Ethereum (ETH), Tether (USDT), USD Coin (USDC), and Monero (XMR). Simply send any of these cryptocurrencies to your unique wallet address, and the funds will be automatically converted to USD."
     },
     {
       question: "How long does it take for my crypto to be converted?",
@@ -75,7 +75,7 @@ const FAQSection = () => {
     },
     {
       question: "How long is a virtual card valid for?",
-      answer: "Each virtual card has an expiration date, typically valid for several months from the date of creation. You can see the exact expiration date on your card details. Make sure to use your balance before the card expires."
+      answer: "Each virtual card is valid for 90 days from the date of creation. You can see the exact expiration date on your card details. Make sure to use your balance before the card expires."
     },
     {
       question: "Can I create multiple virtual cards?",

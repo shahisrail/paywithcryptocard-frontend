@@ -181,7 +181,7 @@ export default function TermsAndConditions() {
                     <h3 className="font-semibold text-gray-900 mb-3">Service Fees</h3>
                     <ul className="space-y-2 text-gray-600">
                       <li>Card creation: Free</li>
-                      <li>Crypto conversion: 3% fee</li>
+                      <li>Crypto conversion: 2.5% fee</li>
                       <li>Transaction processing: Included</li>
                       <li>No monthly or hidden fees</li>
                     </ul>
