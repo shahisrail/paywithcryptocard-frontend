@@ -25,27 +25,27 @@ import { convertUsdToCrypto } from "@/utils/coingecko";
 const CRYPTOCURRENCIES = {
   BTC: {
     name: "Bitcoin",
-    icon: "/deposit/bitcoin.jpeg",
+    icon: "/deposit/bitcoin.webp",
   },
   ETH: {
     name: "Ethereum",
-    icon: "/deposit/ETH.jpeg",
+    icon: "/deposit/ETH (2).webp",
   },
   USDT_ERC20: {
     name: "Tether (ERC20)",
-    icon: "/deposit/USDT.jpeg",
+    icon: "/deposit/usdt.webp",
   },
   USDT_TRC20: {
     name: "Tether (TRC20)",
-    icon: "/deposit/USDT.jpeg", // same icon
+    icon: "/deposit/usdt.webp",
   },
   USDC_ERC20: {
     name: "USD Coin (ERC20)",
-    icon: "/deposit/USDC.jpeg",
+    icon: "/deposit/usdc.webp",
   },
   XMR: {
     name: "Monero",
-    icon: "/deposit/XMR.jpeg",
+    icon: "/deposit/XMR.webp",
   },
 };
 

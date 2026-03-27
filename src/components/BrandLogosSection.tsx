@@ -10,14 +10,14 @@ const BrandLogosSection = () => {
   });
 
   const brands = [
-    { name: "Amazon", logo: "/logos/amazon.png", alt: "Amazon" },
-    { name: "netflix", logo: "/logos/images1.png", alt: "netflix" },
-    { name: "Spotify", logo: "/logos/BDA-desktop.jpg", alt: "Spotify" },
-    { name: "ebay", logo: "/logos/images2.png", alt: "ebay" },
-    { name: "Apple", logo: "/logos/apple.png", alt: "Apple" },
-    { name: "Google", logo: "/logos/google.png", alt: "Google" },
-    { name: "PayPal", logo: "/logos/paypal.png", alt: "PayPal" },
-    { name: "nike", logo: "/logos/Nike-Logo.png", alt: "Nike" },
+    { name: "Amazon", logo: "/logos/amazon.webp", alt: "Amazon" },
+    { name: "netflix", logo: "/logos/images1.webp", alt: "netflix" },
+    { name: "Spotify", logo: "/logos/BDA-desktop.webp", alt: "Spotify" },
+    { name: "ebay", logo: "/logos/images2.webp", alt: "ebay" },
+    { name: "Apple", logo: "/logos/apple.webp", alt: "Apple" },
+    { name: "Google", logo: "/logos/google.webp", alt: "Google" },
+    { name: "PayPal", logo: "/logos/paypal.webp", alt: "PayPal" },
+    { name: "nike", logo: "/logos/Nike-Logo.webp", alt: "Nike" },
   ];
 
   return (

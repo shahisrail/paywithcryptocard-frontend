@@ -1,6 +1,6 @@
-[00:00:02.543] Server  LOG      ✓ Ready in 2s
-[00:00:11.261] Server  LOG      ○ Compiling / ...
-[00:00:11.913] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:01.463] Server  LOG      ✓ Ready in 1121ms
+[00:00:05.141] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:05.292] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -13,42 +13,52 @@ It can also happen if the client has a browser extension installed which messes 
 https://react.dev/link/hydration-mismatch
 
   ...
-    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
-      <RedirectBoundary>
-        <RedirectErrorBoundary router={{...}}>
-          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
-            <SegmentViewNode type="page" pagePath="page.tsx">
-              <SegmentTrieNode>
-              <Home>
-                <div className="min-h-scre...">
-                  <Header>
-                    <header className="bg-gray-20...">
-                      <div className="max-w-7xl ...">
-                        <div className="flex items...">
-                          <LinkComponent>
-                          <nav>
-                          <div className="hidden lg:...">
-                            <LinkComponent href="/admin" className="px-5 sm:px...">
-                              <a
-+                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ho..."
--                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-3..."
-                                ref={function}
-                                onClick={function onClick}
-                                onMouseEnter={function onMouseEnter}
-                                onTouchStart={function onTouchStart}
-+                               href="/admin"
--                               href="/login"
-                              >
-+                               Admin
--                               Sign In
-                            ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
                           ...
+                            <div className="hidden lg:...">
+                              <LinkComponent href="/dashboard..." className="px-5 sm:px...">
+                                <a
++                                 className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ..."
+-                                 className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray..."
+                                  ref={function}
+                                  onClick={function onClick}
+                                  onMouseEnter={function onMouseEnter}
+                                  onTouchStart={function onTouchStart}
++                                 href="/dashboard/topup"
+-                                 href="/login"
+                                >
++                                 Dashboard
+-                                 Sign In
+                              ...
                   ...
-            ...
-          ...
 
-[00:00:19.184] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:19.339] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:06.817] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:02:28.093] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:28.221] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -58,132 +68,34 @@ https://react.dev/link/hydration-mismatch
 
 It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-https://react.dev/link/hydration-mismatch
+%s%s https://react.dev/link/hydration-mismatch 
 
   ...
-    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
-      <RedirectBoundary>
-        <RedirectErrorBoundary router={{...}}>
-          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
-            <SegmentViewNode type="page" pagePath="page.tsx">
-              <SegmentTrieNode>
-              <Home>
-                <div className="min-h-scre...">
-                  <Header>
-                    <header className="bg-gray-20...">
-                      <div className="max-w-7xl ...">
-                        <div className="flex items...">
-                          <LinkComponent>
-                          <nav>
-                          <div className="hidden lg:...">
-                            <LinkComponent href="/dashboard..." className="px-5 sm:px...">
-                              <a
-+                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ho..."
--                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-3..."
-                                ref={function}
-                                onClick={function onClick}
-                                onMouseEnter={function onMouseEnter}
-                                onTouchStart={function onTouchStart}
-+                               href="/dashboard/topup"
--                               href="/login"
-                              >
-+                               Dashboard
--                               Sign In
-                            ...
-                          ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
                   ...
-            ...
-          ...
 
-[00:00:21.144] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:04:50.936] Server  LOG      ✓ Compiled in 50ms
-[00:05:28.924] Server  LOG      ✓ Compiled in 28ms
-[00:05:56.932] Server  LOG      ✓ Compiled in 29ms
-[00:06:05.768] Server  LOG      ✓ Compiled in 21ms
-[00:06:17.765] Server  LOG      ✓ Compiled in 29ms
-[00:07:11.560] Server  LOG      ✓ Compiled in 26ms
-[00:07:50.346] Server  LOG      ✓ Compiled in 63ms
-[00:09:00.548] Server  LOG      ✓ Compiled in 70ms
-[00:09:00.657] Browser ERROR   ./src/components/FAQSection.tsx:68:5
-Parsing ecmascript source code failed
-  66 |       answer: "We accept Bitcoin (BTC), Ethereum (ETH), Tether (USDT), USD Coin (USDC), and Monero (XMR). Simply send any of these cryptocurrencies to your unique wallet address, and the funds will be automatically converted to USD."
-  67 |     }
-> 68 |     {
-     |     ^
-  69 |       question: "How long does it take for my crypto to be converted?",
-  70 |       answer: "Crypto conversions are typically processed within a few minutes after your transaction is confirmed on the blockchain. Network congestion can sometimes cause slight delays, but your USD balance will be available as soon as the conversion is complete."
-  71 |     },
-
-Expected ',', got '{'
-
-Import trace:
-  Server Component:
-    ./src/components/FAQSection.tsx
-    ./src/app/page.tsx
-[00:09:01.314] Browser ERROR   ./src/components/FAQSection.tsx:68:5
-Parsing ecmascript source code failed
-  66 |       answer: "We accept Bitcoin (BTC), Ethereum (ETH), Tether (USDT), USD Coin (USDC), and Monero (XMR). Simply send any of these cryptocurrencies to your unique wallet address, and the funds will be automatically converted to USD."
-  67 |     }
-> 68 |     {
-     |     ^
-  69 |       question: "How long does it take for my crypto to be converted?",
-  70 |       answer: "Crypto conversions are typically processed within a few minutes after your transaction is confirmed on the blockchain. Network congestion can sometimes cause slight delays, but your USD balance will be available as soon as the conversion is complete."
-  71 |     },
-
-Expected ',', got '{'
-
-Import trace:
-  Server Component:
-    ./src/components/FAQSection.tsx
-    ./src/app/page.tsx
-[00:09:02.655] Server  LOG      ✓ Compiled in 22ms
-[00:09:46.465] Server  LOG      ✓ Compiled in 45ms
-[00:13:16.404] Server  LOG      ✓ Compiled in 38ms
-[00:13:18.592] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:13:18.927] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-https://react.dev/link/hydration-mismatch
-
-  ...
-    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
-      <RedirectBoundary>
-        <RedirectErrorBoundary router={{...}}>
-          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
-            <SegmentViewNode type="page" pagePath="page.tsx">
-              <SegmentTrieNode>
-              <Home>
-                <div className="min-h-scre...">
-                  <Header>
-                    <header className="bg-gray-20...">
-                      <div className="max-w-7xl ...">
-                        <div className="flex items...">
-                          <LinkComponent>
-                          <nav>
-                          <div className="hidden lg:...">
-                            <LinkComponent href="/dashboard..." className="px-5 sm:px...">
-                              <a
-+                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ho..."
--                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-3..."
-                                ref={function}
-                                onClick={function onClick}
-                                onMouseEnter={function onMouseEnter}
-                                onTouchStart={function onTouchStart}
-+                               href="/dashboard/topup"
--                               href="/login"
-                              >
-+                               Dashboard
--                               Sign In
-                            ...
-                          ...
-                  ...
-            ...
-          ...
-
+[00:02:32.731] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

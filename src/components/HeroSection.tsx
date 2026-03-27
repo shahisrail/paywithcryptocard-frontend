@@ -95,7 +95,7 @@ const HeroSection = () => {
           {/* Right Content - Image */}
           <div className="relative flex justify-center items-center mt-6 sm:mt-8 lg:mt-0">
             <img
-              src="/logos/hero3.png"
+              src="/logos/hero3.webp"
               alt="virtual crypto visa card"
               className="w-full max-w-md lg:max-w-lg"
             />
