@@ -22,16 +22,16 @@ const HeroSection = () => {
           {/* Left Content */}
           <motion.div
             ref={ref}
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={false}
+            animate={inView ? { x: 0 } : { x: -50 }}
             transition={{ duration: 0.8 }}
             className="max-w-2xl mx-auto lg:mx-0 flex flex-col justify-center"
           >
 
             {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={false}
+              animate={inView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5  leading-tight tracking-tight text-black"
             >
@@ -40,12 +40,12 @@ const HeroSection = () => {
 
             {/* Subheadline */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={false}
+              animate={inView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
-              Get your virtual Visa card in seconds. Top up with crypto and pay online anywhere Visa is accepted.
+              Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.
             </motion.p>
 
             {/* Value + CTA Row */}
@@ -53,8 +53,8 @@ const HeroSection = () => {
 
               {/* No KYC */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                initial={false}
+                animate={inView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex items-center gap-3 sm:gap-4"
               >
@@ -74,8 +74,8 @@ const HeroSection = () => {
 
               {/* CTA Button */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                initial={false}
+                animate={inView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="w-full sm:w-auto"
               >
@@ -96,7 +96,7 @@ const HeroSection = () => {
           <div className="relative flex justify-center items-center mt-6 sm:mt-8 lg:mt-0">
             <img
               src="/logos/hero3.png"
-              alt=""
+              alt="virtual crypto visa card"
               className="w-full max-w-md lg:max-w-lg"
             />
           </div>

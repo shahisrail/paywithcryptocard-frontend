@@ -17,13 +17,17 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "PayWithCryptoCard - Turn Crypto into Virtual Visa Cards",
-  description: "No KYC, no paperwork. Top up with crypto and pay online like a normal card. Create virtual Visa cards in minutes with PayWithCryptoCard.",
-  keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT"],
+  title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
+  description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
+  keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT", "USDC", "XMR", "Monero"],
   authors: [{ name: "PayWithCryptoCard" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "PayWithCryptoCard - Turn Crypto into Virtual Visa Cards",
-    description: "No KYC, no paperwork. Top up with crypto and pay online like a normal card.",
+    title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
+    description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
     type: "website",
     url: "https://paywithcryptocard.net",
   },

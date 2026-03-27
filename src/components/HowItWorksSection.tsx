@@ -102,7 +102,7 @@ const HowItWorksSection = () => {
               <span className="text-sm font-medium text-gray-700">USD Coin</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
-              <img src="/deposit/XMR.jpeg" alt="USD Coin" className="w-5 h-5" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%222777ca%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <img src="/deposit/XMR.jpeg" alt="Monero" className="w-5 h-5" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%222777ca%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Monero </span>
             </div>
           </div>

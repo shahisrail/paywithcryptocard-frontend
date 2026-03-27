@@ -8,6 +8,12 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import SupportSection from "@/components/SupportSection";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
+  description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
+};
 
 export default function Home() {
   return (
