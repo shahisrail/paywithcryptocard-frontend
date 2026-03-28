@@ -38,8 +38,8 @@ const VirtualCardSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={inView ? { y: 0 } : { y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
@@ -57,8 +57,8 @@ const VirtualCardSection = () => {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                initial={false}
+                animate={inView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <div className="bg-white rounded-xl p-5 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">

@@ -27,7 +27,7 @@ const FAQSection = () => {
     }
   };
 
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number>(0); // First FAQ open by default
 
   const faqs = [
     {
@@ -101,7 +101,7 @@ const FAQSection = () => {
   ];
 
   const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndex(openIndex === index ? -1 : index);
   };
 
   return (
@@ -129,8 +129,8 @@ const FAQSection = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={inView ? { y: 0 } : { y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
@@ -146,8 +146,8 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={false}
+              animate={inView ? { y: 0 } : { y: 20 }}
               transition={{
                 duration: 0.6,
                 delay: index * 0.1
@@ -170,16 +170,8 @@ const FAQSection = () => {
                   </div>
                 </div>
 
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openIndex === index
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="pt-4 text-sm text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </div>
+                <div className="faq-answer pt-4 text-sm text-gray-600 leading-relaxed">
+                  {faq.answer}
                 </div>
               </button>
             </motion.div>
@@ -187,8 +179,8 @@ const FAQSection = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={inView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-10 text-center"
         >

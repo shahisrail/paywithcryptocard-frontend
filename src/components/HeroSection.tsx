@@ -96,7 +96,7 @@ const HeroSection = () => {
           <div className="relative flex justify-center items-center mt-6 sm:mt-8 lg:mt-0">
             <img
               src="/logos/hero3.webp"
-              alt="virtual crypto visa card"
+              alt="virtual crypto Visa card for online payments without KYC - fund with Bitcoin, Ethereum, USDT, USDC or Monero"
               className="w-full max-w-md lg:max-w-lg"
             />
           </div>
