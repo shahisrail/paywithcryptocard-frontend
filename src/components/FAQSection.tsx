@@ -26,7 +26,7 @@ const FAQSection = () => {
     }
   };
 
-  const [openIndex, setOpenIndex] = useState<number>(0); // First FAQ open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -100,7 +100,7 @@ const FAQSection = () => {
   ];
 
   const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -149,8 +149,16 @@ const FAQSection = () => {
                   </div>
                 </div>
 
-                <div className="faq-answer pt-4 text-sm text-gray-600 leading-relaxed">
-                  {faq.answer}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    openIndex === index
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="pt-4 text-sm text-gray-600 leading-relaxed">
+                    {faq.answer}
+                  </div>
                 </div>
               </button>
             </motion.div>
