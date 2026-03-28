@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "react-intersection-observer";
-import Script from "next/script";
 
 const FAQSection = () => {
   const [ref, inView] = useInView({
@@ -106,26 +105,6 @@ const FAQSection = () => {
 
   return (
     <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
-      {/* FAQ Schema Markup for Google Rich Results */}
-      <Script
-        id="faq-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": faqs.map((faq) => ({
-              "@type": "Question",
-              "name": faq.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
-
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
