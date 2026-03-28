@@ -48,8 +48,8 @@ const SupportSection = () => {
     <section id="support" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-8"
         >
@@ -68,8 +68,8 @@ const SupportSection = () => {
             return (
               <motion.div
                 key={option.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={false}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 hover:border-gray-300 transition-colors"
@@ -113,8 +113,8 @@ const SupportSection = () => {
 
         {/* FAQ Link */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center"
         >

@@ -38,8 +38,8 @@ const BenefitsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={inView ? { y: 0 } : { y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
@@ -55,8 +55,8 @@ const BenefitsSection = () => {
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={false}
+              animate={inView ? { y: 0 } : { y: 30 }}
               transition={{
                 duration: 0.6,
                 delay: index * 0.1

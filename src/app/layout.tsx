@@ -25,11 +25,14 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "https://paywithcryptocard.net/",
+  },
   openGraph: {
     title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
     description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
     type: "website",
-    url: "https://paywithcryptocard.net",
+    url: "https://paywithcryptocard.net/",
   },
 };
 
