@@ -11,8 +11,8 @@ const BrandLogosSection = () => {
 
   const brands = [
     { name: "Amazon", logo: "/logos/amazon.webp", alt: "Amazon" },
-    { name: "netflix", logo: "/logos/images1.webp", alt: "netflix" },
-    { name: "Spotify", logo: "/logos/BDA-desktop.webp", alt: "Spotify" },
+    { name: "netflix", logo: "/logos/netflix.svg", alt: "netflix" },
+    { name: "Spotify", logo: "/logos/spotify.svg", alt: "Spotify" },
     { name: "ebay", logo: "/logos/images2.webp", alt: "ebay" },
     { name: "Apple", logo: "/logos/apple.webp", alt: "Apple" },
     { name: "Google", logo: "/logos/google.webp", alt: "Google" },

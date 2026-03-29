@@ -87,41 +87,7 @@ function SettingsPageContent() {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Account Type
-                    </label>
-                    <input
-                      type="text"
-                      value={user?.role === 'admin' ? 'Administrator' : 'User'}
-                      disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed capitalize"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Account Status
-                    </label>
-                    <input
-                      type="text"
-                      value={user?.isActive ? 'Active' : 'Inactive'}
-                      disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed capitalize"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Member Since
-                    </label>
-                    <input
-                      type="text"
-                      value="N/A"
-                      disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-black cursor-not-allowed"
-                    />
-                  </div>
+                  
                 </div>
               </div>
             )}

@@ -129,15 +129,7 @@ function CardsPageContent() {
                 </>
               )}
             </button>
-          ) : (
-            <Link
-              href="/dashboard/topup"
-              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
-            >
-              <Plus className="w-5 h-5" />
-              Add Funds
-            </Link>
-          )}
+          ) : null}
         </div>
       </div>
 

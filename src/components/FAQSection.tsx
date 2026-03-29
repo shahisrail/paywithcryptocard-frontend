@@ -95,7 +95,7 @@ const FAQSection = () => {
     },
     {
       question: "How do I contact customer support?",
-      answer: "You can reach our support team through the contact form on our website or via email. We typically respond within 24 hours. For urgent issues, please include your account details and a clear description of the problem."
+      answer: "You can reach our support team through the contact form on our website or via email. For urgent issues, please include your account details and a clear description of the problem."
     }
   ];
 

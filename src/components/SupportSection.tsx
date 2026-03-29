@@ -37,8 +37,8 @@ const SupportSection = () => {
     {
       icon: Mail,
       title: "Mail",
-      description: "support@gmail.com",
-      email: "support@gmail.com",
+      description: "support@paywithcryptocard.net",
+      email: "support@paywithcryptocard.net",
       action: "Send Email",
       // available: "Response within 24h",
     },

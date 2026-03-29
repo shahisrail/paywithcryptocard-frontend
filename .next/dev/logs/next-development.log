@@ -1,6 +1,6 @@
-[00:00:01.463] Server  LOG      ✓ Ready in 1121ms
-[00:00:05.141] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:05.292] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:02.338] Server  LOG      ✓ Ready in 1874ms
+[00:00:07.324] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.471] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -56,9 +56,16 @@ https://react.dev/link/hydration-mismatch
                               ...
                   ...
 
-[00:00:06.817] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:02:28.093] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:28.221] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:09.649] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:01:22.819] Server  LOG      ✓ Compiled in 96ms
+[00:01:32.620] Server  LOG      ✓ Compiled in 90ms
+[00:01:32.828] Server  LOG      ✓ Compiled in 93ms
+[00:02:35.843] Server  LOG      ✓ Compiled in 63ms
+[00:02:41.111] Server  LOG      ✓ Compiled in 18ms
+[00:02:47.907] Server  LOG      ✓ Compiled in 38ms
+[00:02:56.258] Server  LOG      ✓ Compiled in 17ms
+[00:03:36.657] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:36.877] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -96,6 +103,10 @@ It can also happen if the client has a browser extension installed which messes 
                           className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
 -                         data-arp=""
                         >
+                          <body
+                            className="inter_2fe1ab3d-module__-T-KAq__className font-body antialiased bg-dark-950 text..."
+-                           cz-shortcut-listen="true"
+                          >
                   ...
 
-[00:02:32.731] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:07:23.251] Server  LOG      ✓ Compiled in 54ms
