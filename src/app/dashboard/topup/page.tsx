@@ -64,7 +64,10 @@ export default function TopUpPage() {
   const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Show address
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [timeRemaining, setTimeRemaining] = useState<number>(30 * 60); // 30 minutes in seconds
+  const [isExpired, setIsExpired] = useState(false);
   const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
+  const PAYMENT_TIMEOUT = 30 * 60; // 30 minutes in seconds
 
   // Convert USD to crypto when amount or crypto changes
   useEffect(() => {
@@ -94,6 +97,33 @@ export default function TopUpPage() {
 
     convertAmount();
   }, [amount, selectedCrypto]);
+
+  // Countdown timer for payment expiration
+  useEffect(() => {
+    if (step === 2) {
+      // Reset timer when entering step 2
+      setTimeRemaining(PAYMENT_TIMEOUT);
+      setIsExpired(false);
+
+      const timer = setInterval(() => {
+        setTimeRemaining((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsExpired(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    } else {
+      // Reset timer when going back to step 1
+      setTimeRemaining(PAYMENT_TIMEOUT);
+      setIsExpired(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   // API calls
   const { data: addressesData, isLoading: addressesLoading } =
@@ -187,6 +217,14 @@ export default function TopUpPage() {
       style: "currency",
       currency: "USD",
     }).format(amount);
+  };
+
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const formatDate = (dateString: string) => {
@@ -446,9 +484,45 @@ export default function TopUpPage() {
               <div className="lg:col-span-2 space-y-6">
                 {/* Deposit Address Card */}
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h2 className="text-lg font-semibold text-black mb-4">
-                    Deposit {CRYPTOCURRENCIES[selectedCrypto!].name}
-                  </h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold text-black">
+                      Deposit {CRYPTOCURRENCIES[selectedCrypto!].name}
+                    </h2>
+                    {/* Countdown Timer */}
+                    <div
+                      className={`px-4 py-2 rounded-lg font-mono font-bold text-lg flex items-center gap-2 ${
+                        isExpired
+                          ? "bg-red-100 text-red-700 border-2 border-red-300"
+                          : timeRemaining <= 5 * 60
+                          ? "bg-orange-100 text-orange-700 border-2 border-orange-300 animate-pulse"
+                          : "bg-blue-50 text-blue-700 border-2 border-blue-200"
+                      }`}
+                    >
+                      <Clock className="w-5 h-5" />
+                      {isExpired ? (
+                        <span>Expired</span>
+                      ) : (
+                        <span>{formatTime(timeRemaining)}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {isExpired && (
+                    <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-red-900">
+                            Payment Session Expired
+                          </p>
+                          <p className="text-sm text-red-700">
+                            Your 30-minute payment window has expired. Please go
+                            back and start a new deposit.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                     <label className="block text-sm font-medium text-black mb-2">
@@ -468,11 +542,11 @@ export default function TopUpPage() {
                             ] as string) || ""
                           )
                         }
-                        className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0"
+                        className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={
                           !cryptoAddresses[
                             selectedCrypto as keyof typeof cryptoAddresses
-                          ]
+                          ] || isExpired
                         }
                       >
                         {copiedAddress ? (
@@ -490,6 +564,15 @@ export default function TopUpPage() {
                       ] as string) && (
                         <div className="flex justify-center mb-4">
                           <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            {timeRemaining <= 5 * 60 && !isExpired && (
+                              <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 mb-3 text-center">
+                                <p className="text-sm font-semibold text-orange-700 flex items-center justify-center gap-1">
+                                  <AlertCircle className="w-4 h-4" />
+                                  Hurry! Payment expires in{" "}
+                                  {formatTime(timeRemaining)}
+                                </p>
+                              </div>
+                            )}
                             <Image
                               src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
                                 getQRData(
@@ -544,6 +627,68 @@ export default function TopUpPage() {
                   <h3 className="font-semibold text-black mb-4">
                     Deposit Summary
                   </h3>
+
+                  {/* Payment Timer Notice */}
+                  <div
+                    className={`rounded-lg p-3 mb-4 ${
+                      isExpired
+                        ? "bg-red-100 border border-red-300"
+                        : timeRemaining <= 5 * 60
+                        ? "bg-orange-100 border border-orange-300"
+                        : "bg-blue-50 border border-blue-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Clock
+                          className={`w-4 h-4 ${
+                            isExpired
+                              ? "text-red-600"
+                              : timeRemaining <= 5 * 60
+                              ? "text-orange-600"
+                              : "text-blue-600"
+                          }`}
+                        />
+                        <span
+                          className={`text-sm font-medium ${
+                            isExpired
+                              ? "text-red-900"
+                              : timeRemaining <= 5 * 60
+                              ? "text-orange-900"
+                              : "text-blue-900"
+                          }`}
+                        >
+                          {isExpired
+                            ? "Payment Expired"
+                            : "Payment Window"}
+                        </span>
+                      </div>
+                      <span
+                        className={`font-mono font-bold text-sm ${
+                          isExpired
+                            ? "text-red-900"
+                            : timeRemaining <= 5 * 60
+                            ? "text-orange-900"
+                            : "text-blue-900"
+                        }`}
+                      >
+                        {isExpired ? "00:00" : formatTime(timeRemaining)}
+                      </span>
+                    </div>
+                    {!isExpired && timeRemaining <= 5 * 60 && (
+                      <p className="text-xs text-orange-800 mt-2">
+                        ⚠️ Complete your payment soon! The address will expire
+                        in {Math.floor(timeRemaining / 60)} minute
+                        {timeRemaining / 60 !== 1 ? "s" : ""}.
+                      </p>
+                    )}
+                    {!isExpired && timeRemaining > 5 * 60 && (
+                      <p className="text-xs text-blue-800 mt-2">
+                        ✓ You have 30 minutes to complete this payment
+                      </p>
+                    )}
+                  </div>
+
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-sm text-black">
