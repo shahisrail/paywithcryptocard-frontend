@@ -397,7 +397,7 @@ export default function TopUpPage() {
                           <span className="text-green-700">
                             Exchange Fee (2.5%)
                           </span>
-                          <span className="font-semibold text-red-600">
+                          <span className="font-semibold text-black">
                             -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
                           </span>
                         </div>
