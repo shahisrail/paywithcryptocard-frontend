@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server-puce-mu.vercel.app/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.paywithcryptocard.net/api';
 
 interface LoginCredentials {
   email: string;
