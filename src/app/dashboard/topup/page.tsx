@@ -427,7 +427,6 @@ export default function TopUpPage() {
                   disabled={!selectedCrypto || !amount}
                   className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                 >
-               
                   Pay with your chosen crypto
                 </button>
               </div>
@@ -440,9 +439,7 @@ export default function TopUpPage() {
                     {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => (
                       <button
                         key={key}
-                        onClick={() =>
-                          setSelectedCrypto(key as CryptoCurrency)
-                        }
+                        onClick={() => setSelectedCrypto(key as CryptoCurrency)}
                         className={`p-4 rounded-lg border transition-all ${
                           selectedCrypto === key
                             ? "bg-black text-white border-black"
@@ -496,8 +493,6 @@ export default function TopUpPage() {
                       )}
                     </div>
                   </div>
-
-             
 
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                     <label className="block text-sm font-medium text-black mb-2">
@@ -561,17 +556,6 @@ export default function TopUpPage() {
                           </div>
                         </div>
                       )}
-
-                    {!(cryptoAddresses[
-                      selectedCrypto as keyof typeof cryptoAddresses
-                    ] as string) && (
-                      <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded">
-                        <p className="text-xs text-yellow-800">
-                          ⚠️ Deposit address not configured. Please contact
-                          support or try again later.
-                        </p>
-                      </div>
-                    )}
                   </div>
 
                   {/* Back Button */}
@@ -594,32 +578,16 @@ export default function TopUpPage() {
                     Deposit Summary
                   </h3>
 
-                  {/* Payment Timer Notice */}
-                  <div className="bg-gray-100 border border-gray-300 rounded-lg p-3 mb-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-black">
-                        Time Remaining
-                      </span>
-                      <span className="font-mono font-bold text-sm text-black">
-                        {isExpired ? "00:00" : formatTime(timeRemaining)}
-                      </span>
-                    </div>
-                  </div>
-
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-black">
-                        Cryptocurrency
-                      </span>
+                      <span className="text-sm text-black">Cryptocurrency</span>
                       <span className="text-sm font-medium text-black flex items-center gap-2">
                         {CRYPTOCURRENCIES[selectedCrypto!].name}
                         {(cryptoAddresses[
                           selectedCrypto as keyof typeof cryptoAddresses
-                        ] as string) ? (
-                          <CheckCircle className="w-4 h-4 text-green-600" />
-                        ) : (
-                          <AlertCircle className="w-4 h-4 text-yellow-600" />
-                        )}
+                        ] as string)
+                          ? " "
+                          : ""  }
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -644,7 +612,7 @@ export default function TopUpPage() {
                       <span className="text-sm text-black">
                         Exchange Fee (2.5%)
                       </span>
-                      <span className="text-sm font-medium text-red-600">
+                      <span className="text-sm font-medium text-black">
                         -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
                       </span>
                     </div>
@@ -653,7 +621,7 @@ export default function TopUpPage() {
                         <span className="text-sm font-medium text-black">
                           You will receive
                         </span>
-                        <span className="text-lg font-bold text-green-600">
+                        <span className="text-lg font-bold text-black">
                           {formatCurrency(
                             parseFloat(amount) * (1 - EXCHANGE_FEE)
                           )}

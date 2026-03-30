@@ -1,56 +1,6 @@
-[00:00:02.076] Server  LOG      ✓ Ready in 1404ms
-[00:00:05.200] Server  LOG      ○ Compiling / ...
-[00:00:05.849] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:05.990] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-https://react.dev/link/hydration-mismatch
-
-  ...
-    <RedirectBoundary>
-      <RedirectErrorBoundary router={{...}}>
-        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
-          <SegmentViewNode type="page" pagePath="page.tsx">
-            <SegmentTrieNode>
-            <Home>
-              <script>
-              <Home>
-                <div className="min-h-scre...">
-                  <Header>
-                    <header className="bg-gray-20...">
-                      <div className="max-w-7xl ...">
-                        <div className="flex items...">
-                          <LinkComponent>
-                          <nav>
-                          <div className="hidden lg:...">
-                            <LinkComponent href="/admin" className="px-5 sm:px...">
-                              <a
-+                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ho..."
--                               className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-3..."
-                                ref={function}
-                                onClick={function onClick}
-                                onMouseEnter={function onMouseEnter}
-                                onTouchStart={function onTouchStart}
-+                               href="/admin"
--                               href="/login"
-                              >
-+                               Admin
--                               Sign In
-                            ...
-                          ...
-                  ...
-          ...
-        ...
-
-[00:00:21.660] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:21.787] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:01.401] Server  LOG      ✓ Ready in 1039ms
+[00:00:04.859] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:05.003] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -61,47 +11,6 @@ https://react.dev/link/hydration-mismatch
 It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
 %s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
--                         data-arp=""
-                        >
-                  ...
-
-[00:20:17.898] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:18.369] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-https://react.dev/link/hydration-mismatch
 
   ...
     <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
@@ -129,111 +38,156 @@ https://react.dev/link/hydration-mismatch
                           className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
 -                         data-arp=""
                         >
-                          ...
-                            <div className="hidden lg:...">
-                              <LinkComponent href="/dashboard..." className="px-5 sm:px...">
-                                <a
-+                                 className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg ..."
--                                 className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray..."
-                                  ref={function}
-                                  onClick={function onClick}
-                                  onMouseEnter={function onMouseEnter}
-                                  onTouchStart={function onTouchStart}
-+                                 href="/dashboard/topup"
--                                 href="/login"
-                                >
-+                                 Dashboard
--                                 Sign In
-                              ...
                   ...
 
-[00:20:56.939] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:21:27.562] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:28:04.062] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:28:04.213] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:29.334] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:47.940] Server  LOG      ✓ Compiled in 113ms
+[00:00:52.799] Server  LOG      ✓ Compiled in 43ms
+[00:00:58.436] Server  LOG      ✓ Compiled in 109ms
+[00:01:02.387] Server  LOG      ✓ Compiled in 23ms
+[00:01:03.941] Server  LOG      ✓ Compiled in 88ms
+[00:01:13.157] Server  LOG      ✓ Compiled in 107ms
+[00:01:13.260] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:40
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? }
+      |                                        ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
 
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
+Expected '</', got '}'
 
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
 
-%s%s https://react.dev/link/hydration-mismatch 
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:17.550] Server  LOG      ✓ Compiled in 40ms
+[00:01:17.651] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:39
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ?}
+      |                                       ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
 
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
--                         data-arp=""
-                        >
-                  ...
+Expected '</', got '}'
 
-[00:30:14.351] Server  LOG      ✓ Compiled in 1140ms
-[00:31:16.989] Server  LOG      ✓ Compiled in 138ms
-[00:31:21.765] Server  LOG      ✓ Compiled in 28ms
-[00:33:17.902] Server  LOG      ✓ Compiled in 70ms
-[00:35:10.118] Server  LOG      ✓ Compiled in 73ms
-[00:36:35.455] Server  LOG      ✓ Compiled in 73ms
-[00:36:40.522] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:36:40.639] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
 
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:19.245] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:41
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? (}
+      |                                         ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
 
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+Expected '</', got '}'
 
-%s%s https://react.dev/link/hydration-mismatch 
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
 
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
--                         data-arp=""
-                        >
-                  ...
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:23.312] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:43
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? (""}
+      |                                           ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
 
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:25.942] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:43
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? (""}
+      |                                           ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:28.827] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:44
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? ("")}
+      |                                            ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:31.399] Browser ERROR   ./src/app/dashboard/topup/page.tsx:596:45
+Parsing ecmascript source code failed
+  594 |                         {(cryptoAddresses[
+  595 |                           selectedCrypto as keyof typeof cryptoAddresses
+> 596 |                         ] as string) ? (" ")}
+      |                                             ^
+  597 |                       </span>
+  598 |                     </div>
+  599 |                     <div className="flex justify-between">
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[00:01:41.203] Server  LOG      ✓ Compiled in 43ms
+[00:01:49.777] Server  LOG      ✓ Compiled in 84ms
+[00:02:09.789] Server  LOG      ✓ Compiled in 61ms
