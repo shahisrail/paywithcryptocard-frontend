@@ -1051,3 +1051,37 @@ It can also happen if the client has a browser extension installed which messes 
 [01:59:22.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
 [01:59:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
 [01:59:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:00:46.589] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:00:46.590] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:01:46.589] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:01:46.590] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:02:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:02:46.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:03:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:03:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:04:38.473] Server  LOG      ✓ Compiled in 67ms
+[02:04:38.597] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:04:38.597] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:04:46.608] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:04:46.609] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:04.263] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:04.264] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:04.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:04.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:05.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:05:05.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:06:23.544] Server  LOG      ✓ Compiled in 46ms
+[02:06:32.089] Server  LOG      ✓ Compiled in 126ms
+[02:07:49.315] Server  LOG      ✓ Compiled in 49ms
+[02:08:24.181] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:24.181] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:24.181] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:24.181] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:24.373] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:24.374] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:25.179] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:25.179] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:26.178] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:26.178] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:27.179] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[02:08:27.179] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}

@@ -423,9 +423,7 @@ export default function TopUpPage() {
                               </span>
                             ) : (
                               <>
-                                {cryptoAmount < 0.01
-                                  ? cryptoAmount.toFixed(8)
-                                  : cryptoAmount.toFixed(6)}{" "}
+                                {formatAmount(selectedCrypto, cryptoAmount)}{" "}
                                 {selectedCrypto}
                               </>
                             )}
@@ -581,7 +579,7 @@ export default function TopUpPage() {
                         selectedCrypto as keyof typeof cryptoAddresses
                       ] as string) && (
                         <div className="flex justify-center mb-4">
-                          <div className="bg-white p-4 rounded-lg border border-gray-200">
+                          <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col items-center">
                             <QRCodeCanvas
                               value={getQRData(
                                 selectedCrypto,
@@ -593,15 +591,14 @@ export default function TopUpPage() {
                               size={192}
                               level={"H"}
                               includeMargin={false}
-                              className="w-48 h-48"
                             />
-                            <p className="text-xs text-black text-center mt-2">
+                            <p className="text-xs text-black text-center mt-3">
                               Scan with your crypto wallet app
                             </p>
                             {(selectedCrypto === "USDT_ERC20" ||
                               selectedCrypto === "USDC_ERC20" ||
                               selectedCrypto === "XMR") && (
-                              <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded text-center">
+                              <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded text-center w-full">
                                 <p className="text-xs text-blue-900 font-medium">
                                   ℹ️ After scanning, manually enter the amount:{" "}
                                   {cryptoAmount !== null
@@ -652,11 +649,7 @@ export default function TopUpPage() {
                       <span className="text-sm text-black">You send</span>
                       <span className="text-sm font-bold text-black">
                         {cryptoAmount !== null
-                          ? `${
-                              cryptoAmount < 0.01
-                                ? cryptoAmount.toFixed(8)
-                                : cryptoAmount.toFixed(6)
-                            } ${selectedCrypto}`
+                          ? `${formatAmount(selectedCrypto, cryptoAmount)} ${selectedCrypto}`
                           : "-"}
                       </span>
                     </div>

@@ -28,8 +28,9 @@ export const getCryptoPrices = async (): Promise<CoinGeckoResponse> => {
 // Get price for specific cryptocurrency
 export const getCryptoPrice = async (currency: string): Promise<number> => {
   try {
-    if (currency.includes('USDT')) {
-      return 1; // USDT is stablecoin
+    // Handle stablecoins - both USDT and USDC are $1
+    if (currency.includes('USDT') || currency.includes('USDC')) {
+      return 1; // USDT and USDC are stablecoins pegged to $1
     }
 
     const prices = await getCryptoPrices();
