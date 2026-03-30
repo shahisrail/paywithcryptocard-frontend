@@ -184,18 +184,15 @@ export default function TopUpPage() {
     }
 
     const cleanAmount = formatAmount(crypto, amount);
-    const amountValue = parseFloat(cleanAmount);
 
     // Bitcoin - BIP21 URI scheme
     if (crypto === "BTC") {
       return `bitcoin:${address}?amount=${cleanAmount}`;
     }
 
-    // Ethereum - EIP-681 URI scheme (ETH in wei)
+    // Ethereum - EIP-681 URI scheme
     if (crypto === "ETH") {
-      // Convert ETH to wei (1 ETH = 10^18 wei)
-      const amountInWei = Math.floor(amountValue * 1e18);
-      return `ethereum:${address}?amount=${amountInWei}`;
+      return `ethereum:${address}?amount=${cleanAmount}`;
     }
 
     // USDT (TRC20) - TRON URI scheme
@@ -203,30 +200,24 @@ export default function TopUpPage() {
       return `tron:${address}?amount=${cleanAmount}`;
     }
 
-    // USDT (ERC20) - Ethereum token using EIP-681
+    // USDT (ERC20) - For ERC20 tokens, just return address
+    // Most wallets don't support ERC20 payment URIs properly
     if (crypto === "USDT_ERC20") {
-      // USDT contract: 0xdac17f958d2ee523a2206206994597c13d831ec7
-      // USDT has 6 decimals
-      const contractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
-      const amountInSmallestUnit = Math.floor(amountValue * 1e6);
-      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInSmallestUnit}`;
+      return address;
     }
 
-    // USDC (ERC20) - Ethereum token using EIP-681
+    // USDC (ERC20) - For ERC20 tokens, just return address
+    // Most wallets don't support ERC20 payment URIs properly
     if (crypto === "USDC_ERC20") {
-      // USDC contract: 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
-      // USDC has 6 decimals
-      const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
-      const amountInSmallestUnit = Math.floor(amountValue * 1e6);
-      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInSmallestUnit}`;
+      return address;
     }
 
-    // Monero - OpenAlias URI scheme
+    // Monero - Just return address
     if (crypto === "XMR") {
-      return `monero:${address}?tx_amount=${cleanAmount}`;
+      return address;
     }
 
-    // Fallback to just address for any unknown crypto
+    // Fallback to just address
     return address;
   };
 
@@ -589,6 +580,19 @@ export default function TopUpPage() {
                             <p className="text-xs text-black text-center mt-2">
                               Scan with your crypto wallet app
                             </p>
+                            {(selectedCrypto === "USDT_ERC20" ||
+                              selectedCrypto === "USDC_ERC20" ||
+                              selectedCrypto === "XMR") && (
+                              <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded text-center">
+                                <p className="text-xs text-blue-900 font-medium">
+                                  ℹ️ After scanning, manually enter the amount:{" "}
+                                  {cryptoAmount !== null
+                                    ? formatAmount(selectedCrypto, cryptoAmount)
+                                    : "0"}{" "}
+                                  {selectedCrypto}
+                                </p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
