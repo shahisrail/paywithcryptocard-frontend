@@ -183,14 +183,44 @@ export default function TopUpPage() {
       return "";
     }
 
-    // For Bitcoin, use BIP21 URI scheme with formatted amount
+    const cleanAmount = formatAmount(crypto, amount);
+
+    // Bitcoin - BIP21 URI scheme
     if (crypto === "BTC") {
-      // Format: bitcoin:ADDRESS?amount=AMOUNT
-      const cleanAmount = formatAmount(crypto, amount);
       return `bitcoin:${address}?amount=${cleanAmount}`;
     }
 
-    // For all other cryptocurrencies, just return the address (no amount in URI)
+    // Ethereum - EIP-681 URI scheme
+    if (crypto === "ETH") {
+      return `ethereum:${address}?amount=${cleanAmount}`;
+    }
+
+    // USDT (TRC20) - TRON URI scheme
+    if (crypto === "USDT_TRC20") {
+      return `tron:${address}?amount=${cleanAmount}`;
+    }
+
+    // USDT (ERC20) - Ethereum ERC20 token
+    // Contract address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+    if (crypto === "USDT_ERC20") {
+      // Using EIP-681 for ERC20 tokens
+      const usdtContract = "0xdac17f958d2ee523a2206206994597c13d831ec7";
+      return `ethereum:${address}/transfer?address=${address}&uint256=${cleanAmount}`;
+    }
+
+    // USDC (ERC20) - Ethereum ERC20 token
+    // Contract address: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+    if (crypto === "USDC_ERC20") {
+      const usdcContract = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+      return `ethereum:${address}/transfer?address=${address}&uint256=${cleanAmount}`;
+    }
+
+    // Monero - OpenAlias scheme
+    if (crypto === "XMR") {
+      return `monero:${address}?tx_amount=${cleanAmount}`;
+    }
+
+    // Fallback to just address for any unknown crypto
     return address;
   };
 
