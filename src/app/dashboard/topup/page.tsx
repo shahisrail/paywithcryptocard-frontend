@@ -41,7 +41,7 @@ const CRYPTOCURRENCIES = {
   },
   USDC_ERC20: {
     name: "USD Coin (ERC20)",
-    icon: "/deposit/usdc.webp",
+    icon: "/logos/usd-coin-usdc-logo.webp",
   },
   XMR: {
     name: "Monero",

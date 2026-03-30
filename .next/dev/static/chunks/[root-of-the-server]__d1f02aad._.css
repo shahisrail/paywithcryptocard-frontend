@@ -1455,10 +1455,6 @@
     border-color: var(--color-gray-200);
   }
 
-  .self-center {
-    align-self: center;
-  }
-
   .self-start {
     align-self: flex-start;
   }
