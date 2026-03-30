@@ -12,7 +12,7 @@ import {
   Loader2,
   XCircle,
 } from "lucide-react";
-import Link from "next/link";
+import { QRCodeCanvas } from "qrcode.react";
 import {
   useGetDepositAddressesQuery,
   useCreateDepositMutation,
@@ -185,38 +185,57 @@ export default function TopUpPage() {
 
     // Trim address to remove any whitespace
     const trimmedAddress = address.trim();
-    const cleanAmount = formatAmount(crypto, amount);
 
     // Bitcoin - BIP21 URI scheme
     if (crypto === "BTC") {
+      const cleanAmount = formatAmount(crypto, amount);
       return `bitcoin:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
     // Ethereum - EIP-681 URI scheme
     if (crypto === "ETH") {
+      const cleanAmount = formatAmount(crypto, amount);
       return `ethereum:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
     // USDT (TRC20) - TRON URI scheme
     if (crypto === "USDT_TRC20") {
+      const cleanAmount = formatAmount(crypto, amount);
       return `tron:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
-    // USDT (ERC20) - For ERC20 tokens, just return trimmed address
-    // Most wallets don't support ERC20 payment URIs properly
+    // USDT (ERC20) - Ethereum URI without amount (user selects token manually)
     if (crypto === "USDT_ERC20") {
-      return trimmedAddress;
+      return `ethereum:${trimmedAddress}`;
     }
 
-    // USDC (ERC20) - For ERC20 tokens, just return trimmed address
-    // Most wallets don't support ERC20 payment URIs properly
+    // USDC (ERC20) - Ethereum URI without amount (user selects token manually)
     if (crypto === "USDC_ERC20") {
-      return trimmedAddress;
+      return `ethereum:${trimmedAddress}`;
     }
 
-    // Monero - Just return trimmed address
+    // Monero - Use Monero URI scheme
     if (crypto === "XMR") {
-      return trimmedAddress;
+      // Basic validation: should be 95 or 106 characters and start with 4, 8, or 5
+      const isValidLength =
+        trimmedAddress.length === 95 || trimmedAddress.length === 106;
+      const isValidPrefix =
+        trimmedAddress.startsWith('4') ||
+        trimmedAddress.startsWith('8') ||
+        trimmedAddress.startsWith('5');
+
+      // Only validate if clearly invalid (wrong length or doesn't start with correct char)
+      // Otherwise allow it - Trust Wallet will validate the actual address
+      if (!isValidLength || !isValidPrefix) {
+        console.warn("Monero address may be invalid:", {
+          address: trimmedAddress,
+          length: trimmedAddress.length,
+          firstChar: trimmedAddress[0],
+        });
+      }
+
+      // Return Monero URI even if validation fails - let Trust Wallet validate
+      return `monero:${trimmedAddress}`;
     }
 
     // Fallback to just trimmed address
@@ -563,21 +582,18 @@ export default function TopUpPage() {
                       ] as string) && (
                         <div className="flex justify-center mb-4">
                           <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <Image
-                              src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
-                                getQRData(
-                                  selectedCrypto,
-                                  cryptoAddresses[
-                                    selectedCrypto as keyof typeof cryptoAddresses
-                                  ] as string,
-                                  cryptoAmount || 0
-                                ).trim()
-                              )}&ecc=H&margin=1`}
-                              alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
-                              width={192}
-                              height={192}
-                              className="w-48 h-48 object-contain"
-                              unoptimized
+                            <QRCodeCanvas
+                              value={getQRData(
+                                selectedCrypto,
+                                cryptoAddresses[
+                                  selectedCrypto as keyof typeof cryptoAddresses
+                                ] as string,
+                                cryptoAmount || 0
+                              )}
+                              size={192}
+                              level={"H"}
+                              includeMargin={false}
+                              className="w-48 h-48"
                             />
                             <p className="text-xs text-black text-center mt-2">
                               Scan with your crypto wallet app

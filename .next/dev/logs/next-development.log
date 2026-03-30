@@ -202,3 +202,852 @@ Import traces:
 [01:39:24.898] Server  LOG      ✓ Compiled in 76ms
 [01:43:58.922] Server  LOG      ✓ Compiled in 146ms
 [01:44:06.684] Server  LOG      ✓ Compiled in 29ms
+[01:48:51.929] Server  LOG      ✓ Compiled in 1428ms
+[01:49:05.945] Server  LOG      ✓ Compiled in 221ms
+[01:49:06.584] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:06.584] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:31.637] Server  ERROR    ⨯ ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+
+
+./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+
+[01:49:31.767] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:31.767] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.330] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.330] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.330] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.330] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.519] Browser ERROR   uncaughtError: Error: ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+
+[01:49:32.693] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.693] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.693] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:32.693] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:34.291] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-client] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:34.291] Browser ERROR   ./src/app/dashboard/topup/page.tsx:15:1
+Export default doesn't exist in target module
+  13 |   XCircle,
+  14 | } from "lucide-react";
+> 15 | import QRCode from "qrcode.react";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import {
+  17 |   useGetDepositAddressesQuery,
+  18 |   useCreateDepositMutation,
+
+The export default was not found in module [project]/node_modules/qrcode.react/lib/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import QRCodeCanvas?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/dashboard/topup/page.tsx [Client Component Browser]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/dashboard/topup/page.tsx [Client Component SSR]
+    ./src/app/dashboard/topup/page.tsx [Server Component]
+[01:49:45.234] Server  LOG      ✓ Compiled in 62ms
+[01:49:45.984] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:49:46.107] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[01:49:50.323] Server  LOG      ✓ Compiled in 156ms
+[01:49:57.020] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:49:57.128] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[01:52:25.768] Server  LOG      ✓ Compiled in 88ms
+[01:53:13.716] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:53:13.836] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[01:56:03.435] Server  LOG      ✓ Compiled in 72ms
+[01:56:03.586] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:03.586] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:04.583] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:04.583] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:05.584] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:05.584] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:06.582] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:06.583] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:07.589] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:07.589] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:08.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:08.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:20.898] Server  LOG      ✓ Compiled in 68ms
+[01:56:21.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:21.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:32.328] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:32.328] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:33.177] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:33.177] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:34.178] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:34.178] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:35.178] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:35.178] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:36.187] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:36.187] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:36.295] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:56:36.408] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="inter_2fe1ab3d-module__-T-KAq__variable space_grotesk_59d6dcf5-module__z_Ctiq__va..."
+-                         data-arp=""
+                        >
+                  ...
+
+[01:56:42.749] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:42.749] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:42.749] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:42.749] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:43.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:43.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:44.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:44.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:45.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:45.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:46.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:46.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:47.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:47.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:48.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:48.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:49.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:49.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:50.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:50.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:51.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:51.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:52.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:52.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:53.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:53.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:54.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:54.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:55.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:55.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:56.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:56.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:57.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:57.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:58.737] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:58.738] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:59.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:56:59.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:00.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:00.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:01.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:01.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:02.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:02.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:03.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:03.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:04.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:04.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:05.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:05.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:06.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:06.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:07.737] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:07.737] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:08.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:08.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:09.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:09.736] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:10.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:10.734] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:11.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:11.735] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:12.733] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:12.733] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:13.733] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:13.733] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:14.737] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:14.737] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:15.314] Server  LOG      ✓ Compiled in 70ms
+[01:57:15.581] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:15.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:15.581] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:15.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:17.582] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:17.582] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:17.582] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:17.582] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:19.587] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:19.588] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:19.588] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:19.588] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:21.580] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:21.580] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:21.580] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:21.580] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:23.582] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:23.582] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:23.582] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:23.582] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:25.580] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:25.580] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:25.580] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:25.580] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:27.581] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:27.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:27.581] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:27.581] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:29.583] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:29.584] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:29.584] Browser LOG     Monero address validation: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","isValid":false,"length":44,"startsCorrectly":true}
+[01:57:29.584] Browser ERROR   Invalid Monero address format: 5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx
+[01:57:29.782] Server  LOG      ✓ Compiled in 62ms
+[01:57:30.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:30.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:30.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:30.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:31.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:31.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:31.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:31.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:33.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:33.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:33.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:33.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:37.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:37.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:37.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:37.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:39.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:39.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:39.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:39.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:39.870] Server  LOG      ✓ Compiled in 41ms
+[01:57:40.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:40.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:41.587] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:41.591] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:43.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:43.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:45.729] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:45.729] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:46.377] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:46.377] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:46.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:46.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:47.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:47.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:48.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:48.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:49.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:49.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:50.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:50.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:51.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:51.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:52.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:52.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:53.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:53.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:54.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:54.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:55.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:55.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:56.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:56.733] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:57.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:57.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:58.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:58.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:59.738] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:57:59.738] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:00.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:00.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:01.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:01.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:02.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:02.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:03.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:03.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:04.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:04.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:05.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:05.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:06.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:06.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:07.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:07.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:08.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:08.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:09.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:09.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:10.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:10.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:11.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:11.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:12.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:12.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:13.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:13.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:14.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:14.738] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:15.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:15.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:16.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:16.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:17.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:17.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:18.738] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:18.738] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:19.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:19.737] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:20.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:20.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:21.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:21.734] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:22.735] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:22.736] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:25.584] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:25.584] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:27.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:27.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:29.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:29.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:31.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:31.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:33.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:33.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:35.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:37.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:37.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:39.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:39.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:40.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:40.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:42.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:42.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:44.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:44.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:48.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:48.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:50.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:50.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:52.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:52.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:54.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:54.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:56.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:56.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:58.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:58:58.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:00.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:00.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:02.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:02.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:04.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:04.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:06.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:06.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:08.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:08.581] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:10.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:10.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:12.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:12.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:14.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:14.580] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:16.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:16.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:18.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:18.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:20.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:20.583] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:22.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:22.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
+[01:59:46.582] Browser WARN    Monero address may be invalid: {"address":"5aMKRdZj1zDUrfx6W9DnVREG78TBz2QmxTPmS1GUk8jx","firstChar":"5","length":44}
