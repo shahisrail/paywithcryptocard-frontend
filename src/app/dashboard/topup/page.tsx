@@ -195,24 +195,29 @@ export default function TopUpPage() {
       return `ethereum:${address}?amount=${cleanAmount}`;
     }
 
-    // USDT (TRC20) - TRON URI scheme
+    // USDT (TRC20) - TRON URI scheme with decimal amount
     if (crypto === "USDT_TRC20") {
-      return `tron:${address}?amount=${cleanAmount}`;
+      // TRON uses amount in base units (1 USDT = 1,000,000 base units for 6 decimals)
+      const amountInBaseUnits = Math.floor(parseFloat(cleanAmount) * 1e6);
+      return `tron:${address}?amount=${amountInBaseUnits}`;
     }
 
-    // USDT (ERC20) - Ethereum ERC20 token
-    // Contract address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+    // USDT (ERC20) - Ethereum ERC20 token using EIP-681
     if (crypto === "USDT_ERC20") {
-      // Using EIP-681 for ERC20 tokens
-      const usdtContract = "0xdac17f958d2ee523a2206206994597c13d831ec7";
-      return `ethereum:${address}/transfer?address=${address}&uint256=${cleanAmount}`;
+      // USDT contract on Ethereum: 0xdac17f958d2ee523a2206206994597c13d831ec7
+      // USDT has 6 decimals
+      const contractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
+      const amountInWei = Math.floor(parseFloat(cleanAmount) * 1e6);
+      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInWei}`;
     }
 
-    // USDC (ERC20) - Ethereum ERC20 token
-    // Contract address: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+    // USDC (ERC20) - Ethereum ERC20 token using EIP-681
     if (crypto === "USDC_ERC20") {
-      const usdcContract = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
-      return `ethereum:${address}/transfer?address=${address}&uint256=${cleanAmount}`;
+      // USDC contract on Ethereum: 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+      // USDC has 6 decimals
+      const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+      const amountInWei = Math.floor(parseFloat(cleanAmount) * 1e6);
+      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInWei}`;
     }
 
     // Monero - OpenAlias scheme
