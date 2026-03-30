@@ -649,7 +649,7 @@ export default function TopUpPage() {
                       <span className="text-sm text-black">You send</span>
                       <span className="text-sm font-bold text-black">
                         {cryptoAmount !== null
-                          ? `${formatAmount(selectedCrypto, cryptoAmount)} ${selectedCrypto}`
+                          ? `${formatAmount(selectedCrypto!, cryptoAmount)} ${selectedCrypto!}`
                           : "-"}
                       </span>
                     </div>
