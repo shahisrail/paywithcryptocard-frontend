@@ -184,37 +184,46 @@ export default function TopUpPage() {
     }
 
     const cleanAmount = formatAmount(crypto, amount);
+    const amountValue = parseFloat(cleanAmount);
 
-    // Bitcoin - BIP21 URI scheme ✅ WORKING
+    // Bitcoin - BIP21 URI scheme
     if (crypto === "BTC") {
       return `bitcoin:${address}?amount=${cleanAmount}`;
     }
 
-    // Ethereum - EIP-681 URI scheme ✅ WORKING
+    // Ethereum - EIP-681 URI scheme (ETH in wei)
     if (crypto === "ETH") {
-      return `ethereum:${address}?amount=${cleanAmount}`;
+      // Convert ETH to wei (1 ETH = 10^18 wei)
+      const amountInWei = Math.floor(amountValue * 1e18);
+      return `ethereum:${address}?amount=${amountInWei}`;
     }
 
-    // USDT (TRC20) - TRON URI scheme ✅ WORKING
+    // USDT (TRC20) - TRON URI scheme
     if (crypto === "USDT_TRC20") {
       return `tron:${address}?amount=${cleanAmount}`;
     }
 
-    // USDT (ERC20) - Just address, no URI standard for ERC20 tokens
-    // Users must manually select USDT and enter amount
+    // USDT (ERC20) - Ethereum token using EIP-681
     if (crypto === "USDT_ERC20") {
-      return address;
+      // USDT contract: 0xdac17f958d2ee523a2206206994597c13d831ec7
+      // USDT has 6 decimals
+      const contractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
+      const amountInSmallestUnit = Math.floor(amountValue * 1e6);
+      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInSmallestUnit}`;
     }
 
-    // USDC (ERC20) - Just address, no URI standard for ERC20 tokens
-    // Users must manually select USDC and enter amount
+    // USDC (ERC20) - Ethereum token using EIP-681
     if (crypto === "USDC_ERC20") {
-      return address;
+      // USDC contract: 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+      // USDC has 6 decimals
+      const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+      const amountInSmallestUnit = Math.floor(amountValue * 1e6);
+      return `ethereum:${contractAddress}/transfer?address=${address}&uint256=${amountInSmallestUnit}`;
     }
 
-    // Monero - Just address, limited wallet support for Monero URIs
+    // Monero - OpenAlias URI scheme
     if (crypto === "XMR") {
-      return address;
+      return `monero:${address}?tx_amount=${cleanAmount}`;
     }
 
     // Fallback to just address for any unknown crypto
