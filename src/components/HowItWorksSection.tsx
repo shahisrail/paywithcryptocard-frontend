@@ -14,7 +14,7 @@ const HowItWorksSection = () => {
     {
       icon: Wallet,
       title: "Fund Your Account",
-      description: "Send BTC, ETH, USDT, or USDC to your unique wallet address"
+      description: "Send BTC, ETH, USDT, USDC or XMR to your account balance"
     },
     {
       icon: ArrowRight,
