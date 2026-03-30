@@ -183,42 +183,44 @@ export default function TopUpPage() {
       return "";
     }
 
+    // Trim address to remove any whitespace
+    const trimmedAddress = address.trim();
     const cleanAmount = formatAmount(crypto, amount);
 
     // Bitcoin - BIP21 URI scheme
     if (crypto === "BTC") {
-      return `bitcoin:${address}?amount=${cleanAmount}`;
+      return `bitcoin:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
     // Ethereum - EIP-681 URI scheme
     if (crypto === "ETH") {
-      return `ethereum:${address}?amount=${cleanAmount}`;
+      return `ethereum:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
     // USDT (TRC20) - TRON URI scheme
     if (crypto === "USDT_TRC20") {
-      return `tron:${address}?amount=${cleanAmount}`;
+      return `tron:${trimmedAddress}?amount=${cleanAmount}`;
     }
 
-    // USDT (ERC20) - For ERC20 tokens, just return address
+    // USDT (ERC20) - For ERC20 tokens, just return trimmed address
     // Most wallets don't support ERC20 payment URIs properly
     if (crypto === "USDT_ERC20") {
-      return address;
+      return trimmedAddress;
     }
 
-    // USDC (ERC20) - For ERC20 tokens, just return address
+    // USDC (ERC20) - For ERC20 tokens, just return trimmed address
     // Most wallets don't support ERC20 payment URIs properly
     if (crypto === "USDC_ERC20") {
-      return address;
+      return trimmedAddress;
     }
 
-    // Monero - Just return address
+    // Monero - Just return trimmed address
     if (crypto === "XMR") {
-      return address;
+      return trimmedAddress;
     }
 
-    // Fallback to just address
-    return address;
+    // Fallback to just trimmed address
+    return trimmedAddress;
   };
 
   const handleCopyAddress = (address: string) => {
@@ -562,15 +564,15 @@ export default function TopUpPage() {
                         <div className="flex justify-center mb-4">
                           <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <Image
-                              src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${
+                              src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
                                 getQRData(
                                   selectedCrypto,
                                   cryptoAddresses[
                                     selectedCrypto as keyof typeof cryptoAddresses
                                   ] as string,
                                   cryptoAmount || 0
-                                )
-                              }`}
+                                ).trim()
+                              )}&ecc=H&margin=1`}
                               alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
                               width={192}
                               height={192}
