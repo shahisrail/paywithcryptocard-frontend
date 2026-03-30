@@ -10,13 +10,13 @@ const BrandLogosSection = () => {
   });
 
   const brands = [
-    { name: "Amazon", logo: "/logos/amazon.webp", alt: "Amazon" },
-    { name: "netflix", logo: "/logos/netflix.svg", alt: "netflix" },
-    { name: "Spotify", logo: "/logos/spotify.svg", alt: "Spotify" },
-    { name: "ebay", logo: "/logos/images2.webp", alt: "ebay" },
+    { name: "Amazon", logo: "/logos/Amazon_logo.svg.webp", alt: "Amazon" },
+    { name: "netflix", logo: "/logos/Netflix_Logomark.png", alt: "netflix" },
+    { name: "Spotify", logo: "/logos/Spotify_logo_with_text.svg.png", alt: "Spotify" },
+    { name: "Uber", logo: "/logos/Uber_logo_2018.png", alt: "Uber" },
     { name: "Apple", logo: "/logos/apple.webp", alt: "Apple" },
-    { name: "Google", logo: "/logos/google.webp", alt: "Google" },
-    { name: "PayPal", logo: "/logos/paypal.webp", alt: "PayPal" },
+    { name: "Google", logo: "/logos/Aliexpress_logo.svg.png", alt: "Aliexpress" },
+    { name: "Walmart", logo: "/logos/Walmart_logo_(2008).svg", alt: "Walmart" },
     { name: "nike", logo: "/logos/Nike-Logo.webp", alt: "Nike" },
   ];
 

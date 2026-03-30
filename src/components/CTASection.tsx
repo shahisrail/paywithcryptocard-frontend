@@ -25,7 +25,7 @@ const CTASection = () => {
           </h2>
 
           <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Get your virtual Visa card in seconds. No KYC, no paperwork, just instant access to spend your crypto anywhere.
+            Get your virtual Visa card in minutes. No KYC, no paperwork, just instant access to spend your crypto anywhere.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

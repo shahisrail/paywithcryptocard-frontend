@@ -94,7 +94,7 @@ const HowItWorksSection = () => {
               <span className="text-sm font-medium text-gray-700">Ethereum</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
-              <img src="/logos/usdt.svg" alt="Tether" className="w-5 h-5" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%2226a17b%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
+              <img src="/deposit/images (2).webp" alt="Tether" className="w-5 h-5" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%2226a17b%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Tether</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">

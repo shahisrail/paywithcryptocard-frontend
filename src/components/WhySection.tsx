@@ -20,7 +20,7 @@ const WhySection = () => {
     {
       icon: CreditCard,
       title: "Multiple Virtual Cards",
-      description: "Create new virtual cards in seconds for different merchants, subscriptions or one-time purchases.",
+      description: "Create new virtual cards in minutes for different merchants, subscriptions or one-time purchases.",
       features: ["Unlimited cards", "$1,000 limit per card", "Instant generation"]
     },
     {

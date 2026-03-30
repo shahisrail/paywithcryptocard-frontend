@@ -101,16 +101,7 @@ function CardsPageContent() {
           <p className="text-black mt-1">Manage your virtual cards</p>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
-          <button
-            onClick={() => setShowBalance(!showBalance)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors self-center sm:self-auto"
-          >
-            {showBalance ? (
-              <EyeOff className="w-5 h-5 text-black" />
-            ) : (
-              <Eye className="w-5 h-5 text-black" />
-            )}
-          </button>
+        
           {canCreateCard ? (
             <button
               onClick={handleCreateCard}

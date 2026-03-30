@@ -14,7 +14,7 @@ const VirtualCardSection = () => {
     {
       icon: CreditCard,
       title: "Instant issuance",
-      description: "Your virtual Visa card is created within seconds after your crypto is received."
+      description: "Your virtual Visa card is created within minutes after your crypto is received."
     },
     {
       icon: ShoppingBag,

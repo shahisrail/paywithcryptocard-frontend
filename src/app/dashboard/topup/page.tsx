@@ -33,7 +33,7 @@ const CRYPTOCURRENCIES = {
   },
   USDT_ERC20: {
     name: "Tether (ERC20)",
-    icon: "/deposit/usdt.webp",
+    icon: "/deposit/trx.webp",
   },
   USDT_TRC20: {
     name: "Tether (TRC20)",
@@ -413,13 +413,13 @@ export default function TopUpPage() {
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12   rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-12 h-12   rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img
                               src={crypto.icon}
                               alt={crypto.name}
-                              width={40}
-                              height={40}
-                              className="object-contain"
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-contain p-1"
                             />
                           </div>
                           <div className="text-left flex-1">
