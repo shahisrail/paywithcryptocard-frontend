@@ -562,7 +562,7 @@ export default function TopUpPage() {
                         <div className="flex justify-center mb-4">
                           <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <Image
-                              src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(
+                              src={`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${
                                 getQRData(
                                   selectedCrypto,
                                   cryptoAddresses[
@@ -570,7 +570,7 @@ export default function TopUpPage() {
                                   ] as string,
                                   cryptoAmount || 0
                                 )
-                              )}`}
+                              }`}
                               alt={`${CRYPTOCURRENCIES[selectedCrypto].name} QR Code`}
                               width={192}
                               height={192}
