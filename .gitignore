@@ -1,9 +1,48 @@
+# Dependencies
 node_modules
-.next
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+*.log
+logs
+
+# Misc
+.DS_Store
+*.pem
+*.swp
+*.swo
+*~
+.env*.local
+
+# Vercel
+.vercel
+.netlify
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
 .env
 .env.local
-.env.production
 .env.development
-dist
-build
-.vercel
+.env.production
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+Thumbs.db
