@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
   keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT", "USDC", "XMR", "Monero"],
   authors: [{ name: "PayWithCryptoCard" }],
+  verification: {
+    google: "p2N4X00yCgWRfroqfWHJLbE-QqwnUCD28J",
+  },
   robots: {
     index: true,
     follow: true,
