@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT", "USDC", "XMR", "Monero"],
   authors: [{ name: "PayWithCryptoCard" }],
   verification: {
-    google: "p2N4X00yCgWRfroqfWHJLbE-QqwnUCD28J",
+    google: "p2N4XO0yCgWRfroqfWHJLbE-QqwnUCD28Jw5Z9e3xyk",
   },
   robots: {
     index: true,
