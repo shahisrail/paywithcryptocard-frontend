@@ -4,17 +4,33 @@ import { usePathname, useRouter } from "next/navigation";
 import { CreditCard, ArrowUpRight, ArrowDownLeft, LogOut, Settings, Home, User, X, Menu } from "lucide-react";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logoutUser } from "@/redux/slices/authSlice";
 
-export default function DashboardSidebar() {
+interface DashboardSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const { isLoggingOut } = useAppSelector((state) => state.auth);
   const [showBalance, setShowBalance] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   const navigation = [
     {
@@ -44,47 +60,36 @@ export default function DashboardSidebar() {
     router.push("/login");
   };
 
-  const closeMenu = () => setIsOpen(false);
-
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed bottom-4 right-4 z-50 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-900 transition-colors"
-        aria-label="Toggle menu"
-      >
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-
       {/* Mobile Overlay */}
       {isOpen && (
         <div
           className="md:hidden fixed inset-0 bg-black/50 z-30"
-          onClick={closeMenu}
+          onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        ${isOpen ? 'fixed' : 'hidden'}
-        md:static md:block
-        inset-y-0 left-0 z-40
-        w-64 bg-white border-r border-gray-200 flex-shrink-0 relative
-        ${isOpen ? 'translate-x-0' : ''}
-        transition-transform duration-300 ease-in-out
+        fixed md:static inset-y-0 left-0 z-40
+        w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full
+        transition-transform duration-300 ease-in-out transform
+        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
-        <div className="p-6 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-black tracking-tight" onClick={closeMenu}>
-            PayWithCryptoCard
-          </Link>
-          <button
-            onClick={closeMenu}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        <div className="flex flex-col h-full overflow-y-auto">
+          <div className="p-6 flex items-center justify-between flex-shrink-0">
+            <Link href="/" className="text-xl font-bold text-black tracking-tight" onClick={onClose}>
+              PayWithCryptoCard
+            </Link>
+            <button
+              onClick={onClose}
+              className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
 
         {/* User Info */}
         <div className="px-6 pb-6 border-b border-gray-200">
@@ -169,7 +174,7 @@ export default function DashboardSidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                onClick={closeMenu}
+                onClick={onClose}
                 className={`flex items-center gap-3 px-4 py-4 rounded-lg transition-colors ${
                   isActive
                     ? "bg-black text-white font-medium"
@@ -183,15 +188,16 @@ export default function DashboardSidebar() {
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 w-64 p-4 border-t border-gray-200 bg-white">
-          <button
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-            className="flex items-center gap-3 px-4 py-4 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-          >
-            <LogOut className="w-5 h-5" />
-            {isLoggingOut ? "Signing Out..." : "Sign Out"}
-          </button>
+          <div className="mt-auto p-4 border-t border-gray-200 bg-white flex-shrink-0">
+            <button
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="flex items-center gap-3 px-4 py-4 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            >
+              <LogOut className="w-5 h-5" />
+              {isLoggingOut ? "Signing Out..." : "Sign Out"}
+            </button>
+          </div>
         </div>
       </aside>
     </>

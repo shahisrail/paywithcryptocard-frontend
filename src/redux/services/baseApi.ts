@@ -1,7 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Base API URL - change this for different environments
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server-puce-mu.vercel.app/api';
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 // Custom base query with error handling
 const baseQueryWithAuth = fetchBaseQuery({
@@ -12,19 +13,23 @@ const baseQueryWithAuth = fetchBaseQuery({
 
     // If token exists, add to headers
     if (token) {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set("authorization", `Bearer ${token}`);
     }
 
     // Set content type for all requests
-    headers.set('accept', 'application/json');
+    headers.set("accept", "application/json");
 
     return headers;
   },
-  credentials: 'include', // Include cookies for httpOnly cookie support
+  credentials: "include", // Include cookies for httpOnly cookie support
 });
 
 // Wrapper around baseQuery to handle errors
-const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any) => {
+const baseQueryWithErrorHandling = async (
+  args: any,
+  api: any,
+  extraOptions: any
+) => {
   const result = await baseQueryWithAuth(args, api, extraOptions);
 
   // Handle errors
@@ -38,33 +43,35 @@ const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any
           status: 429,
           data: {
             success: false,
-            message: 'Too many requests. Please wait a moment and try again.',
+            message: "Too many requests. Please wait a moment and try again.",
           },
         },
       };
     }
 
     // Handle network errors / backend not found
-    if (status === 'FETCH_ERROR' || status === undefined) {
+    if (status === "FETCH_ERROR" || status === undefined) {
       return {
         error: {
           status: 503,
           data: {
             success: false,
-            message: 'Unable to connect to the server. Please check your internet connection and try again.',
+            message:
+              "Unable to connect to the server. Please check your internet connection and try again.",
           },
         },
       };
     }
 
     // Handle timeout errors
-    if (status === 'TIMEOUT_ERROR') {
+    if (status === "TIMEOUT_ERROR") {
       return {
         error: {
           status: 504,
           data: {
             success: false,
-            message: 'Request timeout. The server is taking too long to respond. Please try again.',
+            message:
+              "Request timeout. The server is taking too long to respond. Please try again.",
           },
         },
       };
@@ -77,7 +84,7 @@ const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any
           status: 401,
           data: {
             success: false,
-            message: 'Your session has expired. Please log in again.',
+            message: "Your session has expired. Please log in again.",
           },
         },
       };
@@ -90,7 +97,7 @@ const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any
           status: 403,
           data: {
             success: false,
-            message: 'You do not have permission to perform this action.',
+            message: "You do not have permission to perform this action.",
           },
         },
       };
@@ -103,7 +110,8 @@ const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any
           status: 500,
           data: {
             success: false,
-            message: 'Server error. Please try again later. If the problem persists, contact support.',
+            message:
+              "Server error. Please try again later. If the problem persists, contact support.",
           },
         },
       };
@@ -115,8 +123,8 @@ const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any
 
 // Create base API slice with common configuration
 export const baseApi = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['Auth', 'User', 'Card', 'Transaction', 'Admin', 'Deposit'],
+  tagTypes: ["Auth", "User", "Card", "Transaction", "Admin", "Deposit"],
   endpoints: () => ({}),
 });

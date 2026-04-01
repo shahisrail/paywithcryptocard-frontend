@@ -22,17 +22,11 @@ const HeroSection = () => {
           {/* Left Content */}
           <motion.div
             ref={ref}
-            initial={false}
-            animate={inView ? { x: 0 } : { x: -50 }}
-            transition={{ duration: 0.8 }}
             className="max-w-2xl mx-auto lg:mx-0 flex flex-col justify-center"
           >
 
             {/* Headline */}
             <motion.h1
-              initial={false}
-              animate={inView ? { y: 0 } : { y: 30 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5  leading-tight tracking-tight text-black"
             >
               Turn Crypto Into a Virtual Visa Card
@@ -40,9 +34,6 @@ const HeroSection = () => {
 
             {/* Subheadline */}
             <motion.p
-              initial={false}
-              animate={inView ? { y: 0 } : { y: 30 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
               className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
               Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.
@@ -53,9 +44,6 @@ const HeroSection = () => {
 
               {/* No KYC */}
               <motion.div
-                initial={false}
-                animate={inView ? { y: 0 } : { y: 30 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex items-center gap-3 sm:gap-4"
               >
                 <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-black rounded-xl flex items-center justify-center shadow-lg">
@@ -74,9 +62,6 @@ const HeroSection = () => {
 
               {/* CTA Button */}
               <motion.div
-                initial={false}
-                animate={inView ? { y: 0 } : { y: 30 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
                 className="w-full sm:w-auto"
               >
                 <Link

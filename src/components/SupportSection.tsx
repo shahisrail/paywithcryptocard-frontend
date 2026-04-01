@@ -29,7 +29,6 @@ const SupportSection = () => {
     {
       icon: MessageCircle,
       title: "Live chat",
-      description: "Bottom right corner",
       action: "Chat Now",
       onClick: handleChatNow,
       // available: "Available 24/7",
@@ -37,7 +36,6 @@ const SupportSection = () => {
     {
       icon: Mail,
       title: "Mail",
-      description: "support@paywithcryptocard.net",
       email: "support@paywithcryptocard.net",
       action: "Send Email",
       // available: "Response within 24h",
@@ -77,12 +75,9 @@ const SupportSection = () => {
                 <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-black mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-black mb-4">
                   {option.title}
                 </h3>
-                <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                  {option.description}
-                </p>
                 {option.email ? (
                   <a
                     href={`mailto:${option.email}`}
@@ -118,12 +113,9 @@ const SupportSection = () => {
           viewport={{ once: true }}
           className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center"
         >
-          <h3 className="text-lg sm:text-xl font-semibold text-black mb-3">
+          <h3 className="text-lg sm:text-xl font-semibold text-black mb-6">
             Visit our Frequently Asked Questions
           </h3>
-          <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-            Find quick answers to common questions about our service
-          </p>
           <a
             href="#faq"
             onClick={handleScrollToFAQ}

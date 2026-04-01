@@ -5,7 +5,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "@/redux/slices/authSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
@@ -13,6 +13,18 @@ const Header = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
 
   const handleLogout = async () => {
     dispatch(logoutUser() as any);

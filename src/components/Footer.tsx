@@ -5,20 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <footer className="bg-white border-t border-gray-200">
@@ -26,21 +13,19 @@ const Footer = () => {
 
         {/* Top Navigation */}
         <nav className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm mb-8 sm:mb-10">
-          <a
-            href="#support"
-            onClick={(e) => handleScroll(e, 'support')}
+          <Link
+            href="/#support"
             className="text-black hover:text-gray-600 px-2 py-1 cursor-pointer"
           >
             Support
-          </a>
+          </Link>
 
-          <a
-            href="#faq"
-            onClick={(e) => handleScroll(e, 'faq')}
+          <Link
+            href="/#faq"
             className="text-black hover:text-gray-600 px-2 py-1 cursor-pointer"
           >
             FAQ
-          </a>
+          </Link>
 
           <Link href="/terms" className="text-black hover:text-gray-600 px-2 py-1">
             Terms

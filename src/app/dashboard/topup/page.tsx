@@ -60,7 +60,7 @@ export default function TopUpPage() {
   const [isConverting, setIsConverting] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [activeTab, setActiveTab] = useState<"deposit" | "history">("deposit");
-  const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto, 2: Show address
+  const [step, setStep] = useState<1 | 2>(1); // 1: Select crypto & amount, 2: Show address
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState<number>(30 * 60); // 30 minutes in seconds
@@ -100,10 +100,6 @@ export default function TopUpPage() {
   // Countdown timer for payment expiration
   useEffect(() => {
     if (step === 2) {
-      // Reset timer when entering step 2
-      setTimeRemaining(PAYMENT_TIMEOUT);
-      setIsExpired(false);
-
       const timer = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 1) {
@@ -117,10 +113,11 @@ export default function TopUpPage() {
 
       return () => clearInterval(timer);
     } else {
-      // Reset timer when going back to step 1
+      // Reset timer when not in step 2
       setTimeRemaining(PAYMENT_TIMEOUT);
       setIsExpired(false);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
@@ -220,9 +217,9 @@ export default function TopUpPage() {
       const isValidLength =
         trimmedAddress.length === 95 || trimmedAddress.length === 106;
       const isValidPrefix =
-        trimmedAddress.startsWith('4') ||
-        trimmedAddress.startsWith('8') ||
-        trimmedAddress.startsWith('5');
+        trimmedAddress.startsWith("4") ||
+        trimmedAddress.startsWith("8") ||
+        trimmedAddress.startsWith("5");
 
       // Only validate if clearly invalid (wrong length or doesn't start with correct char)
       // Otherwise allow it - Trust Wallet will validate the actual address
@@ -364,20 +361,66 @@ export default function TopUpPage() {
             </div>
           ) : step === 1 ? (
             /* Step 1: Select Crypto & Amount */
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div className="  space-y-6">
-                {/* Amount Input */}
+            <div className="grid lg:grid-cols-2 gap-6 items-start">
+              {/* Crypto Selection - FIRST on mobile, SECOND on desktop (via order classes if needed, or just standard grid) */}
+              {/* Desktop: Order 2. Mobile: Order 1. */}
+              <div className="order-1 lg:order-2 space-y-4">
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h2 className="text-lg font-semibold text-black mb-4">
-                    Enter Amount
-                  </h2>
+                  <label className="block text-lg font-bold text-black mb-6">
+                    1. Select Cryptocurrency
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3 sm:gap-4">
+                    {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => (
+                      <button
+                        key={key}
+                        onClick={() => setSelectedCrypto(key as CryptoCurrency)}
+                        className={`p-4 rounded-xl border-2 transition-all flex items-center gap-4 ${
+                          selectedCrypto === key
+                            ? "bg-black text-white border-black"
+                            : "bg-white border-gray-50 hover:border-gray-200"
+                        }`}
+                      >
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-white/10 p-1">
+                          <img
+                            src={crypto.icon}
+                            alt={crypto.name}
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-left flex-1 min-w-0">
+                          <p
+                            className={`font-bold text-sm sm:text-base truncate ${
+                              selectedCrypto === key
+                                ? "text-white"
+                                : "text-black"
+                            }`}
+                          >
+                            {crypto.name}
+                          </p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-black mb-2">
-                      USD Amount
+              {/* Amount Input - SECOND on mobile, FIRST on desktop */}
+              <div className="order-2 lg:order-1 space-y-6">
+                <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <h2 className="text-xl font-bold text-black">
+                      2. Enter Amount
+                    </h2>
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-black mb-3">
+                      Amount in USD
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black text-lg">
+                      <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl font-bold text-black">
                         $
                       </span>
                       <input
@@ -386,15 +429,18 @@ export default function TopUpPage() {
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder="0.00"
                         min={minimumDeposit}
-                        className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg text-xl md:text-2xl font-bold text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                        className="w-full pl-12 pr-6 py-5 border-2 border-gray-50 rounded-xl text-3xl md:text-4xl font-black text-black placeholder-gray-200 focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
-                    <p className="mt-2 text-sm text-black">
-                      Minimum deposit: ${minimumDeposit}
+                    <p className="mt-3 text-sm font-medium text-gray-500">
+                      Minimum deposit:{" "}
+                      <span className="text-black font-bold">
+                        ${minimumDeposit}
+                      </span>
                     </p>
                   </div>
-
                   {/* Quick Amount Buttons */}
+
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                     {[100, 250, 500, 1000].map((amt) => (
                       <button
@@ -464,220 +510,208 @@ export default function TopUpPage() {
                     </div>
                   )}
 
-                  {/* Crypto Selection */}
-                </div>
-
-                {/* Generate Button */}
-                <button
-                  onClick={handleGenerateAddress}
-                  disabled={!selectedCrypto || !amount}
-                  className="w-full py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-                >
-                  Pay with your chosen crypto
-                </button>
-              </div>
-              <div>
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <label className="block text-sm font-medium text-black  mb-2">
-                    Select Cryptocurrency
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ">
-                    {Object.entries(CRYPTOCURRENCIES).map(([key, crypto]) => (
-                      <button
-                        key={key}
-                        onClick={() => setSelectedCrypto(key as CryptoCurrency)}
-                        className={`p-4 rounded-lg border transition-all ${
-                          selectedCrypto === key
-                            ? "bg-black text-white border-black"
-                            : "bg-white border-gray-200 hover:border-gray-300"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12   rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img
-                              src={crypto.icon}
-                              alt={crypto.name}
-                              width={48}
-                              height={48}
-                              className="w-full h-full object-contain p-1"
-                            />
-                          </div>
-                          <div className="text-left flex-1">
-                            <p
-                              className={`font-semibold text-sm ${
-                                selectedCrypto === key
-                                  ? "text-white"
-                                  : "text-black"
-                              }`}
-                            >
-                              {crypto.name}
-                            </p>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+                  <button
+                    onClick={handleGenerateAddress}
+                    disabled={
+                      !selectedCrypto ||
+                      !amount ||
+                      parseFloat(amount) < minimumDeposit ||
+                      isConverting
+                    }
+                    className="w-full px-8 py-5 bg-black text-white font-bold rounded-xl hover:bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-lg shadow-xl shadow-black/10 active:scale-95 flex items-center justify-center gap-3"
+                  >
+                    {isConverting ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : null}
+                    {isConverting ? "Converting..." : "Complete Payment"}
+                  </button>
                 </div>
               </div>
             </div>
           ) : (
-            /* Step 2: Deposit Address & Submit */
-            <div className="grid lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                {/* Deposit Address Card */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold text-black">
-                      Deposit {CRYPTOCURRENCIES[selectedCrypto!].name}
-                    </h2>
-                    {/* Countdown Timer */}
-                    <div className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg font-mono font-bold text-lg text-black">
-                      {isExpired ? (
-                        <span>Expired</span>
-                      ) : (
-                        <span>{formatTime(timeRemaining)}</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Send {selectedCrypto} to this address:
-                    </label>
-                    <div className="flex items-center gap-2 p-3 bg-white border border-gray-300 rounded-lg mb-4">
-                      <div className="flex-1 font-mono text-xs text-black break-all">
-                        {(cryptoAddresses[
-                          selectedCrypto as keyof typeof cryptoAddresses
-                        ] as string) || "Address not configured"}
-                      </div>
-                      <button
-                        onClick={() =>
-                          handleCopyAddress(
-                            (cryptoAddresses[
-                              selectedCrypto as keyof typeof cryptoAddresses
-                            ] as string) || ""
-                          )
-                        }
-                        className="p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
-                        disabled={
-                          !cryptoAddresses[
-                            selectedCrypto as keyof typeof cryptoAddresses
-                          ] || isExpired
-                        }
-                      >
-                        {copiedAddress ? (
-                          <Check className="w-4 h-4 text-green-600" />
-                        ) : (
-                          <Copy className="w-4 h-4 text-black" />
-                        )}
-                      </button>
-                    </div>
-
-                    {/* QR Code */}
-                    {selectedCrypto &&
-                      (cryptoAddresses[
-                        selectedCrypto as keyof typeof cryptoAddresses
-                      ] as string) && (
-                        <div className="flex justify-center mb-4">
-                          <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col items-center">
-                            <QRCodeCanvas
-                              value={getQRData(
-                                selectedCrypto,
-                                cryptoAddresses[
-                                  selectedCrypto as keyof typeof cryptoAddresses
-                                ] as string,
-                                cryptoAmount || 0
-                              )}
-                              size={192}
-                              level={"H"}
-                              includeMargin={false}
-                            />
-                            <p className="text-xs text-black text-center mt-3">
-                              Scan with your crypto wallet app
-                            </p>
-                            {(selectedCrypto === "USDT_ERC20" ||
-                              selectedCrypto === "USDC_ERC20" ||
-                              selectedCrypto === "XMR") && (
-                              <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded text-center w-full">
-                                <p className="text-xs text-blue-900 font-medium">
-                                  ℹ️ After scanning, manually enter the amount:{" "}
-                                  {cryptoAmount !== null
-                                    ? formatAmount(selectedCrypto, cryptoAmount)
-                                    : "0"}{" "}
-                                  {selectedCrypto}
-                                </p>
-                              </div>
-                            )}
+            /* Step 2: Deposit Address & QR */
+            <div className="max-w-4xl mx-auto">
+              <div className="grid lg:grid-cols-5 gap-6">
+                <div className="lg:col-span-3 space-y-6 order-2 lg:order-1">
+                  {/* QR & Address Card */}
+                  <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="p-6 sm:p-8">
+                      <div className="flex items-center justify-between mb-8">
+                        <div>
+                          <h2 className="text-2xl font-black text-black">
+                            Complete Payment
+                          </h2>
+                          <p className="text-gray-500 font-medium">
+                            Scan QR or Copy Address
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <div
+                            className={`px-4 py-2 rounded-xl font-mono font-bold text-xl ${
+                              isExpired
+                                ? "bg-red-50 text-red-600"
+                                : "bg-black text-white"
+                            }`}
+                          >
+                            {formatTime(timeRemaining)}
                           </div>
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-1">
+                            Payment Window
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* QR Code Section */}
+                      <div className="flex flex-col items-center mb-8">
+                        <div className="bg-white p-6 rounded-3xl border-4 border-gray-50 shadow-inner mb-4">
+                          <QRCodeCanvas
+                            value={getQRData(
+                              selectedCrypto!,
+                              cryptoAddresses[
+                                selectedCrypto! as keyof typeof cryptoAddresses
+                              ] as string,
+                              cryptoAmount || 0
+                            )}
+                            size={220}
+                            level={"H"}
+                            includeMargin={false}
+                          />
+                        </div>
+                        <p className="text-sm font-bold text-black bg-gray-100 px-4 py-2 rounded-full">
+                          Send exactly{" "}
+                          {formatAmount(selectedCrypto!, cryptoAmount)}{" "}
+                          {selectedCrypto}
+                        </p>
+                      </div>
+
+                      {/* Address Section */}
+                      <div className="space-y-3">
+                        <label className="text-xs font-black uppercase tracking-widest text-gray-400">
+                          Wallet Address
+                        </label>
+                        <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border-2 border-transparent hover:border-gray-200 transition-all group">
+                          <div className="flex-1 font-mono text-sm font-bold text-black break-all leading-relaxed">
+                            {(cryptoAddresses[
+                              selectedCrypto! as keyof typeof cryptoAddresses
+                            ] as string) || "Not Set"}
+                          </div>
+                          <button
+                            onClick={() =>
+                              handleCopyAddress(
+                                cryptoAddresses[
+                                  selectedCrypto! as keyof typeof cryptoAddresses
+                                ] as string
+                              )
+                            }
+                            className="p-3 bg-white text-black rounded-xl shadow-sm hover:shadow-md active:scale-90 transition-all border border-gray-100"
+                            disabled={isExpired}
+                          >
+                            {copiedAddress ? (
+                              <Check className="w-5 h-5 text-green-500" />
+                            ) : (
+                              <Copy className="w-5 h-5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+
+                      {(selectedCrypto === "USDT_ERC20" ||
+                        selectedCrypto === "USDC_ERC20" ||
+                        selectedCrypto === "XMR") && (
+                        <div className="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-100 flex gap-3 text-sm">
+                          <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                          <p className="text-blue-900 font-medium leading-relaxed">
+                            After scanning, make sure to manually enter the
+                            amount:{" "}
+                            <span className="font-black underline">
+                              {formatAmount(selectedCrypto, cryptoAmount)}{" "}
+                              {selectedCrypto}
+                            </span>
+                          </p>
                         </div>
                       )}
+                    </div>
+
+                    <div className="p-6 sm:p-8 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row gap-4">
+                      <button
+                        onClick={() => setStep(1)}
+                        className="flex-1 px-8 py-4 bg-white border-2 border-gray-200 text-black font-bold rounded-xl hover:bg-gray-50 transition-all"
+                      >
+                        Change Selection
+                      </button>
+                      <button
+                        onClick={() => router.push("/dashboard/transactions")}
+                        className="flex-1 px-8 py-4 bg-black text-white font-bold rounded-xl hover:bg-gray-900 transition-all shadow-lg shadow-black/10"
+                      >
+                        I have paid
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Back Button */}
-                  <button
-                    onClick={() => {
-                      setStep(1);
-                      setError("");
-                    }}
-                    className="w-full px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    Back
-                  </button>
                 </div>
-              </div>
 
-              {/* Summary Card */}
-              <div className="lg:col-span-1">
-                <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 sticky top-24">
-                  <h3 className="font-semibold text-black mb-4">
-                    Deposit Summary
-                  </h3>
+                {/* Summary Card Order 1 on mobile, 2 on desktop */}
+                <div className="lg:col-span-2 order-1 lg:order-2">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 lg:sticky lg:top-8 shadow-sm">
+                    <h3 className="text-xl font-black text-black mb-6 border-b border-gray-100 pb-4">
+                      Order Summary
+                    </h3>
 
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-black">Cryptocurrency</span>
-                      <span className="text-sm font-medium text-black flex items-center gap-2">
-                        {CRYPTOCURRENCIES[selectedCrypto!].name}
-                        {(cryptoAddresses[
-                          selectedCrypto as keyof typeof cryptoAddresses
-                        ] as string)
-                          ? " "
-                          : ""  }
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-black">You send</span>
-                      <span className="text-sm font-bold text-black">
-                        {cryptoAmount !== null
-                          ? `${formatAmount(selectedCrypto!, cryptoAmount)} ${selectedCrypto!}`
-                          : "-"}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-black">USD Value</span>
-                      <span className="text-sm font-medium text-black">
-                        {formatCurrency(parseFloat(amount))}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-black">
-                        Exchange Fee (2.5%)
-                      </span>
-                      <span className="text-sm font-medium text-black">
-                        -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
-                      </span>
-                    </div>
-                    <div className="border-t border-gray-300 pt-3">
-                      <div className="flex justify-between">
-                        <span className="text-sm font-medium text-black">
-                          You will receive
+                    <div className="space-y-5">
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-500 font-bold">Asset</span>
+                        <div className="flex items-center gap-2 font-black text-black">
+                          <img
+                            src={CRYPTOCURRENCIES[selectedCrypto!].icon}
+                            className="w-5 h-5 object-contain"
+                          />
+                          {CRYPTOCURRENCIES[selectedCrypto!].name}
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-500 font-bold">
+                          Total to send
                         </span>
-                        <span className="text-lg font-bold text-black">
+                        <span className="font-black text-black">
+                          {formatAmount(selectedCrypto!, cryptoAmount)}{" "}
+                          {selectedCrypto}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-500 font-bold">
+                          USD Value
+                        </span>
+                        <span className="font-black text-black">
+                          {formatCurrency(parseFloat(amount))}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm pt-2 border-t border-gray-50">
+                        <span className="text-gray-500 font-bold">
+                          Credit to wallet
+                        </span>
+                        <span className="text-xl font-black text-green-600">
                           {formatCurrency(
                             parseFloat(amount) * (1 - EXCHANGE_FEE)
                           )}
                         </span>
                       </div>
+                    </div>
+
+                    <div className="mt-8 bg-black/5 rounded-2xl p-5">
+                      <ul className="space-y-3">
+                        <li className="flex gap-3 text-xs text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-black flex-shrink-0" />
+                          <span>
+                            Funds will be credited after 1 network confirmation
+                          </span>
+                        </li>
+                        <li className="flex gap-3 text-xs text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-black flex-shrink-0" />
+                          <span>
+                            Exchange rate is locked for {PAYMENT_TIMEOUT / 60}{" "}
+                            minutes
+                          </span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
