@@ -17,7 +17,7 @@ export default function DashboardLayout({
 
   return (
     <ProtectedRoute requiredRole="user">
-      <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row overflow-hidden">
+      <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
         {/* Mobile Header */}
         <header className="md:hidden bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between sticky top-0 z-30">
           <Link href="/dashboard" className="text-xl font-bold text-black tracking-tight">
@@ -32,15 +32,15 @@ export default function DashboardLayout({
           </button>
         </header>
 
-        <DashboardSidebar 
-          isOpen={isSidebarOpen} 
-          onClose={() => setIsSidebarOpen(false)} 
+        {/* Sidebar */}
+        <DashboardSidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
         />
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          {/* Page Content */}
-          <main className="flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="flex-1 md:ml-0">
+          <main className="min-h-screen">
             <div className="p-4 md:p-8">
               {children}
             </div>

@@ -18,11 +18,17 @@ const Header = () => {
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
     } else {
       document.body.style.overflow = "unset";
+      document.body.style.position = "";
+      document.body.style.width = "";
     }
     return () => {
       document.body.style.overflow = "unset";
+      document.body.style.position = "";
+      document.body.style.width = "";
     };
   }, [mobileMenuOpen]);
 
@@ -187,83 +193,108 @@ const Header = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-300 bg-gray-200">
-          <div className="px-3 sm:px-6 lg:px-8 py-4 space-y-3">
-            {/* Navigation Links */}
-            {navLinks.map((link) => (
-              link.href.startsWith('#') ? (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => {
-                    handleScroll(e, link.href.substring(1));
-                    setMobileMenuOpen(false);
-                  }}
-                  className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-base font-medium text-black hover:text-gray-700 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              )
-            ))}
+        <>
+          {/* Backdrop */}
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-50"
+            onClick={() => setMobileMenuOpen(false)}
+          />
 
-            {/* Auth Buttons */}
-            <div className="pt-4 border-t border-gray-200 space-y-3">
-              {isAuthenticated && user ? (
-                <>
-                  {user.role === "admin" ? (
-                    <Link
-                      href="/admin"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+          {/* Drawer */}
+          <div className="lg:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 shadow-xl overflow-y-auto">
+            <div className="p-6">
+              {/* Close button */}
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-xl font-bold text-black">
+                  Menu
+                </span>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6 text-black" />
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="space-y-1">
+                {navLinks.map((link) => (
+                  link.href.startsWith('#') ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => {
+                        handleScroll(e, link.href.substring(1));
+                        setMobileMenuOpen(false);
+                      }}
+                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg transition-colors"
                     >
-                      Admin Dashboard
-                    </Link>
+                      {link.label}
+                    </a>
                   ) : (
                     <Link
-                      href="/dashboard/topup"
+                      key={link.href}
+                      href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg transition-colors"
                     >
-                      Dashboard
+                      {link.label}
                     </Link>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="w-full px-5 py-3 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
-                  >
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-5 py-3.5 text-center text-base font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/register"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-5 py-3.5 text-center text-base font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
-                  >
-                    Create Account
-                  </Link>
-                </>
-              )}
+                  )
+                ))}
+              </nav>
+
+              {/* Auth Buttons */}
+              <div className="mt-8 pt-6 border-t border-gray-200 space-y-3">
+                {isAuthenticated && user ? (
+                  <>
+                    {user.role === "admin" ? (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                      >
+                        Admin Dashboard
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/dashboard/topup"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-5 py-3 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/register"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    >
+                      Create Account
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
