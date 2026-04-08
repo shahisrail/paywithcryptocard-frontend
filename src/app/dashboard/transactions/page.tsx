@@ -335,9 +335,9 @@ export default function TransactionsPage() {
                   <th className="text-right p-5 text-sm font-medium text-black">
                     Amount
                   </th>
-                  <th className="text-center p-5 text-sm font-medium text-black">
+                  {/* <th className="text-center p-5 text-sm font-medium text-black">
                     Status
-                  </th>
+                  </th> */}
                   <th className="text-center p-5 text-sm font-medium text-black">
                     Actions
                   </th>
@@ -362,7 +362,7 @@ export default function TransactionsPage() {
                     >
                       <td className="p-5 bg-white">
                         <div className="flex items-center gap-4">
-                          <div
+                          {/* <div
                             className={`w-12 h-12 rounded-lg flex items-center justify-center text-white font-medium shadow ${getCategoryColor(
                               item.type,
                               item.itemType,
@@ -370,7 +370,7 @@ export default function TransactionsPage() {
                             )}`}
                           >
                             <span className="text-xl">{getCategoryIcon(item.type, item.itemType, item.currency)}</span>
-                          </div>
+                          </div> */}
                           <div>
                             <p className="font-semibold text-black">
                               {item.description || item.type.replace("_", " ")}
@@ -427,7 +427,7 @@ export default function TransactionsPage() {
                         )}
                       </td>
 
-                      <td className="p-5 bg-white text-center">
+                      {/* <td className="p-5 bg-white text-center">
                         <span
                           className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                             isDeposit
@@ -447,7 +447,7 @@ export default function TransactionsPage() {
                             : "Failed"
                           )}
                         </span>
-                      </td>
+                      </td> */}
 
                       <td className="p-5 bg-white text-center">
                         <button className="p-2 bg-gray-50 border border-gray-100 rounded-lg hover:bg-gray-100">

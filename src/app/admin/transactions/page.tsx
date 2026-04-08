@@ -305,7 +305,7 @@ export default function AdminTransactionsPage() {
                 <th className="text-left p-4 text-sm font-medium text-gray-700">User</th>
                 <th className="text-left p-4 text-sm font-medium text-gray-700">Date & Time</th>
                 <th className="text-right p-4 text-sm font-medium text-gray-700">Amount</th>
-                <th className="text-center p-4 text-sm font-medium text-gray-700">Status</th>
+                {/* <th className="text-center p-4 text-sm font-medium text-gray-700">Status</th> */}
                 <th className="text-center p-4 text-sm font-medium text-gray-700">Actions</th>
               </tr>
             </thead>
@@ -325,7 +325,7 @@ export default function AdminTransactionsPage() {
                   >
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div
+                        {/* <div
                           className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                             isDeposit
                               ? "bg-yellow-100 text-yellow-600"
@@ -341,7 +341,7 @@ export default function AdminTransactionsPage() {
                           ) : (
                             <ArrowUpRight className="w-5 h-5" />
                           )}
-                        </div>
+                        </div> */}
                         <div>
                           <p className="font-medium text-gray-900">
                             {String(item._id.slice(-8).toUpperCase())}
@@ -378,16 +378,9 @@ export default function AdminTransactionsPage() {
                         isDeposit ? "text-yellow-600" : isPositive ? "text-green-600" : "text-red-600"
                       }`}
                     >
-                      {isDeposit ? (
-                        <span>{String(item.currency)} {String(item.amount)}</span>
-                      ) : (
-                        <>
-                          {isPositive ? "+" : ""}
-                          {formatCurrency(item.amount || 0)}
-                        </>
-                      )}
+                      {formatCurrency(item.amount || 0)}
                     </td>
-                    <td className="p-4 text-center">
+                    {/* <td className="p-4 text-center">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
                           item.status === "approved" || item.status === "completed"
@@ -401,7 +394,7 @@ export default function AdminTransactionsPage() {
                       >
                         {String(item.status.charAt(0).toUpperCase() + item.status.slice(1))}
                       </span>
-                    </td>
+                    </td> */}
                     <td className="p-4">
                       <div className="flex items-center justify-center gap-2">
                         <button className="p-1 hover:bg-gray-100 rounded">

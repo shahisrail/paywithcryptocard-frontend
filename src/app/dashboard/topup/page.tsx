@@ -314,7 +314,6 @@ export default function TopUpPage() {
       }).unwrap();
 
       setPaymentStatus("waiting");
-      showSuccess("Payment submitted! Waiting for admin approval.");
     } catch (err: any) {
       console.error("Deposit error:", err);
       showError(err.data?.message || "Failed to submit payment. Please try again.");
@@ -687,9 +686,9 @@ export default function TopUpPage() {
                               level={"H"}
                               includeMargin={false}
                             />
-                            <p className="text-xs text-black text-center mt-2 md:mt-3">
+                            {/* <p className="text-xs text-black text-center mt-2 md:mt-3">
                               Scan with your crypto wallet app
-                            </p>
+                            </p> */}
                             {(selectedCrypto === "USDT_ERC20" ||
                               selectedCrypto === "USDT_TRC20" ||
                               selectedCrypto === "XMR") && (
@@ -710,7 +709,7 @@ export default function TopUpPage() {
                     {/* "Send the exact amount" text */}
                     {selectedCrypto && cryptoAmount !== null && (
                       <div className="mt-3 md:mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
-                        <p className="text-sm md:text-base font-semibold text-blue-900">
+                        <p className="text-sm md:text-base font-semibold text-black">
                           Send the exact amount to this address
                         </p>
                       </div>
