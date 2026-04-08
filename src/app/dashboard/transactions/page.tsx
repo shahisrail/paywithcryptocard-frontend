@@ -404,7 +404,7 @@ export default function TransactionsPage() {
                           </div>
                         ) : isDeposit ? (
                           <div className="flex items-center gap-2 text-black">
-                            <Bitcoin className="w-4 h-4 text-black" />
+                            {/* <Bitcoin className="w-4 h-4 text-black" /> */}
                             <span className="text-sm">{item.currency}</span>
                           </div>
                         ) : (

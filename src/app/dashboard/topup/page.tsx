@@ -70,7 +70,9 @@ export default function TopUpPage() {
   const [isExpired, setIsExpired] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
   const [copiedAmount, setCopiedAmount] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "waiting">("idle");
+  const [paymentStatus, setPaymentStatus] = useState<"idle" | "waiting">(
+    "idle"
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
   const PAYMENT_TIMEOUT = 30 * 60; // 30 minutes in seconds
@@ -316,7 +318,9 @@ export default function TopUpPage() {
       setPaymentStatus("waiting");
     } catch (err: any) {
       console.error("Deposit error:", err);
-      showError(err.data?.message || "Failed to submit payment. Please try again.");
+      showError(
+        err.data?.message || "Failed to submit payment. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -363,9 +367,7 @@ export default function TopUpPage() {
     <div className="space-y-3 md:space-y-4">
       {/* Header */}
       <div>
-        <h1 className="text-xl md:text-2xl font-bold text-black">
-          Add Funds
-        </h1>
+        <h1 className="text-xl md:text-2xl font-bold text-black">Add Funds</h1>
       </div>
 
       {/* Tabs */}
@@ -427,7 +429,7 @@ export default function TopUpPage() {
           ) : step === 1 ? (
             /* Step 1: Select Crypto & Amount */
             <div className="flex flex-col md:grid md:grid-cols-2 gap-3 md:gap-4">
-            <div className="order-2 md:order-1 space-y-3">
+              <div className="order-2 md:order-1 space-y-3">
                 {/* Amount Input */}
                 <div className="bg-white border border-gray-200 rounded-xl p-3 md:p-4">
                   <h2 className="text-base font-semibold text-black mb-2 md:mb-3">
@@ -650,7 +652,8 @@ export default function TopUpPage() {
                         </label>
                         <div className="flex items-center gap-2 p-2 md:p-3 bg-white border border-gray-300 rounded-lg mb-3">
                           <div className="flex-1 font-mono text-sm md:text-base text-black">
-                            {formatAmount(selectedCrypto, cryptoAmount)} {selectedCrypto}
+                            {formatAmount(selectedCrypto, cryptoAmount)}{" "}
+                            {selectedCrypto}
                           </div>
                           <button
                             onClick={handleCopyAmount}
@@ -686,9 +689,7 @@ export default function TopUpPage() {
                               level={"H"}
                               includeMargin={false}
                             />
-                            {/* <p className="text-xs text-black text-center mt-2 md:mt-3">
-                              Scan with your crypto wallet app
-                            </p> */}
+
                             {(selectedCrypto === "USDT_ERC20" ||
                               selectedCrypto === "USDT_TRC20" ||
                               selectedCrypto === "XMR") && (
@@ -705,15 +706,15 @@ export default function TopUpPage() {
                           </div>
                         </div>
                       )}
-
+                    <p className="text-sm text-center mt-2 md:text-base font-semibold text-black">
+                      Send the exact amount to this address
+                    </p>
                     {/* "Send the exact amount" text */}
-                    {selectedCrypto && cryptoAmount !== null && (
+                    {/* {selectedCrypto && cryptoAmount !== null && (
                       <div className="mt-3 md:mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
-                        <p className="text-sm md:text-base font-semibold text-black">
-                          Send the exact amount to this address
-                        </p>
+                        
                       </div>
-                    )}
+                    )} */}
 
                     {/* Payment Confirmation Button */}
                     {paymentStatus === "idle" ? (
@@ -767,7 +768,9 @@ export default function TopUpPage() {
 
                   <div className="space-y-2 md:space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-xs md:text-sm text-black">Cryptocurrency</span>
+                      <span className="text-xs md:text-sm text-black">
+                        Cryptocurrency
+                      </span>
                       <span className="text-xs md:text-sm font-medium text-black flex items-center gap-2">
                         {CRYPTOCURRENCIES[selectedCrypto!].name}
                         {(cryptoAddresses[
@@ -778,7 +781,9 @@ export default function TopUpPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-xs md:text-sm text-black">You send</span>
+                      <span className="text-xs md:text-sm text-black">
+                        You send
+                      </span>
                       <span className="text-xs md:text-sm font-bold text-black">
                         {cryptoAmount !== null
                           ? `${formatAmount(
@@ -789,7 +794,9 @@ export default function TopUpPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-xs md:text-sm text-black">USD Value</span>
+                      <span className="text-xs md:text-sm text-black">
+                        USD Value
+                      </span>
                       <span className="text-xs md:text-sm font-medium text-black">
                         {formatCurrency(parseFloat(amount))}
                       </span>
@@ -871,12 +878,16 @@ export default function TopUpPage() {
                   const getStatusIcon = (status: string) => {
                     switch (status) {
                       case "approved":
-                        return <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />;
+                        return (
+                          <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+                        );
                       case "rejected":
                         return <XCircle className="w-3 h-3 md:w-4 md:h-4" />;
                       case "pending":
                       default:
-                        return <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin" />;
+                        return (
+                          <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin" />
+                        );
                     }
                   };
 
