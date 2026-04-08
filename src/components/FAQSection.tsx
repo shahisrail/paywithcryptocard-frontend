@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 
 const FAQSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleScrollToSupport = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -26,7 +21,9 @@ const FAQSection = () => {
     }
   };
 
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   const faqs = [
     {
@@ -99,42 +96,28 @@ const FAQSection = () => {
     }
   ];
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
     <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={false}
-          animate={inView ? { y: 0 } : { y: 30 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
-        >
+        <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Frequently Asked Questions
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Quick answers to common questions
           </p>
-        </motion.div>
+        </div>
 
         <div className="space-y-3">
           {faqs.map((faq, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={false}
-              animate={inView ? { y: 0 } : { y: 20 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1
-              }}
+              className="bg-white rounded-xl border border-gray-200 overflow-hidden"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full bg-white rounded-xl px-5 py-4 text-left border border-gray-200 hover:border-black hover:shadow-md transition-all duration-300"
+                className="w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+                aria-expanded={openIndex === index}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-black pr-4">
@@ -148,29 +131,23 @@ const FAQSection = () => {
                     <ChevronDown className="w-5 h-5 text-gray-400" />
                   </div>
                 </div>
-
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openIndex === index
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="pt-4 text-sm text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </div>
-                </div>
               </button>
-            </motion.div>
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openIndex === index ? "max-h-96" : "max-h-0"
+                }`}
+                aria-hidden={openIndex !== index}
+              >
+                <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={false}
-          animate={inView ? { y: 0 } : { y: 20 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 text-center"
-        >
+        <div className="mt-10 text-center">
           <p className="text-sm text-gray-600 mb-2">Still have questions?</p>
           <a
             href="#support"
@@ -180,7 +157,7 @@ const FAQSection = () => {
             Contact our support
             <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

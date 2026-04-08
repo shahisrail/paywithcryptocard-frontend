@@ -20,6 +20,8 @@ import {
   Deposit,
 } from "@/redux/services/depositApi";
 import { convertUsdToCrypto } from "@/utils/coingecko";
+import { useToast } from "@/contexts/ToastContext";
+import { useGetCurrentUserQuery } from "@/redux/services/authApi";
 
 const CRYPTOCURRENCIES = {
   BTC: {
@@ -52,6 +54,7 @@ type CryptoCurrency = keyof typeof CRYPTOCURRENCIES;
 
 export default function TopUpPage() {
   const router = useRouter();
+  const { showSuccess, showError } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoCurrency | null>(
     null
   );
@@ -67,8 +70,23 @@ export default function TopUpPage() {
   const [isExpired, setIsExpired] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
   const [copiedAmount, setCopiedAmount] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<"idle" | "waiting">("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
   const PAYMENT_TIMEOUT = 30 * 60; // 30 minutes in seconds
+
+  // Load payment status from localStorage on mount
+  useEffect(() => {
+    const savedStatus = localStorage.getItem("paymentStatus");
+    if (savedStatus === "waiting") {
+      setPaymentStatus("waiting");
+    }
+  }, []);
+
+  // Save payment status to localStorage
+  useEffect(() => {
+    localStorage.setItem("paymentStatus", paymentStatus);
+  }, [paymentStatus]);
 
   // Convert USD to crypto when amount or crypto changes
   useEffect(() => {
@@ -136,6 +154,13 @@ export default function TopUpPage() {
   } = useGetMyDepositsQuery({
     limit: 20,
   });
+
+  // Poll for user balance updates every 10 seconds when on deposit page
+  const { data: currentUserData } = useGetCurrentUserQuery(undefined, {
+    pollingInterval: 10000, // Refetch every 10 seconds
+  });
+
+  const [createDeposit] = useCreateDepositMutation();
 
   // API returns addresses directly with uppercase keys: BTC, ETH, USDT_ERC20, etc.
   const cryptoAddresses = addressesData?.data || {
@@ -267,7 +292,35 @@ export default function TopUpPage() {
       return;
     }
     setError("");
+    setPaymentStatus("idle");
+    localStorage.removeItem("paymentStatus");
     setStep(2);
+  };
+
+  const handlePaymentSent = async () => {
+    if (!selectedCrypto || !cryptoAmount) return;
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const usdAmount = parseFloat(amount) * (1 - EXCHANGE_FEE);
+
+      await createDeposit({
+        currency: selectedCrypto,
+        amount: cryptoAmount,
+        walletAddress: cryptoAddresses[selectedCrypto],
+        usdAmount,
+      }).unwrap();
+
+      setPaymentStatus("waiting");
+      showSuccess("Payment submitted! Waiting for admin approval.");
+    } catch (err: any) {
+      console.error("Deposit error:", err);
+      showError(err.data?.message || "Failed to submit payment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formatCurrency = (amount: number) => {
@@ -638,7 +691,7 @@ export default function TopUpPage() {
                               Scan with your crypto wallet app
                             </p>
                             {(selectedCrypto === "USDT_ERC20" ||
-                              selectedCrypto === "USDC_ERC20" ||
+                              selectedCrypto === "USDT_TRC20" ||
                               selectedCrypto === "XMR") && (
                               <div className="mt-2 md:mt-3 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded text-center w-full">
                                 <p className="text-xs text-blue-900 font-medium">
@@ -653,6 +706,42 @@ export default function TopUpPage() {
                           </div>
                         </div>
                       )}
+
+                    {/* "Send the exact amount" text */}
+                    {selectedCrypto && cryptoAmount !== null && (
+                      <div className="mt-3 md:mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
+                        <p className="text-sm md:text-base font-semibold text-blue-900">
+                          Send the exact amount to this address
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Payment Confirmation Button */}
+                    {paymentStatus === "idle" ? (
+                      <button
+                        onClick={handlePaymentSent}
+                        disabled={isSubmitting || isExpired}
+                        className="w-full mt-3 md:mt-4 py-2.5 md:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-sm"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          "I have sent the payment"
+                        )}
+                      </button>
+                    ) : (
+                      <div className="w-full mt-3 md:mt-4 py-2.5 md:py-3 bg-yellow-50 border border-yellow-200 rounded-lg text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <Loader2 className="w-4 h-4 animate-spin text-yellow-600" />
+                          <p className="text-sm md:text-base font-semibold text-yellow-900">
+                            Waiting for your payment
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Back Button */}
@@ -660,6 +749,8 @@ export default function TopUpPage() {
                     onClick={() => {
                       setStep(1);
                       setError("");
+                      setPaymentStatus("idle");
+                      localStorage.removeItem("paymentStatus");
                     }}
                     className="w-full px-4 md:px-6 py-2.5 md:py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
                   >

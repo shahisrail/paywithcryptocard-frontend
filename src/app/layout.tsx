@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
-  description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
+  description: "Get a virtual Visa card with crypto. No KYC. Pay online worldwide using BTC, ETH, USDT, USDC, XMR.",
   keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT", "USDC", "XMR", "Monero"],
   authors: [{ name: "PayWithCryptoCard" }],
   verification: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Crypto Virtual Visa Card | No KYC | PayWithCryptoCard",
-    description: "Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.",
+    description: "Get a virtual Visa card with crypto. No KYC. Pay online worldwide using BTC, ETH, USDT, USDC, XMR.",
     type: "website",
     url: "https://paywithcryptocard.net/",
   },

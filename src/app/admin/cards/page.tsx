@@ -80,6 +80,38 @@ export default function AdminCardsPage() {
     setSelectedCard(null);
   };
 
+  const handleExportCSV = () => {
+    // Create CSV content
+    const headers = ['Card Holder', 'Card Number', 'User Name', 'User Email', 'Balance', 'Spending Limit', 'Status', 'Expiry Date', 'Created Date'];
+    const rows = filteredCards.map((card: any) => [
+      card.cardHolder || 'Unknown',
+      card.cardNumber || 'N/A',
+      card.userId?.fullName || card.user?.fullName || 'Unknown',
+      card.userId?.email || card.user?.email || 'Unknown',
+      card.balance?.toFixed(2) || '0.00',
+      card.spendingLimit?.toFixed(2) || '0.00',
+      card.status || 'unknown',
+      card.expiryDate || 'N/A',
+      new Date(card.createdAt).toLocaleDateString(),
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((row) => row.map((cell) => `"${cell}"`).join(',')),
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `cards-export-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -199,7 +231,11 @@ export default function AdminCardsPage() {
               <Filter className="w-4 h-4" />
               Filters
             </button>
-            <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 flex items-center gap-2">
+            <button
+              onClick={handleExportCSV}
+              disabled={filteredCards.length === 0}
+              className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
               <Download className="w-4 h-4" />
               Export
             </button>

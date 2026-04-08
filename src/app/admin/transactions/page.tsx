@@ -16,9 +16,10 @@ import {
   Bitcoin,
   Wallet,
   CreditCard,
+  Download,
 } from "lucide-react";
 import { useGetAllTransactionsQuery } from "@/redux/services/adminApi";
-import { useGetPendingDepositsQuery } from "@/redux/services/adminApi";
+import { useGetAllDepositsQuery } from "@/redux/services/adminApi";
 
 export default function AdminTransactionsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,8 +33,9 @@ export default function AdminTransactionsPage() {
     type: typeFilter === "all" ? undefined : typeFilter,
   });
 
-  const { data: depositsData, isLoading: depLoading } = useGetPendingDepositsQuery({
+  const { data: depositsData, isLoading: depLoading } = useGetAllDepositsQuery({
     limit: 100,
+    status: statusFilter === "all" ? undefined : statusFilter,
   });
 
   const transactions = transactionsData?.data?.transactions || [];
@@ -88,6 +90,41 @@ export default function AdminTransactionsPage() {
         minute: "2-digit",
       }),
     };
+  };
+
+  const handleExportCSV = () => {
+    // Create CSV content
+    const headers = ['Type', 'ID', 'User Name', 'User Email', 'Description', 'Amount', 'Currency', 'Status', 'Date'];
+    const rows = filteredItems.map((item: any) => {
+      const { date } = formatDate(item.createdAt);
+      return [
+        item.itemType === 'deposit' ? 'Deposit' : 'Transaction',
+        item._id || 'N/A',
+        item.userId?.fullName || item.user?.fullName || 'Unknown',
+        item.userId?.email || item.user?.email || 'Unknown',
+        item.description || item.type || 'N/A',
+        item.amount?.toString() || '0',
+        item.currency || 'USD',
+        item.status || 'unknown',
+        date,
+      ];
+    });
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((row) => row.map((cell) => `"${cell}"`).join(',')),
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `transactions-export-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const stats = {
@@ -245,6 +282,14 @@ export default function AdminTransactionsPage() {
             <button className="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 flex items-center gap-2">
               <Filter className="w-4 h-4" />
               Filters
+            </button>
+            <button
+              onClick={handleExportCSV}
+              disabled={filteredItems.length === 0}
+              className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Export
             </button>
           </div>
         </div>

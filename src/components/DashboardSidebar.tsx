@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useState, useEffect } from "react";
 import { logoutUser } from "@/redux/slices/authSlice";
+import { useGetCurrentUserQuery } from "@/redux/services/authApi";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -16,9 +17,15 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user: authUser } = useAppSelector((state) => state.auth);
   const { isLoggingOut } = useAppSelector((state) => state.auth);
   const [showBalance, setShowBalance] = useState(true);
+
+  // Fetch current user data - this will auto-refetch when deposits are approved
+  const { data: currentUserData, isLoading: isUserLoading } = useGetCurrentUserQuery();
+
+  // Use current user data from API, fallback to auth user
+  const user = currentUserData?.data || authUser;
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -45,7 +52,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
       icon: ArrowDownLeft,
     },
     {
-      name: "My Cards",
+      name: "Create Card",
       href: "/dashboard/cards",
       icon: CreditCard,
     },

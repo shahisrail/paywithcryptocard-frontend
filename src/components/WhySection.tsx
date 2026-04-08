@@ -2,14 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Shield, Zap, Globe, CreditCard, TrendingUp } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 
 const WhySection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const reasons = [
     {
       icon: Shield,
@@ -52,29 +46,16 @@ const WhySection = () => {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="responsive-container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
             Why PayWithCryptoCard
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {reasons.map((reason, index) => (
             <motion.div
               key={reason.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: "easeOut"
-              }}
               whileHover={{
                 y: -8,
                 transition: { duration: 0.3 }

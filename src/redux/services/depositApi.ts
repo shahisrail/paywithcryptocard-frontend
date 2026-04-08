@@ -6,6 +6,7 @@ export interface CryptoAddress {
   ETH: string;
   USDT_ERC20: string;
   USDT_TRC20: string;
+  USDC_ERC20: string;
   XMR: string;
 }
 
@@ -14,6 +15,7 @@ export interface QrCodeImages {
   ETH: string;
   USDT_ERC20: string;
   USDT_TRC20: string;
+  USDC_ERC20: string;
   XMR: string;
 }
 
@@ -26,7 +28,7 @@ export interface DepositAddressResponse {
 }
 
 export interface CreateDepositRequest {
-  currency: 'BTC' | 'ETH' | 'USDT_ERC20' | 'USDT_TRC20' | 'XMR';
+  currency: 'BTC' | 'ETH' | 'USDT_ERC20' | 'USDT_TRC20' | 'USDC_ERC20' | 'XMR';
   amount: number;
   txHash?: string;
   walletAddress: string;
@@ -36,7 +38,7 @@ export interface CreateDepositRequest {
 export interface Deposit {
   _id: string;
   userId: string;
-  currency: 'BTC' | 'ETH' | 'USDT_ERC20' | 'USDT_TRC20' | 'XMR';
+  currency: 'BTC' | 'ETH' | 'USDT_ERC20' | 'USDT_TRC20' | 'USDC_ERC20' | 'XMR';
   amount: number;
   txHash?: string;
   walletAddress: string;

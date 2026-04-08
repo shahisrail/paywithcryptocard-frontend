@@ -23,7 +23,9 @@ function CardsPageContent() {
   const [cardError, setCardError] = useState("");
 
   const { data: cardsData, isLoading, error } = useGetMyCardsQuery();
-  const { data: userData } = useGetCurrentUserQuery();
+  const { data: userData } = useGetCurrentUserQuery(undefined, {
+    pollingInterval: 10000, // Refetch every 10 seconds to update balance
+  });
   const [createCard, { isLoading: isCreatingCard }] = useCreateCardMutation();
 
   const cards = cardsData?.data || [];
