@@ -385,7 +385,7 @@ export default function TopUpPage() {
             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
           )}
         </button>
-        <button
+        {/* <button
           onClick={() => setActiveTab("history")}
           className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors relative ${
             activeTab === "history"
@@ -397,7 +397,7 @@ export default function TopUpPage() {
           {activeTab === "history" && (
             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
           )}
-        </button>
+        </button> */}
       </div>
 
       {activeTab === "deposit" && (
@@ -958,21 +958,6 @@ export default function TopUpPage() {
                           {deposit.usdAmount && (
                             <p className="text-xs md:text-sm font-semibold text-green-600 mt-1">
                               +{formatCurrency(deposit.usdAmount)}
-                            </p>
-                          )}
-                          {deposit.status === "pending" && (
-                            <p className="text-xs text-yellow-600 mt-1">
-                              ⏳ Awaiting approval
-                            </p>
-                          )}
-                          {deposit.status === "approved" && (
-                            <p className="text-xs text-green-600 mt-1">
-                              ✓ Approved
-                            </p>
-                          )}
-                          {deposit.status === "rejected" && (
-                            <p className="text-xs text-red-600 mt-1">
-                              ✗ Rejected
                             </p>
                           )}
                         </div>

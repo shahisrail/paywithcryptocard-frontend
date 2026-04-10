@@ -30,16 +30,23 @@ type DepositStatus = "all" | "pending" | "approved" | "rejected";
 export default function AdminDepositsPage() {
   const { showSuccess, showError, showInfo } = useToast();
   const [statusFilter, setStatusFilter] = useState<DepositStatus>("pending");
-  const [rejectReasons, setRejectReasons] = useState<Record<string, string>>({});
+  const [rejectReasons, setRejectReasons] = useState<Record<string, string>>(
+    {}
+  );
   const [rejectModal, setRejectModal] = useState<string | null>(null);
   const [viewModal, setViewModal] = useState<any>(null);
   const [copied, setCopied] = useState("");
 
-  const { data: depositsData, isLoading, refetch } = useGetAllDepositsQuery({
+  const {
+    data: depositsData,
+    isLoading,
+    refetch,
+  } = useGetAllDepositsQuery({
     status: statusFilter,
     limit: 50,
   });
-  const [approveDeposit, { isLoading: approving }] = useApproveDepositMutation();
+  const [approveDeposit, { isLoading: approving }] =
+    useApproveDepositMutation();
   const [rejectDeposit, { isLoading: rejecting }] = useRejectDepositMutation();
 
   const deposits = depositsData?.data?.deposits || [];
@@ -61,7 +68,11 @@ export default function AdminDepositsPage() {
     });
   };
 
-  const handleApprove = async (depositId: string, usdAmount?: number, userEmail?: string) => {
+  const handleApprove = async (
+    depositId: string,
+    usdAmount?: number,
+    userEmail?: string
+  ) => {
     if (!usdAmount || usdAmount <= 0) {
       showError("Invalid USD amount");
       return;
@@ -69,7 +80,11 @@ export default function AdminDepositsPage() {
 
     try {
       await approveDeposit({ depositId, usdAmount }).unwrap();
-      showSuccess(`Deposit of $${usdAmount.toFixed(2)} approved for ${userEmail || 'user'}`);
+      showSuccess(
+        `Deposit of $${usdAmount.toFixed(2)} approved for ${
+          userEmail || "user"
+        }`
+      );
       refetch();
     } catch (err: any) {
       showError(err.data?.message || "Failed to approve deposit");
@@ -117,8 +132,12 @@ export default function AdminDepositsPage() {
     <div>
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Deposit Management</h1>
-        <p className="text-gray-600">Review and approve/reject user deposit requests</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          Deposit Management
+        </h1>
+        <p className="text-gray-600">
+          Review and approve/reject user deposit requests
+        </p>
       </div>
 
       {/* Filter Buttons */}
@@ -173,9 +192,6 @@ export default function AdminDepositsPage() {
         </div>
       </div>
 
- 
-
-
       {/* Deposits List */}
       <div className="space-y-4">
         {deposits.length === 0 ? (
@@ -183,12 +199,17 @@ export default function AdminDepositsPage() {
             <Wallet className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-600 mb-2">No deposits found</p>
             <p className="text-sm text-gray-500">
-              {statusFilter === 'pending' ? 'No pending deposits to review' : 'No deposits match your criteria'}
+              {statusFilter === "pending"
+                ? "No pending deposits to review"
+                : "No deposits match your criteria"}
             </p>
           </div>
         ) : (
           deposits.map((deposit: any) => {
-            const crypto = CRYPTOCURRENCIES[deposit.currency as keyof typeof CRYPTOCURRENCIES];
+            const crypto =
+              CRYPTOCURRENCIES[
+                deposit.currency as keyof typeof CRYPTOCURRENCIES
+              ];
             const Icon = crypto?.icon || Wallet;
 
             return (
@@ -203,15 +224,25 @@ export default function AdminDepositsPage() {
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
                         <span className="text-sm font-semibold text-blue-600">
-                          {(deposit.userId?.fullName || deposit.user?.fullName || 'U')?.charAt(0).toUpperCase()}
+                          {(
+                            deposit.userId?.fullName ||
+                            deposit.user?.fullName ||
+                            "U"
+                          )
+                            ?.charAt(0)
+                            .toUpperCase()}
                         </span>
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">
-                          {deposit.userId?.fullName || deposit.user?.fullName || "Unknown User"}
+                          {deposit.userId?.fullName ||
+                            deposit.user?.fullName ||
+                            "Unknown User"}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {deposit.userId?.email || deposit.user?.email || "Unknown email"}
+                          {deposit.userId?.email ||
+                            deposit.user?.email ||
+                            "Unknown email"}
                         </p>
                       </div>
                     </div>
@@ -219,28 +250,39 @@ export default function AdminDepositsPage() {
                     {/* Crypto & Amount */}
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg">
-                        <Icon className={`w-5 h-5 ${crypto?.color || "text-gray-500"}`} />
+                        <Icon
+                          className={`w-5 h-5 ${
+                            crypto?.color || "text-gray-500"
+                          }`}
+                        />
                         <div>
-                          <p className="text-xs text-gray-600">Cryptocurrency</p>
-                          <p className="text-sm font-semibold text-gray-900">{deposit.currency}</p>
+                          <p className="text-xs text-gray-600">
+                            Cryptocurrency
+                          </p>
+                          <p className="text-sm font-semibold text-gray-900">
+                            {deposit.currency}
+                          </p>
                         </div>
                       </div>
 
                       <div className="px-3 py-2 bg-gray-50 rounded-lg flex-1">
                         <p className="text-xs text-gray-600">Amount Sent</p>
                         <p className="text-sm font-semibold text-gray-900">
-                          {deposit.amount < 0.01 ? deposit.amount.toFixed(8) : deposit.amount.toFixed(6)} {deposit.currency}
+                          {deposit.amount < 0.01
+                            ? deposit.amount.toFixed(8)
+                            : deposit.amount.toFixed(6)}{" "}
+                          {deposit.currency}
                         </p>
                       </div>
 
                       <div className="px-3 py-2 bg-green-50 rounded-lg flex-1">
                         <p className="text-xs text-gray-600">USD Value</p>
                         <p className="text-sm font-bold text-green-900">
-                          {deposit.usdAmount ? formatCurrency(deposit.usdAmount) : '-'}
+                          {deposit.usdAmount
+                            ? formatCurrency(deposit.usdAmount)
+                            : "-"}
                         </p>
-                        {deposit.usdAmount && (
-                          <p className="text-xs text-green-600">Auto-converted</p>
-                        )}
+                        {deposit.usdAmount && <p> </p>}
                       </div>
                     </div>
                   </div>
@@ -250,14 +292,15 @@ export default function AdminDepositsPage() {
                     {/* Status Badge */}
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        deposit.status === 'approved'
-                          ? 'bg-green-100 text-green-700'
-                          : deposit.status === 'rejected'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
+                        deposit.status === "approved"
+                          ? "bg-green-100 text-green-700"
+                          : deposit.status === "rejected"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-yellow-100 text-yellow-700"
                       }`}
                     >
-                      {deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}
+                      {deposit.status.charAt(0).toUpperCase() +
+                        deposit.status.slice(1)}
                     </span>
 
                     {/* Actions */}
@@ -270,7 +313,7 @@ export default function AdminDepositsPage() {
                         Details
                       </button>
 
-                      {deposit.status === 'pending' && (
+                      {deposit.status === "pending" && (
                         <>
                           <div className="px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
                             <p className="text-xs text-green-600">Credit</p>
@@ -280,10 +323,18 @@ export default function AdminDepositsPage() {
                           </div>
 
                           <button
-                            onClick={() => handleApprove(deposit._id, deposit.usdAmount, deposit.user?.email)}
+                            onClick={() =>
+                              handleApprove(
+                                deposit._id,
+                                deposit.usdAmount,
+                                deposit.user?.email
+                              )
+                            }
                             disabled={approving}
                             className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
-                            title={`User sent ${deposit.amount} ${deposit.currency} = ${formatCurrency(deposit.usdAmount || 0)}`}
+                            title={`User sent ${deposit.amount} ${
+                              deposit.currency
+                            } = ${formatCurrency(deposit.usdAmount || 0)}`}
                           >
                             <CheckCircle className="w-4 h-4" />
                             Approve
@@ -311,31 +362,44 @@ export default function AdminDepositsPage() {
                 <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* TX Hash */}
                   <div className="flex items-start gap-2">
-                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">TX Hash:</p>
+                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">
+                      TX Hash:
+                    </p>
                     {deposit.txHash ? (
                       <div className="flex-1 min-w-0">
                         <p
                           className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
                           title={deposit.txHash}
-                          onClick={() => handleCopyToClipboard(deposit.txHash, "TX Hash")}
+                          onClick={() =>
+                            handleCopyToClipboard(deposit.txHash, "TX Hash")
+                          }
                         >
                           {deposit.txHash}
                           <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
                         </p>
                       </div>
                     ) : (
-                      <span className="text-xs text-gray-400 italic">Not provided</span>
+                      <span className="text-xs text-gray-400 italic">
+                        Not provided
+                      </span>
                     )}
                   </div>
 
                   {/* Wallet Address */}
                   <div className="flex items-start gap-2">
-                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">Wallet:</p>
+                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">
+                      Wallet:
+                    </p>
                     <div className="flex-1 min-w-0">
                       <p
                         className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
                         title={deposit.walletAddress}
-                        onClick={() => handleCopyToClipboard(deposit.walletAddress, "Wallet Address")}
+                        onClick={() =>
+                          handleCopyToClipboard(
+                            deposit.walletAddress,
+                            "Wallet Address"
+                          )
+                        }
                       >
                         {deposit.walletAddress}
                         <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
@@ -353,11 +417,16 @@ export default function AdminDepositsPage() {
       {rejectModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Reject Deposit</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              Reject Deposit
+            </h3>
             <textarea
               value={rejectReasons[rejectModal] || ""}
               onChange={(e) =>
-                setRejectReasons({ ...rejectReasons, [rejectModal]: e.target.value })
+                setRejectReasons({
+                  ...rejectReasons,
+                  [rejectModal]: e.target.value,
+                })
               }
               placeholder="Enter reason for rejection (min 10 characters)&#10;Example: Transaction not found on blockchain, insufficient confirmations, etc."
               className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4"
@@ -390,7 +459,9 @@ export default function AdminDepositsPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl p-6 max-w-lg w-full">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Deposit Details</h2>
+              <h2 className="text-xl font-bold text-gray-900">
+                Deposit Details
+              </h2>
               <button
                 onClick={() => setViewModal(null)}
                 className="p-2 hover:bg-gray-100 rounded-lg"
@@ -405,14 +476,15 @@ export default function AdminDepositsPage() {
                 <span className="text-sm text-gray-600">Status</span>
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    viewModal.status === 'approved'
-                      ? 'bg-green-100 text-green-700'
-                      : viewModal.status === 'rejected'
-                      ? 'bg-red-100 text-red-700'
-                      : 'bg-yellow-100 text-yellow-700'
+                    viewModal.status === "approved"
+                      ? "bg-green-100 text-green-700"
+                      : viewModal.status === "rejected"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
-                  {viewModal.status.charAt(0).toUpperCase() + viewModal.status.slice(1)}
+                  {viewModal.status.charAt(0).toUpperCase() +
+                    viewModal.status.slice(1)}
                 </span>
               </div>
 
@@ -420,10 +492,14 @@ export default function AdminDepositsPage() {
               <div className="p-4 bg-blue-50 rounded-lg">
                 <p className="text-xs text-gray-600 mb-2">User Information</p>
                 <p className="text-sm font-semibold text-gray-900">
-                  {viewModal.userId?.fullName || viewModal.user?.fullName || 'Unknown User'}
+                  {viewModal.userId?.fullName ||
+                    viewModal.user?.fullName ||
+                    "Unknown User"}
                 </p>
                 <p className="text-xs text-gray-600">
-                  {viewModal.userId?.email || viewModal.user?.email || 'No email'}
+                  {viewModal.userId?.email ||
+                    viewModal.user?.email ||
+                    "No email"}
                 </p>
               </div>
 
@@ -440,7 +516,8 @@ export default function AdminDepositsPage() {
                   <p className="text-sm font-bold text-gray-900">
                     {viewModal.amount < 0.01
                       ? viewModal.amount.toFixed(8)
-                      : viewModal.amount.toFixed(6)} {viewModal.currency}
+                      : viewModal.amount.toFixed(6)}{" "}
+                    {viewModal.currency}
                   </p>
                 </div>
               </div>
@@ -449,7 +526,9 @@ export default function AdminDepositsPage() {
               <div className="p-4 bg-green-50 rounded-lg">
                 <p className="text-xs text-gray-600 mb-1">USD Value</p>
                 <p className="text-2xl font-bold text-green-900">
-                  {viewModal.usdAmount ? formatCurrency(viewModal.usdAmount) : 'N/A'}
+                  {viewModal.usdAmount
+                    ? formatCurrency(viewModal.usdAmount)
+                    : "N/A"}
                 </p>
                 {viewModal.usdAmount && (
                   <p className="text-xs text-green-700 mt-1">
@@ -463,10 +542,12 @@ export default function AdminDepositsPage() {
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-xs text-gray-600">Wallet Address</p>
                   <button
-                    onClick={() => handleCopyToClipboard(viewModal.walletAddress, 'wallet')}
+                    onClick={() =>
+                      handleCopyToClipboard(viewModal.walletAddress, "wallet")
+                    }
                     className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
                   >
-                    {copied === 'wallet' ? (
+                    {copied === "wallet" ? (
                       <>
                         <CheckCircle className="w-3 h-3" />
                         Copied!
@@ -488,12 +569,16 @@ export default function AdminDepositsPage() {
               {viewModal.txHash && (
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-xs text-gray-600">Transaction Hash (TXID)</p>
+                    <p className="text-xs text-gray-600">
+                      Transaction Hash (TXID)
+                    </p>
                     <button
-                      onClick={() => handleCopyToClipboard(viewModal.txHash, 'txhash')}
+                      onClick={() =>
+                        handleCopyToClipboard(viewModal.txHash, "txhash")
+                      }
                       className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
                     >
-                      {copied === 'txhash' ? (
+                      {copied === "txhash" ? (
                         <>
                           <CheckCircle className="w-3 h-3" />
                           Copied!
@@ -513,10 +598,12 @@ export default function AdminDepositsPage() {
               )}
 
               {/* Rejection Reason */}
-              {viewModal.status === 'rejected' && viewModal.rejectionReason && (
+              {viewModal.status === "rejected" && viewModal.rejectionReason && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-xs text-red-700 mb-1">Rejection Reason</p>
-                  <p className="text-sm text-red-900">{viewModal.rejectionReason}</p>
+                  <p className="text-sm text-red-900">
+                    {viewModal.rejectionReason}
+                  </p>
                 </div>
               )}
 
@@ -524,11 +611,15 @@ export default function AdminDepositsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <p className="text-xs text-gray-600 mb-1">Created At</p>
-                  <p className="text-xs text-gray-900">{formatDate(viewModal.createdAt)}</p>
+                  <p className="text-xs text-gray-900">
+                    {formatDate(viewModal.createdAt)}
+                  </p>
                 </div>
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <p className="text-xs text-gray-600 mb-1">Updated At</p>
-                  <p className="text-xs text-gray-900">{formatDate(viewModal.updatedAt)}</p>
+                  <p className="text-xs text-gray-900">
+                    {formatDate(viewModal.updatedAt)}
+                  </p>
                 </div>
               </div>
             </div>
