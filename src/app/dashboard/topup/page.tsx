@@ -695,7 +695,7 @@ export default function TopUpPage() {
                               selectedCrypto === "XMR") && (
                               <div className="mt-2 md:mt-3 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded text-center w-full">
                                 <p className="text-xs text-blue-900 font-medium">
-                                  ℹ️ After scanning, manually enter the amount:{" "}
+                                  Send the exact amount to this address:{" "}
                                   {cryptoAmount !== null
                                     ? formatAmount(selectedCrypto, cryptoAmount)
                                     : "0"}{" "}
@@ -709,39 +709,6 @@ export default function TopUpPage() {
                     <p className="text-sm text-center mt-2 md:text-base font-semibold text-black">
                       Send the exact amount to this address
                     </p>
-                    {/* "Send the exact amount" text */}
-                    {/* {selectedCrypto && cryptoAmount !== null && (
-                      <div className="mt-3 md:mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
-                        
-                      </div>
-                    )} */}
-
-                    {/* Payment Confirmation Button */}
-                    {paymentStatus === "idle" ? (
-                      <button
-                        onClick={handlePaymentSent}
-                        disabled={isSubmitting || isExpired}
-                        className="w-full mt-3 md:mt-4 py-2.5 md:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-sm"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Submitting...
-                          </>
-                        ) : (
-                          "I have sent the payment"
-                        )}
-                      </button>
-                    ) : (
-                      <div className="w-full mt-3 md:mt-4 py-2.5 md:py-3 bg-yellow-50 border border-yellow-200 rounded-lg text-center">
-                        <div className="flex items-center justify-center gap-2">
-                          <Loader2 className="w-4 h-4 animate-spin text-yellow-600" />
-                          <p className="text-sm md:text-base font-semibold text-yellow-900">
-                            Waiting for your payment
-                          </p>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
                   {/* Back Button */}

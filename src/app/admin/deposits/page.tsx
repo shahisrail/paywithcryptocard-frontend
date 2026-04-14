@@ -315,13 +315,6 @@ export default function AdminDepositsPage() {
 
                       {deposit.status === "pending" && (
                         <>
-                          <div className="px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
-                            <p className="text-xs text-green-600">Credit</p>
-                            <p className="text-sm font-bold text-green-700">
-                              {formatCurrency(deposit.usdAmount || 0)}
-                            </p>
-                          </div>
-
                           <button
                             onClick={() =>
                               handleApprove(
@@ -355,56 +348,6 @@ export default function AdminDepositsPage() {
                     <p className="text-xs text-gray-500">
                       {formatDate(deposit.createdAt)}
                     </p>
-                  </div>
-                </div>
-
-                {/* TX Hash & Wallet - Show in compact row */}
-                <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* TX Hash */}
-                  <div className="flex items-start gap-2">
-                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">
-                      TX Hash:
-                    </p>
-                    {deposit.txHash ? (
-                      <div className="flex-1 min-w-0">
-                        <p
-                          className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
-                          title={deposit.txHash}
-                          onClick={() =>
-                            handleCopyToClipboard(deposit.txHash, "TX Hash")
-                          }
-                        >
-                          {deposit.txHash}
-                          <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
-                        </p>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-gray-400 italic">
-                        Not provided
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Wallet Address */}
-                  <div className="flex items-start gap-2">
-                    <p className="text-xs text-gray-600 flex-shrink-0 mt-0.5">
-                      Wallet:
-                    </p>
-                    <div className="flex-1 min-w-0">
-                      <p
-                        className="text-xs font-mono text-gray-900 cursor-pointer hover:text-blue-600 truncate"
-                        title={deposit.walletAddress}
-                        onClick={() =>
-                          handleCopyToClipboard(
-                            deposit.walletAddress,
-                            "Wallet Address"
-                          )
-                        }
-                      >
-                        {deposit.walletAddress}
-                        <Copy className="w-3 h-3 inline ml-1 text-gray-400" />
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>

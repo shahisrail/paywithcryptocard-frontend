@@ -29,7 +29,7 @@ const HeroSection = () => {
             <motion.h1
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5  leading-tight tracking-tight text-black"
             >
-              Turn Crypto Into a Virtual Visa Card
+              Crypto Virtual Visa Card Without KYC
             </motion.h1>
 
             {/* Subheadline */}
