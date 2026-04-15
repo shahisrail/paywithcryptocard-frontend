@@ -708,6 +708,27 @@ export default function TopUpPage() {
                     </p>
                   </div>
 
+                  {/* Submit Button */}
+                  <button
+                    onClick={handlePaymentSent}
+                    disabled={isSubmitting || paymentStatus === 'waiting'}
+                    className="w-full px-4 md:px-6 py-2.5 md:py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors mb-3"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Submitting...
+                      </span>
+                    ) : paymentStatus === 'waiting' ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <CheckCircle className="w-4 h-4" />
+                        Submitted - Awaiting Approval
+                      </span>
+                    ) : (
+                      "I have sent the amount"
+                    )}
+                  </button>
+
                   {/* Back Button */}
                   <button
                     onClick={() => {
