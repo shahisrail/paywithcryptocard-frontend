@@ -44,7 +44,9 @@ const Header = () => {
     // Special handling for Support link - open chat widget AND scroll to support section
     if (targetId === 'support') {
       // Open the chat widget
-      window.dispatchEvent(new CustomEvent('open-chat-widget'));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('open-chat-widget'));
+      }
 
       // Also scroll to support section if it exists on current page
       const element = document.getElementById(targetId);
@@ -81,22 +83,14 @@ const Header = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      setMobileMenuOpen(false);
     } else {
       // Element doesn't exist on current page, redirect to home page with hash
       // Use router.push for Next.js navigation
-      if (typeof window !== 'undefined') {
-        // Check if we're already on the home page
-        if (window.location.pathname === '/') {
-          // We're on home page but element not found, scroll to top
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        } else {
-          // Navigate to home page with hash
-          window.location.href = '/#' + targetId;
-        }
-      }
+      setMobileMenuOpen(false);
+      setTimeout(() => {
+        router.push('/#' + targetId);
+      }, 100);
     }
   };
 

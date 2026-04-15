@@ -79,15 +79,19 @@ export default function TopUpPage() {
 
   // Load payment status from localStorage on mount
   useEffect(() => {
-    const savedStatus = localStorage.getItem("paymentStatus");
-    if (savedStatus === "waiting") {
-      setPaymentStatus("waiting");
+    if (typeof window !== 'undefined') {
+      const savedStatus = localStorage.getItem("paymentStatus");
+      if (savedStatus === "waiting") {
+        setPaymentStatus("waiting");
+      }
     }
   }, []);
 
   // Save payment status to localStorage
   useEffect(() => {
-    localStorage.setItem("paymentStatus", paymentStatus);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("paymentStatus", paymentStatus);
+    }
   }, [paymentStatus]);
 
   // Convert USD to crypto when amount or crypto changes
@@ -272,17 +276,21 @@ export default function TopUpPage() {
   };
 
   const handleCopyAddress = (address: string) => {
-    navigator.clipboard.writeText(address);
-    setCopiedAddress(true);
-    setTimeout(() => setCopiedAddress(false), 2000);
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(address);
+      setCopiedAddress(true);
+      setTimeout(() => setCopiedAddress(false), 2000);
+    }
   };
 
   const handleCopyAmount = () => {
     if (cryptoAmount !== null && selectedCrypto) {
       const amountText = formatAmount(selectedCrypto, cryptoAmount);
-      navigator.clipboard.writeText(amountText);
-      setCopiedAmount(true);
-      setTimeout(() => setCopiedAmount(false), 2000);
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText(amountText);
+        setCopiedAmount(true);
+        setTimeout(() => setCopiedAmount(false), 2000);
+      }
     }
   };
 
@@ -295,7 +303,9 @@ export default function TopUpPage() {
     }
     setError("");
     setPaymentStatus("idle");
-    localStorage.removeItem("paymentStatus");
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("paymentStatus");
+    }
     setStep(2);
   };
 
@@ -704,7 +714,9 @@ export default function TopUpPage() {
                       setStep(1);
                       setError("");
                       setPaymentStatus("idle");
-                      localStorage.removeItem("paymentStatus");
+                      if (typeof window !== 'undefined') {
+                        localStorage.removeItem("paymentStatus");
+                      }
                     }}
                     className="w-full px-4 md:px-6 py-2.5 md:py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
                   >
