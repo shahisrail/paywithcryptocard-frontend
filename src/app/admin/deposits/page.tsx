@@ -11,10 +11,13 @@ import {
   Filter,
   Eye,
   Copy,
+  Trash2,
+  AlertTriangle,
 } from "lucide-react";
 import { useGetAllDepositsQuery } from "@/redux/services/adminApi";
 import { useApproveDepositMutation } from "@/redux/services/adminApi";
 import { useRejectDepositMutation } from "@/redux/services/adminApi";
+import { useDeleteDepositMutation } from "@/redux/services/adminApi";
 import { useToast } from "@/contexts/ToastContext";
 
 const CRYPTOCURRENCIES = {
@@ -34,6 +37,7 @@ export default function AdminDepositsPage() {
     {}
   );
   const [rejectModal, setRejectModal] = useState<string | null>(null);
+  const [deleteModal, setDeleteModal] = useState<string | null>(null);
   const [viewModal, setViewModal] = useState<any>(null);
   const [copied, setCopied] = useState("");
 
@@ -48,6 +52,7 @@ export default function AdminDepositsPage() {
   const [approveDeposit, { isLoading: approving }] =
     useApproveDepositMutation();
   const [rejectDeposit, { isLoading: rejecting }] = useRejectDepositMutation();
+  const [deleteDeposit, { isLoading: deleting }] = useDeleteDepositMutation();
 
   const deposits = depositsData?.data?.deposits || [];
 
@@ -106,6 +111,17 @@ export default function AdminDepositsPage() {
       refetch();
     } catch (err: any) {
       showError(err.data?.message || "Failed to reject deposit");
+    }
+  };
+
+  const handleDelete = async (depositId: string) => {
+    try {
+      const result = await deleteDeposit({ depositId }).unwrap();
+      showSuccess(result.message || "Deposit deleted successfully with all related data");
+      setDeleteModal(null);
+      refetch();
+    } catch (err: any) {
+      showError(err.data?.message || "Failed to delete deposit");
     }
   };
 
@@ -342,6 +358,15 @@ export default function AdminDepositsPage() {
                           </button>
                         </>
                       )}
+
+                      <button
+                        onClick={() => setDeleteModal(deposit._id)}
+                        className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-red-100 hover:text-red-700 flex items-center gap-2"
+                        title="Delete deposit and all related data"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        Delete
+                      </button>
                     </div>
 
                     {/* Date */}
@@ -573,6 +598,71 @@ export default function AdminDepositsPage() {
                 className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <Trash2 className="w-6 h-6 text-red-600" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">
+                  Delete Deposit
+                </h2>
+                <p className="text-sm text-gray-600">
+                  This action cannot be undone
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-red-900 mb-2">
+                    Warning: Cascade Deletion
+                  </p>
+                  <ul className="text-xs text-red-800 space-y-1">
+                    <li>• Deposit record will be permanently deleted</li>
+                    <li>• All related transactions will be removed</li>
+                    <li>• User balance will be reversed (if approved)</li>
+                    <li>• Card balance will be adjusted (if approved)</li>
+                    <li>• Card may be terminated if balance reaches zero</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteModal(null)}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDelete(deleteModal)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {deleting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    Delete Deposit
+                  </>
+                )}
               </button>
             </div>
           </div>

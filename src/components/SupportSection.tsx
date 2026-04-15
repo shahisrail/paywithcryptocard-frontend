@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Mail, MessageCircle, ChevronRight } from "lucide-react";
 
 const SupportSection = () => {
@@ -22,7 +21,9 @@ const SupportSection = () => {
 
   const handleChatNow = () => {
     // Trigger the chat widget by dispatching a custom event
-    window.dispatchEvent(new CustomEvent("open-chat-widget"));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent("open-chat-widget"));
+    }
   };
 
   const contactOptions = [
@@ -31,45 +32,34 @@ const SupportSection = () => {
       title: "Live chat",
       action: "Chat Now",
       onClick: handleChatNow,
-      // available: "Available 24/7",
     },
     {
       icon: Mail,
       title: "Mail",
       email: "support@paywithcryptocard.net",
       action: "Send Email",
-      // available: "Response within 24h",
     },
   ];
 
   return (
     <section id="support" className="py-12 sm:py-16 lg:py-20 bg-gray-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={false}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-8"
-        >
+        <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-black mb-4 tracking-tight">
             Need to contact us?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             We are ready to help!
           </p>
-        </motion.div>
+        </div>
 
         {/* Contact Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {contactOptions.map((option, index) => {
             const Icon = option.icon;
             return (
-              <motion.div
+              <div
                 key={option.title}
-                initial={false}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 hover:border-gray-300 transition-colors"
               >
                 <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-3 sm:mb-4">
@@ -83,10 +73,12 @@ const SupportSection = () => {
                     href={`mailto:${option.email}`}
                     onClick={() => {
                       setTimeout(() => {
-                        window.open(
-                          `https://mail.google.com/mail/?view=cm&fs=1&to=${option.email}`,
-                          "_blank"
-                        );
+                        if (typeof window !== 'undefined') {
+                          window.open(
+                            `https://mail.google.com/mail/?view=cm&fs=1&to=${option.email}`,
+                            "_blank"
+                          );
+                        }
                       }, 500);
                     }}
                     className="block w-full px-4 py-3 bg-black text-white text-sm font-medium rounded-lg text-center"
@@ -101,18 +93,13 @@ const SupportSection = () => {
                     {option.action}
                   </button>
                 )}
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
         {/* FAQ Link */}
-        <motion.div
-          initial={false}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center"
-        >
+        <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center">
           <h3 className="text-lg sm:text-xl font-semibold text-black mb-6">
             Visit our Frequently Asked Questions
           </h3>
@@ -124,7 +111,7 @@ const SupportSection = () => {
             View FAQs
             <ChevronRight className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

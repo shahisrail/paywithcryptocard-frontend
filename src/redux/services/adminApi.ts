@@ -269,6 +269,18 @@ export const adminApi = baseApi.injectEndpoints({
       invalidatesTags: ['Deposit'],
     }),
 
+    // Delete deposit (cascades to transactions and card data)
+    deleteDeposit: builder.mutation<
+      { success: boolean; message: string; data: any },
+      { depositId: string }
+    >({
+      query: ({ depositId }) => ({
+        url: `/admin/deposits/${depositId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Deposit', 'User', 'Transaction', 'Card'],
+    }),
+
     // Get admin settings
     getAdminSettings: builder.query<AdminSettingsResponse, void>({
       query: () => '/admin/settings',
@@ -436,6 +448,7 @@ export const {
   useGetAllDepositsQuery,
   useApproveDepositMutation,
   useRejectDepositMutation,
+  useDeleteDepositMutation,
   useGetAdminSettingsQuery,
   useUpdateAdminSettingsMutation,
   useGetAllTransactionsQuery,

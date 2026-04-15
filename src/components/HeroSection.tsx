@@ -1,16 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, Shield } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 
 const HeroSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
     <section
       id="home"
@@ -20,32 +13,23 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
 
           {/* Left Content */}
-          <motion.div
-            ref={ref}
-            className="max-w-2xl mx-auto lg:mx-0 flex flex-col justify-center"
-          >
+          <div className="max-w-2xl mx-auto lg:mx-0 flex flex-col justify-center">
 
             {/* Headline */}
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5  leading-tight tracking-tight text-black"
-            >
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight tracking-tight text-black">
               Crypto Virtual Visa Card Without KYC
-            </motion.h1>
+            </h1>
 
             {/* Subheadline */}
-            <motion.p
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
-            >
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
               Create a virtual crypto Visa card instantly. No KYC required. Fund with BTC, ETH, USDT, USDC or XMR and pay online worldwide.
-            </motion.p>
+            </p>
 
             {/* Value + CTA Row */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mt-6 sm:mt-8 justify-between ">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mt-6 sm:mt-8 justify-between">
 
               {/* No KYC */}
-              <motion.div
-                className="flex items-center gap-3 sm:gap-4"
-              >
+              <div className="flex items-center gap-3 sm:gap-4">
                 <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-black rounded-xl flex items-center justify-center shadow-lg">
                   <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
@@ -58,12 +42,10 @@ const HeroSection = () => {
                     Start using instantly
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* CTA Button */}
-              <motion.div
-                className="w-full sm:w-auto"
-              >
+              <div className="w-full sm:w-auto">
                 <Link
                   href="/register"
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-black text-white font-semibold text-sm sm:text-base rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-fit"
@@ -71,11 +53,11 @@ const HeroSection = () => {
                   <span>Create Free Account</span>
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
-              </motion.div>
+              </div>
 
             </div>
 
-          </motion.div>
+          </div>
 
           {/* Right Content - Image */}
           <div className="relative flex justify-center items-center mt-6 sm:mt-8 lg:mt-0">
@@ -83,6 +65,7 @@ const HeroSection = () => {
               src="/logos/hero3.webp"
               alt="virtual crypto Visa card for online payments without KYC - fund with Bitcoin, Ethereum, USDT, USDC or Monero"
               className="w-full max-w-md lg:max-w-lg"
+              loading="lazy"
             />
           </div>
 

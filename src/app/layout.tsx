@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description: "Get a virtual Visa card with crypto. No KYC. Pay online worldwide using BTC, ETH, USDT, USDC, XMR.",
   keywords: ["crypto", "virtual card", "Visa", "no KYC", "bitcoin", "ethereum", "USDT", "USDC", "XMR", "Monero"],
   authors: [{ name: "PayWithCryptoCard" }],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   verification: {
     google: "p2N4XO0yCgWRfroqfWHJLbE-QqwnUCD28Jw5Z9e3xyk",
   },
