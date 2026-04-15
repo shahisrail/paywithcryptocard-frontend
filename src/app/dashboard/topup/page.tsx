@@ -690,19 +690,6 @@ export default function TopUpPage() {
                               includeMargin={false}
                             />
 
-                            {(selectedCrypto === "USDT_ERC20" ||
-                              selectedCrypto === "USDT_TRC20" ||
-                              selectedCrypto === "XMR") && (
-                              <div className="mt-2 md:mt-3 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded text-center w-full">
-                                <p className="text-xs text-blue-900 font-medium">
-                                  Send the exact amount to this address:{" "}
-                                  {cryptoAmount !== null
-                                    ? formatAmount(selectedCrypto, cryptoAmount)
-                                    : "0"}{" "}
-                                  {selectedCrypto}
-                                </p>
-                              </div>
-                            )}
                           </div>
                         </div>
                       )}

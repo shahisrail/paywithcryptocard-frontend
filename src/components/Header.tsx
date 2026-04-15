@@ -83,8 +83,19 @@ const Header = () => {
       });
     } else {
       // Element doesn't exist on current page, redirect to home page with hash
+      // Use router.push for Next.js navigation
       if (typeof window !== 'undefined') {
-        window.location.href = '/#' + targetId;
+        // Check if we're already on the home page
+        if (window.location.pathname === '/') {
+          // We're on home page but element not found, scroll to top
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else {
+          // Navigate to home page with hash
+          window.location.href = '/#' + targetId;
+        }
       }
     }
   };
@@ -196,7 +207,7 @@ const Header = () => {
         <>
           {/* Backdrop */}
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-50"
+            className="lg:hidden fixed inset-0 bg-black/50 z-40"
             onClick={() => setMobileMenuOpen(false)}
           />
 
