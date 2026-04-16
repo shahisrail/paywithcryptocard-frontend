@@ -26,7 +26,7 @@ const AcceptanceSection = () => {
           {platforms.map((platform, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg border border-gray-200 p-6 text-center hover:border-gray-300 transition-colors"
+              className="bg-white rounded-lg border border-gray-200 p-6 text-center hover:border-gray-300 "
             >
               <div className="font-semibold text-black">{platform}</div>
             </div>

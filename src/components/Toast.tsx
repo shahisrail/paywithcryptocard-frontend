@@ -92,7 +92,7 @@ export default function ToastComponent({ toast, onClose }: ToastProps) {
                 setIsVisible(false);
                 setTimeout(() => onClose(toast.id), 300);
               }}
-              className="flex-shrink-0 p-1 hover:bg-white/20 rounded transition-colors"
+              className="flex-shrink-0 p-1 hover:bg-white/20 rounded "
             >
               <X className="w-4 h-4" />
             </button>

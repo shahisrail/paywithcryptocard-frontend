@@ -61,7 +61,7 @@ const VirtualCardSection = () => {
                 animate={inView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-xl p-5 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">
+                <div className="bg-white rounded-xl p-5 h-full border border-gray-200 hover:border-black hover:shadow-lg  ">
                   <div className="flex items-start gap-4">
                     <div className="shrink-0">
                       <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">

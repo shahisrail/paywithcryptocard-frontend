@@ -121,7 +121,7 @@ const Header = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleScroll(e, link.href.substring(1))}
-                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
+                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700  whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -129,7 +129,7 @@ const Header = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700 transition-colors whitespace-nowrap"
+                  className="text-sm sm:text-base font-medium text-black hover:text-gray-700  whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -144,21 +144,21 @@ const Header = () => {
                 {user.role === "admin" ? (
                   <Link
                     href="/admin"
-                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                   >
                     Admin
                   </Link>
                 ) : (
                   <Link
                     href="/dashboard/topup"
-                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                    className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                   >
                     Dashboard
                   </Link>
                 )}
                 <button
                   onClick={handleLogout}
-                  className="px-4 sm:px-6 py-2.5 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                  className="px-4 sm:px-6 py-2.5 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black "
                 >
                   Sign Out
                 </button>
@@ -167,13 +167,13 @@ const Header = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
+                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 "
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                  className="px-5 sm:px-6 py-2.5 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                 >
                   Create Account
                 </Link>
@@ -184,7 +184,7 @@ const Header = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 "
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -215,7 +215,7 @@ const Header = () => {
                 </span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-gray-100 rounded-lg "
                   aria-label="Close menu"
                 >
                   <X className="w-6 h-6 text-black" />
@@ -233,7 +233,7 @@ const Header = () => {
                         handleScroll(e, link.href.substring(1));
                         setMobileMenuOpen(false);
                       }}
-                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg transition-colors"
+                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg "
                     >
                       {link.label}
                     </a>
@@ -242,7 +242,7 @@ const Header = () => {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg transition-colors"
+                      className="block py-3 px-4 text-base font-medium text-black hover:bg-gray-100 rounded-lg "
                     >
                       {link.label}
                     </Link>
@@ -258,7 +258,7 @@ const Header = () => {
                       <Link
                         href="/admin"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                       >
                         Admin Dashboard
                       </Link>
@@ -266,14 +266,14 @@ const Header = () => {
                       <Link
                         href="/dashboard/topup"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                        className="block w-full px-5 py-3 text-center text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                       >
                         Dashboard
                       </Link>
                     )}
                     <button
                       onClick={handleLogout}
-                      className="w-full px-5 py-3 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black transition-colors"
+                      className="w-full px-5 py-3 text-sm font-medium text-black border border-gray-300 rounded-lg hover:border-black "
                     >
                       Sign Out
                     </button>
@@ -283,14 +283,14 @@ const Header = () => {
                     <Link
                       href="/login"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 transition-colors"
+                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-black border-2 border-gray-300 rounded-lg hover:border-black hover:bg-gray-50 "
                     >
                       Sign In
                     </Link>
                     <Link
                       href="/register"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition-colors"
+                      className="block w-full px-5 py-3.5 text-center text-base font-semibold text-white bg-black rounded-lg hover:bg-gray-900 "
                     >
                       Create Account
                     </Link>

@@ -134,7 +134,7 @@ export default function AdminManagementPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-black" />
+        <Loader2 className="w-8 h-8  text-black" />
       </div>
     );
   }
@@ -170,7 +170,7 @@ export default function AdminManagementPage() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 "
         >
           <Plus className="w-4 h-4" />
           Add New Admin
@@ -180,7 +180,7 @@ export default function AdminManagementPage() {
       {/* Search */}
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2  -/2 w-5 h-5 text-gray-400" />
           <input
             type="text"
             placeholder="Search admins by name or email..."
@@ -265,7 +265,7 @@ export default function AdminManagementPage() {
                         {/* Update Password */}
                         <button
                           onClick={() => setShowPasswordModal(admin._id)}
-                          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                          className="p-2 hover:bg-gray-100 rounded-lg "
                           title="Change Password"
                         >
                           <Lock className="w-4 h-4 text-gray-600" />
@@ -278,7 +278,7 @@ export default function AdminManagementPage() {
                               handleToggleStatus(admin._id, admin.isActive)
                             }
                             disabled={updatingStatus}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
+                            className="p-2 hover:bg-gray-100 rounded-lg  disabled:opacity-50"
                             title={admin.isActive ? "Deactivate" : "Activate"}
                           >
                             <Ban className="w-4 h-4 text-orange-600" />
@@ -289,7 +289,7 @@ export default function AdminManagementPage() {
                         {admin._id !== currentUser?.id && (
                           <button
                             onClick={() => setShowDeleteModal(admin._id)}
-                            className="p-2 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-2 hover:bg-red-50 rounded-lg "
                             title="Delete Admin"
                           >
                             <Trash2 className="w-4 h-4 text-red-600" />

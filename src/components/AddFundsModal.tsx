@@ -33,7 +33,7 @@ export default function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
           <h2 className="text-xl font-semibold text-black">Add Funds</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg "
           >
             <X className="w-5 h-5 text-gray-600" />
           </button>
@@ -78,7 +78,7 @@ export default function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
               </div>
               <button
                 onClick={handleCopy}
-                className="px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors flex items-center gap-2"
+                className="px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-900  flex items-center gap-2"
               >
                 {copied ? (
                   <>
@@ -107,7 +107,7 @@ export default function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
         <div className="p-6 border-t border-gray-200">
           <button
             onClick={onClose}
-            className="w-full px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+            className="w-full px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 "
           >
             Done
           </button>

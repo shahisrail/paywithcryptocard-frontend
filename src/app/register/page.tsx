@@ -87,7 +87,7 @@ export default function RegisterPage() {
             </Link>
             <Link
               href="/login"
-              className="text-[18px] sm:text-lg font-semibold text-black hover:underline px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="text-[18px] sm:text-lg font-semibold text-black hover:underline px-3 py-2 rounded-lg hover:bg-gray-100 "
             >
               Sign In
             </Link>
@@ -260,11 +260,11 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center py-3.5 px-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
+                className="w-full flex items-center justify-center py-3.5 px-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed  text-base"
               >
                 {isLoading ? (
                   <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    <div className=" rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                     Creating account...
                   </div>
                 ) : (

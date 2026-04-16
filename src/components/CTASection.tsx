@@ -31,7 +31,7 @@ const CTASection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/register"
-              className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-black rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-black rounded-xl hover:bg-gray-900   shadow-lg hover:shadow-xl"
             >
               Create Free Account
               <ArrowRight className="ml-2 w-5 h-5" />

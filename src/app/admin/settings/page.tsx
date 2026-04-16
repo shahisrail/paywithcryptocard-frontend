@@ -81,7 +81,7 @@ export default function AdminSettingsPage() {
   if (settingsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-black" />
+        <Loader2 className="w-8 h-8  text-black" />
       </div>
     );
   }
@@ -156,12 +156,12 @@ export default function AdminSettingsPage() {
           <button
             onClick={handleSave}
             disabled={isUpdating}
-            className="px-8 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-8 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed  flex items-center gap-2"
           >
             <Save className="w-4 h-4" />
             {isUpdating ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 " />
                 Saving...
               </>
             ) : (

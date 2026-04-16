@@ -87,8 +87,8 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
       <aside className={`
         md:hidden fixed inset-y-0 left-0 z-[60]
         w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full
-        transition-transform duration-300 ease-in-out transform
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+           
+        ${isOpen ? '' : '-full'}
       `}>
         <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden">
           <div className="p-6 flex items-center justify-between flex-shrink-0">
@@ -134,7 +134,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                   </span>
                   <button
                     onClick={() => setShowBalance(!showBalance)}
-                    className="text-black hover:text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="text-black hover:text-gray-900 p-2 hover:bg-gray-100 rounded-lg "
                   >
                     {showBalance ? (
                       <svg
@@ -187,7 +187,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                   key={item.name}
                   href={item.href}
                   onClick={onClose}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-lg transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-4 rounded-lg  ${
                     isActive
                       ? "bg-black text-white font-medium"
                       : "text-black hover:text-black hover:bg-gray-50 font-medium"
@@ -204,7 +204,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
             <button
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="flex items-center gap-3 px-4 py-4 text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              className="flex items-center gap-3 px-4 py-4 text-black hover:bg-gray-50 rounded-lg  w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
               <LogOut className="w-5 h-5" />
               {isLoggingOut ? "Signing Out..." : "Sign Out"}
@@ -253,7 +253,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                   </span>
                   <button
                     onClick={() => setShowBalance(!showBalance)}
-                    className="text-black hover:text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="text-black hover:text-gray-900 p-2 hover:bg-gray-100 rounded-lg "
                   >
                     {showBalance ? (
                       <svg
@@ -305,7 +305,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-lg transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-4 rounded-lg  ${
                     isActive
                       ? "bg-black text-white font-medium"
                       : "text-black hover:text-black hover:bg-gray-50 font-medium"
@@ -322,7 +322,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
             <button
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="flex items-center gap-3 px-4 py-4 text-black hover:bg-gray-50 rounded-lg transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              className="flex items-center gap-3 px-4 py-4 text-black hover:bg-gray-50 rounded-lg  w-full disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
               <LogOut className="w-5 h-5" />
               {isLoggingOut ? "Signing Out..." : "Sign Out"}

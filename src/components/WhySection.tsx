@@ -62,14 +62,14 @@ const WhySection = () => {
               }}
               className="group"
             >
-              <div className="h-full bg-white rounded-3xl p-8 border border-gray-200 hover:border-indigo-200 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+              <div className="h-full bg-white rounded-3xl p-8 border border-gray-200 hover:border-indigo-200 hover:shadow-xl   relative overflow-hidden">
                 {/* Background Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50  "></div>
 
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:  ">
                     <reason.icon className="w-7 h-7 text-white" />
                   </div>
 

@@ -35,11 +35,11 @@ const BrandLogosSection = () => {
               animate={inView ? { y: 0 } : { y: 25 }}
               transition={{ duration: 0.45, delay: index * 0.06 }}
             >
-              <div className="group bg-white rounded-2xl h-32 border border-gray-200 hover:border-black hover:shadow-xl transition-all duration-300 flex items-center justify-center p-6">
+              <div className="group bg-white rounded-2xl h-32 border border-gray-200 hover:border-black hover:shadow-xl   flex items-center justify-center p-6">
                 <img
                   src={brand.logo}
                   alt={brand.alt}
-                  className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-14 w-auto object-contain   group-hover:"
                 />
               </div>
             </motion.div>

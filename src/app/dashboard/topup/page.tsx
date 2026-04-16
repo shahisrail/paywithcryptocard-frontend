@@ -384,7 +384,7 @@ export default function TopUpPage() {
       <div className="flex gap-2 border-b border-gray-200">
         <button
           onClick={() => setActiveTab("deposit")}
-          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors relative ${
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium  relative ${
             activeTab === "deposit"
               ? "text-black"
               : "text-black hover:text-black"
@@ -397,7 +397,7 @@ export default function TopUpPage() {
         </button>
         {/* <button
           onClick={() => setActiveTab("history")}
-          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors relative ${
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium  relative ${
             activeTab === "history"
               ? "text-black"
               : "text-black hover:text-black"
@@ -434,7 +434,7 @@ export default function TopUpPage() {
 
           {addressesLoading ? (
             <div className="flex items-center justify-center p-12">
-              <Loader2 className="w-8 h-8 animate-spin text-black" />
+              <Loader2 className="w-8 h-8  text-black" />
             </div>
           ) : step === 1 ? (
             /* Step 1: Select Crypto & Amount */
@@ -451,7 +451,7 @@ export default function TopUpPage() {
                       USD Amount
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-black text-base md:text-lg">
+                      <span className="absolute left-3 md:left-4 top-1/2 -/2 text-black text-base md:text-lg">
                         $
                       </span>
                       <input
@@ -480,7 +480,7 @@ export default function TopUpPage() {
                           setAmount(amt.toString());
                           setSelectedPreset(amt);
                         }}
-                        className={`py-2 md:py-2.5 rounded-lg font-medium transition-all text-sm ${
+                        className={`py-2 md:py-2.5 rounded-lg font-medium  text-sm ${
                           selectedPreset === amt
                             ? "bg-black text-white border-2 border-black"
                             : "bg-gray-50 text-black border-2 border-gray-200 hover:bg-gray-100"
@@ -502,7 +502,7 @@ export default function TopUpPage() {
                           <p className="text-base md:text-lg font-bold text-green-900">
                             {isConverting ? (
                               <span className="flex items-center gap-2">
-                                <Loader2 className="w-4 h-4 animate-spin" />
+                                <Loader2 className="w-4 h-4 " />
                                 Converting...
                               </span>
                             ) : (
@@ -552,7 +552,7 @@ export default function TopUpPage() {
                 <button
                   onClick={handleGenerateAddress}
                   disabled={!selectedCrypto || !amount}
-                  className="w-full py-2.5 md:py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-sm"
+                  className="w-full py-2.5 md:py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed  flex items-center justify-center gap-2 text-sm"
                 >
                   Pay with your chosen crypto
                 </button>
@@ -567,7 +567,7 @@ export default function TopUpPage() {
                       <button
                         key={key}
                         onClick={() => setSelectedCrypto(key as CryptoCurrency)}
-                        className={`p-2 md:p-3 rounded-lg border transition-all ${
+                        className={`p-2 md:p-3 rounded-lg border  ${
                           selectedCrypto === key
                             ? "bg-black text-white border-black"
                             : "bg-white border-gray-200 hover:border-gray-300"
@@ -639,7 +639,7 @@ export default function TopUpPage() {
                             ] as string) || ""
                           )
                         }
-                        className="p-1.5 md:p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-1.5 md:p-2 bg-gray-100 hover:bg-gray-200 rounded  flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={
                           !cryptoAddresses[
                             selectedCrypto as keyof typeof cryptoAddresses
@@ -667,7 +667,7 @@ export default function TopUpPage() {
                           </div>
                           <button
                             onClick={handleCopyAmount}
-                            className="p-1.5 md:p-2 bg-gray-100 hover:bg-gray-200 rounded transition-all flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="p-1.5 md:p-2 bg-gray-100 hover:bg-gray-200 rounded  flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isExpired}
                           >
                             {copiedAmount ? (
@@ -708,27 +708,6 @@ export default function TopUpPage() {
                     </p>
                   </div>
 
-                  {/* Submit Button */}
-                  <button
-                    onClick={handlePaymentSent}
-                    disabled={isSubmitting || paymentStatus === 'waiting'}
-                    className="w-full px-4 md:px-6 py-2.5 md:py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors mb-3"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Submitting...
-                      </span>
-                    ) : paymentStatus === 'waiting' ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <CheckCircle className="w-4 h-4" />
-                        Submitted - Awaiting Approval
-                      </span>
-                    ) : (
-                      "I have sent the amount"
-                    )}
-                  </button>
-
                   {/* Back Button */}
                   <button
                     onClick={() => {
@@ -739,7 +718,7 @@ export default function TopUpPage() {
                         localStorage.removeItem("paymentStatus");
                       }
                     }}
-                    className="w-full px-4 md:px-6 py-2.5 md:py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                    className="w-full px-4 md:px-6 py-2.5 md:py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 "
                   >
                     Back
                   </button>
@@ -820,14 +799,14 @@ export default function TopUpPage() {
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
           {depositsLoading ? (
             <div className="flex items-center justify-center p-12">
-              <Loader2 className="w-8 h-8 animate-spin text-black" />
+              <Loader2 className="w-8 h-8  text-black" />
             </div>
           ) : deposits.length === 0 ? (
             <div className="p-12 md:p-16 text-center">
               <p className="text-black mb-4">No deposit history yet.</p>
               <button
                 onClick={() => setActiveTab("deposit")}
-                className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+                className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 "
               >
                 Make Your First Deposit
               </button>
@@ -873,7 +852,7 @@ export default function TopUpPage() {
                       case "pending":
                       default:
                         return (
-                          <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin" />
+                          <Loader2 className="w-3 h-3 md:w-4 md:h-4 " />
                         );
                     }
                   };
@@ -881,7 +860,7 @@ export default function TopUpPage() {
                   return (
                     <div
                       key={deposit._id}
-                      className="p-3 md:p-4 hover:bg-gray-50 transition-colors"
+                      className="p-3 md:p-4 hover:bg-gray-50 "
                     >
                       <div className="flex items-start justify-between gap-3 md:gap-4">
                         <div className="flex items-center gap-3 md:gap-4 flex-1">

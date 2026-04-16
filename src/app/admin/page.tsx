@@ -137,7 +137,7 @@ export default function AdminDashboard() {
   if (statsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-black" />
+        <Loader2 className="w-8 h-8  text-black" />
       </div>
     );
   }
@@ -214,7 +214,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             href="/admin/users"
-            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow text-left"
+            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md  text-left"
           >
             <Users className="w-6 h-6 text-blue-600 mb-2" />
             <p className="font-medium text-gray-900">Manage Users</p>
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
           </Link>
           <Link
             href="/admin/deposits"
-            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow text-left"
+            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md  text-left"
           >
             <Activity className="w-6 h-6 text-green-600 mb-2" />
             <p className="font-medium text-gray-900">Deposit Reviews</p>
@@ -230,7 +230,7 @@ export default function AdminDashboard() {
           </Link>
           <Link
             href="/admin/settings"
-            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow text-left"
+            className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md  text-left"
           >
             <AlertTriangle className="w-6 h-6 text-orange-600 mb-2" />
             <p className="font-medium text-gray-900">Settings</p>
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           {usersLoading ? (
             <div className="flex items-center justify-center p-12">
-              <Loader2 className="w-8 h-8 animate-spin text-black" />
+              <Loader2 className="w-8 h-8  text-black" />
             </div>
           ) : users.length === 0 ? (
             <div className="p-12 text-center text-gray-500">
@@ -335,7 +335,7 @@ export default function AdminDashboard() {
 
         {depositsLoading ? (
           <div className="flex items-center justify-center p-12">
-            <Loader2 className="w-8 h-8 animate-spin text-black" />
+            <Loader2 className="w-8 h-8  text-black" />
           </div>
         ) : pendingDeposits.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center text-gray-500">
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
               return (
                 <div
                   key={deposit._id || deposit.id}
-                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md "
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     {/* Left Section - User & Crypto Info */}

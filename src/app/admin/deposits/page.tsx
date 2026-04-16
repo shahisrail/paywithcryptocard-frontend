@@ -139,7 +139,7 @@ export default function AdminDepositsPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-black" />
+        <Loader2 className="w-8 h-8  text-black" />
       </div>
     );
   }
@@ -166,7 +166,7 @@ export default function AdminDepositsPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setStatusFilter("all")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium  ${
                 statusFilter === "all"
                   ? "bg-black text-white"
                   : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -176,7 +176,7 @@ export default function AdminDepositsPage() {
             </button>
             <button
               onClick={() => setStatusFilter("pending")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium  ${
                 statusFilter === "pending"
                   ? "bg-yellow-500 text-white"
                   : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -186,7 +186,7 @@ export default function AdminDepositsPage() {
             </button>
             <button
               onClick={() => setStatusFilter("approved")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium  ${
                 statusFilter === "approved"
                   ? "bg-green-500 text-white"
                   : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -196,7 +196,7 @@ export default function AdminDepositsPage() {
             </button>
             <button
               onClick={() => setStatusFilter("rejected")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium  ${
                 statusFilter === "rejected"
                   ? "bg-red-500 text-white"
                   : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -231,7 +231,7 @@ export default function AdminDepositsPage() {
             return (
               <div
                 key={deposit._id}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md "
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   {/* Left Section - User & Crypto Info */}
@@ -654,7 +654,7 @@ export default function AdminDepositsPage() {
               >
                 {deleting ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 " />
                     Deleting...
                   </>
                 ) : (

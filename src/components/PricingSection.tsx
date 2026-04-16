@@ -77,7 +77,7 @@ const PricingSection = () => {
               </p>
               <a
                 href="/register"
-                className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 font-semibold text-lg rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 font-semibold text-lg rounded-xl hover:bg-gray-50   shadow-lg hover:shadow-xl"
               >
                 Get Started Now
               </a>

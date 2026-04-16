@@ -42,17 +42,17 @@ const ImageSection = ({ title = "Image Gallery", subtitle = "Explore our platfor
             {displayImages.map((image, index) => (
               <motion.div
                 key={index}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl  cursor-pointer"
                 onClick={() => setSelectedImage(image)}
               >
                 <div className="aspect-w-16 aspect-h-9 lg:aspect-h-12">
                   <img
                     src={image}
                     alt={`Gallery image ${index + 1}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:  "
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent  ">
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-white">
                       <Eye className="w-4 h-4" />
@@ -64,7 +64,7 @@ const ImageSection = ({ title = "Image Gallery", subtitle = "Explore our platfor
                           e.stopPropagation();
                           // Add to favorites logic
                         }}
-                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                        className="p-1.5 hover:bg-white/20 rounded-lg "
                       >
                         <Heart className="w-4 h-4 text-white" />
                       </button>
@@ -76,7 +76,7 @@ const ImageSection = ({ title = "Image Gallery", subtitle = "Explore our platfor
                             url: window.location.href
                           });
                         }}
-                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                        className="p-1.5 hover:bg-white/20 rounded-lg "
                       >
                         <Share2 className="w-4 h-4 text-white" />
                       </button>
@@ -110,7 +110,7 @@ const ImageSection = ({ title = "Image Gallery", subtitle = "Explore our platfor
               <h3 className="text-lg font-semibold text-gray-900">Image Preview</h3>
               <button
                 onClick={() => setSelectedImage(null)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg "
               >
                 <X className="w-5 h-5 text-gray-600" />
               </button>
@@ -124,16 +124,16 @@ const ImageSection = ({ title = "Image Gallery", subtitle = "Explore our platfor
             </div>
             <div className="flex items-center justify-between p-4 border-t border-gray-200">
               <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg ">
                   <Heart className="w-4 h-4" />
                   <span>Add to Favorites</span>
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg ">
                   <Share2 className="w-4 h-4" />
                   <span>Share</span>
                 </button>
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg ">
                 <Download className="w-4 h-4" />
                 <span>Download</span>
               </button>

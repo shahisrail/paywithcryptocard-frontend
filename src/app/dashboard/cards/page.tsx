@@ -70,7 +70,7 @@ function CardsPageContent() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-black" />
+        <Loader2 className="w-8 h-8  text-black" />
       </div>
     );
   }
@@ -108,11 +108,11 @@ function CardsPageContent() {
             <button
               onClick={handleCreateCard}
               disabled={isCreatingCard}
-              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base flex-1 sm:flex-initial"
+              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed  text-sm sm:text-base flex-1 sm:flex-initial"
             >
               {isCreatingCard ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-5 h-5 " />
                   Creating...
                 </>
               ) : (
@@ -165,7 +165,7 @@ function CardsPageContent() {
                   </div>
                   <button
                     onClick={() => copyCardNumber(card.cardNumber)}
-                    className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                    className="p-2 bg-white/20 hover:bg-white/30 rounded-lg "
                   >
                     {copiedCard === card.cardNumber ? (
                       <Check className="w-4 h-4 text-white" />
@@ -217,11 +217,11 @@ function CardsPageContent() {
             <button
               onClick={handleCreateCard}
               disabled={isCreatingCard}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed "
             >
               {isCreatingCard ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-5 h-5 " />
                   Creating...
                 </>
               ) : (
@@ -234,7 +234,7 @@ function CardsPageContent() {
           ) : (
             <Link
               href="/dashboard/topup"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 "
             >
               <Plus className="w-5 h-5" />
               Add Funds

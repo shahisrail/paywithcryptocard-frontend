@@ -152,9 +152,9 @@ export default function AdminUsersPage() {
         <button
           onClick={() => refetch()}
           disabled={isFetching}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 "
         >
-          <RefreshCw className={`w-4 h-4 ${isFetching ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-4 h-4 ${isFetching ? '' : ''}`} />
           Refresh
         </button>
       </div>
@@ -226,7 +226,7 @@ export default function AdminUsersPage() {
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2  -/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search users by name or email..."
@@ -259,7 +259,7 @@ export default function AdminUsersPage() {
       {/* Loading State */}
       {isLoading && (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <div className=" rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading users...</p>
         </div>
       )}
@@ -328,14 +328,14 @@ export default function AdminUsersPage() {
                       <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleOpenBalanceModal(user)}
-                          className="p-2 hover:bg-green-50 rounded-lg text-green-600 transition-colors"
+                          className="p-2 hover:bg-green-50 rounded-lg text-green-600 "
                           title="Update Balance"
                         >
                           <DollarSign className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleToggleStatus(user._id || user.id, user.isActive, user.fullName)}
-                          className={`p-2 rounded-lg transition-colors ${
+                          className={`p-2 rounded-lg  ${
                             user.isActive
                               ? 'hover:bg-red-50 text-red-600'
                               : 'hover:bg-green-50 text-green-600'
@@ -346,12 +346,12 @@ export default function AdminUsersPage() {
                         </button>
                         <button
                           onClick={() => handleDeleteUser(user._id || user.id, user.fullName)}
-                          className="p-2 hover:bg-red-50 rounded-lg text-red-600 transition-colors"
+                          className="p-2 hover:bg-red-50 rounded-lg text-red-600 "
                           title="Delete User"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
-                        <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <button className="p-2 hover:bg-gray-100 rounded-lg ">
                           <MoreHorizontal className="w-4 h-4 text-gray-600" />
                         </button>
                       </div>
@@ -434,7 +434,7 @@ export default function AdminUsersPage() {
               </div>
               <button
                 onClick={handleCloseBalanceModal}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg "
               >
                 <X className="w-4 h-4 text-gray-500" />
               </button>
@@ -514,14 +514,14 @@ export default function AdminUsersPage() {
             <div className="flex gap-3 p-6 border-t border-gray-200">
               <button
                 onClick={handleCloseBalanceModal}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50  font-medium"
               >
                 Cancel
               </button>
               <button
                 onClick={handleBalanceUpdate}
                 disabled={!balanceAmount || !balanceReason}
-                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed  font-medium"
               >
                 Update Balance
               </button>

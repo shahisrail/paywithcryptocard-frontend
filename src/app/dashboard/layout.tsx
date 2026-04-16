@@ -25,7 +25,7 @@ export default function DashboardLayout({
           </Link>
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg "
             aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />

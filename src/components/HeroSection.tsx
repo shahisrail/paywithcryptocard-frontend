@@ -48,7 +48,7 @@ const HeroSection = () => {
               <div className="w-full sm:w-auto">
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-black text-white font-semibold text-sm sm:text-base rounded-xl hover:bg-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl w-full sm:w-fit"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-black text-white font-semibold text-sm sm:text-base rounded-xl hover:bg-gray-900   shadow-lg hover:shadow-xl w-full sm:w-fit"
                 >
                   <span>Create Free Account</span>
                   <ArrowRight className="ml-2 w-4 h-4" />

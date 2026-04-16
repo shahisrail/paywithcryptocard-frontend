@@ -101,7 +101,7 @@ export default function ErrorAlert({ error, onRetry, className = '' }: ErrorAler
         {(status === 503 || status === 429 || status === 500) && onRetry && (
           <button
             onClick={onRetry}
-            className="flex-shrink-0 px-3 py-1 text-sm font-medium border border-current rounded hover:bg-white/10 transition-colors"
+            className="flex-shrink-0 px-3 py-1 text-sm font-medium border border-current rounded hover:bg-white/10 "
           >
             Retry
           </button>

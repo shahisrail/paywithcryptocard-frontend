@@ -99,13 +99,13 @@ const ChatWidget = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 text-gray-400 hover:text-white transition-colors"
+                  className="p-1 text-gray-400 hover:text-white "
                 >
                   {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 text-gray-400 hover:text-white transition-colors"
+                  className="p-1 text-gray-400 hover:text-white "
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -144,9 +144,9 @@ const ChatWidget = () => {
                     >
                       <div className="bg-gray-800 px-4 py-2 rounded-2xl">
                         <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "0ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "150ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "300ms" }}></div>
                         </div>
                       </div>
                     </motion.div>
@@ -163,12 +163,12 @@ const ChatWidget = () => {
                       onChange={(e) => setMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder="Tell us what you need help with..."
-                      className="flex-1 bg-gray-800 text-white placeholder-gray-400 px-4 py-2 rounded-full border border-gray-600 focus:border-indigo-500 focus:outline-none transition-colors"
+                      className="flex-1 bg-gray-800 text-white placeholder-gray-400 px-4 py-2 rounded-full border border-gray-600 focus:border-indigo-500 focus:outline-none "
                     />
                     <button
                       onClick={sendMessage}
                       disabled={message.trim() === "" || isTyping}
-                      className="w-10 h-10 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-700 disabled:text-gray-400 text-white rounded-full flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-700 disabled:text-gray-400 text-white rounded-full flex items-center justify-center  "
                     >
                       <Send className="w-4 h-4" />
                     </button>

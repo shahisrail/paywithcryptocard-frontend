@@ -94,12 +94,12 @@ const SupportChatWidget = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3, delay: 1 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 ${
-          isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
+        className={`fixed bottom-6 right-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl   z-40 ${
+          isOpen ? " opacity-0" : " opacity-100"
         }`}
       >
         <MessageCircle className="w-6 h-6" />
-        <span className="absolute -top-2 -right-2 w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+        <span className="absolute -top-2 -right-2 w-3 h-3 bg-green-400 rounded-full "></span>
       </motion.button>
 
       {/* Chat Window */}
@@ -117,7 +117,7 @@ const SupportChatWidget = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-2xl">
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-green-400 rounded-full "></div>
                 <div>
                   <h3 className="font-semibold">Support</h3>
                   <p className="text-xs opacity-90">We typically reply quickly</p>
@@ -126,13 +126,13 @@ const SupportChatWidget = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 hover:bg-white/20 rounded transition-colors"
+                  className="p-1 hover:bg-white/20 rounded "
                 >
                   {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-white/20 rounded transition-colors"
+                  className="p-1 hover:bg-white/20 rounded "
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -174,9 +174,9 @@ const SupportChatWidget = () => {
                     >
                       <div className="bg-gray-100 px-4 py-2 rounded-2xl">
                         <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "0ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "150ms" }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full " style={{ animationDelay: "300ms" }}></div>
                         </div>
                       </div>
                     </motion.div>
@@ -193,18 +193,18 @@ const SupportChatWidget = () => {
                       onChange={(e) => setMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder="Tell us what you need help with..."
-                      className="flex-1 bg-gray-50 text-gray-900 placeholder-gray-500 px-4 py-2 rounded-full border border-gray-200 focus:border-indigo-500 focus:outline-none transition-colors"
+                      className="flex-1 bg-gray-50 text-gray-900 placeholder-gray-500 px-4 py-2 rounded-full border border-gray-200 focus:border-indigo-500 focus:outline-none "
                     />
                     <button
                       onClick={sendMessage}
                       disabled={message.trim() === "" || isTyping}
-                      className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-full flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-full flex items-center justify-center  "
                     >
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
                   <div className="mt-2 text-center">
-                    <a href="mailto:support@paywithcryptocard.net" className="text-xs text-gray-500 hover:text-indigo-600 transition-colors">
+                    <a href="mailto:support@paywithcryptocard.net" className="text-xs text-gray-500 hover:text-indigo-600 ">
                       Or email us: support@paywithcryptocard.net
                     </a>
                   </div>

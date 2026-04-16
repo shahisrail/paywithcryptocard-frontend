@@ -43,7 +43,7 @@ const HowItWorksSection = () => {
             const Icon = step.icon;
             return (
               <div key={index} className="relative">
-                <div className="bg-white rounded-xl p-5 pt-6 h-full border border-gray-200 hover:border-black hover:shadow-lg transition-all duration-300">
+                <div className="bg-white rounded-xl p-5 pt-6 h-full border border-gray-200 hover:border-black hover:shadow-lg  ">
                   <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-3">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
@@ -61,23 +61,23 @@ const HowItWorksSection = () => {
             Supported Cryptocurrencies
           </h3>
           <div className="flex flex-wrap justify-center gap-3">
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black ">
               <img src="/logos/btc.svg" alt="Bitcoin" className="w-5 h-5" loading="lazy" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23f7931a%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Bitcoin</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black ">
               <img src="/logos/eth.svg" alt="Ethereum" className="w-5 h-5" loading="lazy" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23627eea%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Ethereum</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black ">
               <img src="/deposit/images (2).webp" alt="Tether" className="w-5 h-5" loading="lazy" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%2226a17b%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Tether</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black ">
               <img src="/logos/usd-coin-usdc-logo.webp" alt="USD Coin" className="w-5 h-5" loading="lazy" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%222777ca%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">USD Coin</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black transition-colors">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-black ">
               <img src="/deposit/XMR.webp" alt="Monero" className="w-5 h-5" loading="lazy" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%222777ca%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22/></svg>'; }} />
               <span className="text-sm font-medium text-gray-700">Monero </span>
             </div>

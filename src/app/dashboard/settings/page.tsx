@@ -43,7 +43,7 @@ function SettingsPageContent() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 pb-3 text-sm font-medium transition-colors relative ${
+                  className={`flex-1 pb-3 text-sm font-medium  relative ${
                     activeTab === tab.id
                       ? "text-black"
                       : "text-black hover:text-black"
@@ -129,7 +129,7 @@ function SettingsPageContent() {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 "
                   >
                     Update Password
                     <ArrowRight className="w-4 h-4" />

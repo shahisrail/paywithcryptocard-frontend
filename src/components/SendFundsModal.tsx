@@ -47,7 +47,7 @@ export default function SendFundsModal({ isOpen, onClose }: SendFundsModalProps)
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg "
           >
             <X className="w-5 h-5 text-gray-600" />
           </button>
@@ -87,7 +87,7 @@ export default function SendFundsModal({ isOpen, onClose }: SendFundsModalProps)
                     placeholder="0.00"
                     className="w-full px-4 py-3 pr-16 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent text-black"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
+                  <span className="absolute right-4 top-1/2 -/2 text-gray-500 font-medium">
                     USDC
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export default function SendFundsModal({ isOpen, onClose }: SendFundsModalProps)
             <button
               onClick={handleContinue}
               disabled={!recipient || !amount}
-              className="w-full px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed  flex items-center justify-center gap-2"
             >
               Continue
               <ArrowRight className="w-4 h-4" />
@@ -171,13 +171,13 @@ export default function SendFundsModal({ isOpen, onClose }: SendFundsModalProps)
             <div className="flex gap-3">
               <button
                 onClick={handleBack}
-                className="flex-1 px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex-1 px-6 py-3 border border-gray-300 text-black font-medium rounded-lg hover:bg-gray-50 "
               >
                 Back
               </button>
               <button
                 onClick={handleSend}
-                className="flex-1 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition-colors"
+                className="flex-1 px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-900 "
               >
                 Send Now
               </button>

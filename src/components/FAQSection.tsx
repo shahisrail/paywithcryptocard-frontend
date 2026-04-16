@@ -116,26 +116,22 @@ const FAQSection = () => {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full px-5 py-4 text-left hover:bg-gray-50 "
                 aria-expanded={openIndex === index}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-black pr-4">
                     {faq.question}
                   </h3>
-                  <div
-                    className={`shrink-0 transition-transform duration-300 ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
-                  >
+                  <div className={`shrink-0`}>
                     <ChevronDown className="w-5 h-5 text-gray-400" />
                   </div>
                 </div>
               </button>
 
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === index ? "max-h-96" : "max-h-0"
+                className={`${
+                  openIndex === index ? "" : "hidden"
                 }`}
                 aria-hidden={openIndex !== index}
               >
@@ -152,10 +148,10 @@ const FAQSection = () => {
           <a
             href="#support"
             onClick={handleScrollToSupport}
-            className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-black font-semibold hover:text-gray-700  cursor-pointer"
           >
             Contact our support
-            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            <ChevronDown className="w-4 h-4 [-90deg]" />
           </a>
         </div>
       </div>

@@ -67,8 +67,8 @@ const CryptoCard = ({
 
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl -/2 /2" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full blur-3xl /2 -/2" />
         </div>
 
         {/* Card Type Label */}
@@ -80,7 +80,7 @@ const CryptoCard = ({
           </div>
           <button
             onClick={() => setShowNumber(!showNumber)}
-            className="bg-white/20 backdrop-blur-sm p-2 rounded-lg border border-white/30 hover:bg-white/30 transition-all"
+            className="bg-white/20 backdrop-blur-sm p-2 rounded-lg border border-white/30 hover:bg-white/30 "
           >
             {showNumber ? (
               <EyeOff className="w-4 h-4 sm:w-5 sm:h-5 text-white" />

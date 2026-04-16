@@ -60,7 +60,7 @@ const SupportSection = () => {
             return (
               <div
                 key={option.title}
-                className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 hover:border-gray-300 transition-colors"
+                className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 hover:border-gray-300 "
               >
                 <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                   <Icon className="w-6 h-6 text-white" />
@@ -88,7 +88,7 @@ const SupportSection = () => {
                 ) : (
                   <button
                     onClick={option.onClick}
-                    className="w-full px-4 py-3 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition-colors active:scale-95"
+                    className="w-full px-4 py-3 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-900  active:"
                   >
                     {option.action}
                   </button>
@@ -106,7 +106,7 @@ const SupportSection = () => {
           <a
             href="#faq"
             onClick={handleScrollToFAQ}
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-gray-100 text-black text-sm sm:text-base font-medium rounded-lg hover:bg-gray-200 transition-colors cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-gray-100 text-black text-sm sm:text-base font-medium rounded-lg hover:bg-gray-200  cursor-pointer active:"
           >
             View FAQs
             <ChevronRight className="w-4 h-4" />

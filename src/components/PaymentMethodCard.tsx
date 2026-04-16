@@ -44,7 +44,7 @@ const PaymentMethodCard = ({
     >
       {/* Payment Method Item */}
       <div
-        className={`group relative bg-white/5 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 border transition-all duration-300 cursor-pointer ${
+        className={`group relative bg-white/5 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 border   cursor-pointer ${
           isSelected
             ? "border-cyan-500/50 shadow-lg shadow-cyan-500/20"
             : "border-white/10 hover:border-white/20"
@@ -99,7 +99,7 @@ const PaymentMethodCard = ({
                 e.stopPropagation();
                 onEdit?.();
               }}
-              className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+              className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg  "
             >
               <Edit2 className="w-4 h-4" />
             </button>
@@ -108,13 +108,13 @@ const PaymentMethodCard = ({
                 e.stopPropagation();
                 onDelete?.();
               }}
-              className="p-2 text-white/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+              className="p-2 text-white/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg  "
             >
               <Trash2 className="w-4 h-4" />
             </button>
             <ChevronRight
-              className={`w-5 h-5 text-white/40 transition-transform duration-300 ${
-                isHovered ? "translate-x-1" : ""
+              className={`w-5 h-5 text-white/40   ${
+                isHovered ? "" : ""
               }`}
             />
           </div>
@@ -122,7 +122,7 @@ const PaymentMethodCard = ({
 
         {/* Hover Effect Border */}
         <div
-          className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-emerald-500 transition-all duration-300 ${
+          className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-emerald-500   ${
             isSelected ? "w-full" : "w-0 group-hover:w-full"
           }`}
         />

@@ -38,7 +38,7 @@ const FlowSection = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-gray-50 rounded-xl border border-gray-200 p-8 hover:border-gray-300 transition-colors"
+              className="bg-gray-50 rounded-xl border border-gray-200 p-8 hover:border-gray-300 "
             >
               <div className="flex gap-6">
                 <div className="flex-shrink-0">

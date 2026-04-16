@@ -148,8 +148,8 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 overflow-y-auto ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl     lg:relative lg: overflow-y-auto ${
+          isSidebarOpen ? "" : "-full"
         }`}
       >
         {/* Logo and Close Button */}
@@ -178,7 +178,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center px-4 py-3 rounded-xl transition-all duration-200 group ${
+                className={`flex items-center px-4 py-3 rounded-xl   group ${
                   isActive
                     ? "bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-600 border border-indigo-200"
                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -199,7 +199,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
+                className="flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl  "
                 onClick={() => setIsSidebarOpen(false)}
               >
                 <item.icon className="w-4 h-4" />
@@ -241,7 +241,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors duration-200"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-100  "
           >
             <LogOut className="w-4 h-4" />
             <span className="font-medium">Logout</span>
