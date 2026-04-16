@@ -1,14 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-
 const BrandLogosSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const brands = [
     { name: "Amazon", logo: "/logos/Amazon_logo.svg.webp", alt: "Amazon" },
     { name: "netflix", logo: "/logos/Netflix_Logomark.png", alt: "netflix" },
@@ -24,25 +14,18 @@ const BrandLogosSection = () => {
     <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logos grid */}
-        <div
-          ref={ref}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
-        >
-          {brands.map((brand, index) => (
-            <motion.div
-              key={brand.name}
-              initial={false}
-              animate={inView ? { y: 0 } : { y: 25 }}
-              transition={{ duration: 0.45, delay: index * 0.06 }}
-            >
-              <div className="group bg-white rounded-2xl h-32 border border-gray-200 hover:border-black hover:shadow-xl   flex items-center justify-center p-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {brands.map((brand) => (
+            <div key={brand.name}>
+              <div className="group bg-white rounded-2xl h-32 border border-gray-200 hover:border-black hover:shadow-xl flex items-center justify-center p-6">
                 <img
                   src={brand.logo}
                   alt={brand.alt}
-                  className="h-14 w-auto object-contain   group-hover:"
+                  className="h-14 w-auto object-contain"
+                  loading="lazy"
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

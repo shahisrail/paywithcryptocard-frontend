@@ -129,12 +129,7 @@ const FAQSection = () => {
                 </div>
               </button>
 
-              <div
-                className={`${
-                  openIndex === index ? "" : "hidden"
-                }`}
-                aria-hidden={openIndex !== index}
-              >
+              <div>
                 <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed">
                   {faq.answer}
                 </div>

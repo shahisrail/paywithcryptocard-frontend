@@ -1,15 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Shield, CreditCard, Globe, Zap } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 
 const BenefitsSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const benefits = [
     {
       icon: Shield,
@@ -36,32 +27,18 @@ const BenefitsSection = () => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={false}
-          animate={inView ? { y: 0 } : { y: 30 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
-        >
+        <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Why Choose PayWithCryptoCard
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Everything you need to spend crypto anywhere
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <motion.div
-              key={benefit.title}
-              initial={false}
-              animate={inView ? { y: 0 } : { y: 30 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1
-              }}
-            >
+          {benefits.map((benefit) => (
+            <div key={benefit.title}>
               <div className="flex items-start gap-4">
                 <div className="shrink-0 w-12 h-12 bg-black rounded-xl flex items-center justify-center shadow-md">
                   <benefit.icon className="w-6 h-6 text-white" />
@@ -71,7 +48,7 @@ const BenefitsSection = () => {
                   <p className="text-sm text-gray-600 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

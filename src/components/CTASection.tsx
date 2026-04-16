@@ -1,25 +1,11 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          ref={ref}
-          initial={false}
-          animate={inView ? { y: 0 } : { y: 30 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 tracking-tight">
             Ready to Start Spending Crypto?
           </h2>
@@ -37,7 +23,7 @@ const CTASection = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
