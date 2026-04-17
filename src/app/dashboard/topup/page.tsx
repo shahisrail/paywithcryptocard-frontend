@@ -451,7 +451,7 @@ export default function TopUpPage() {
                       USD Amount
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 md:left-4 top-1/2 -/2 text-black text-base md:text-lg">
+                      <span className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-black text-base md:text-lg">
                         $
                       </span>
                       <input
