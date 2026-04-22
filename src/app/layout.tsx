@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import ChatWidgetWrapper from "@/components/ChatWidgetWrapper";
@@ -55,8 +56,22 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
-        <ChatWidgetWrapper />
+        <ChatWidgetWrapper />   
       </body>
+
+      {/* Google Ads Global Tag */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-18094951499"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18094951499');
+        `}
+      </Script>
     </html>
   );
 }
