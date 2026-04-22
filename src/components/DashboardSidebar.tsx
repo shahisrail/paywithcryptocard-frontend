@@ -87,8 +87,8 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
       <aside className={`
         md:hidden fixed inset-y-0 left-0 z-[60]
         w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full
-           
-        ${isOpen ? '' : '-full'}
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden">
           <div className="p-6 flex items-center justify-between flex-shrink-0">
