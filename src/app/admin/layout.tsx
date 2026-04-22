@@ -148,8 +148,8 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl     lg:relative lg: overflow-y-auto ${
-          isSidebarOpen ? "" : "-full"
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         {/* Logo and Close Button */}
