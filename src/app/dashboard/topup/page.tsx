@@ -33,11 +33,11 @@ const CRYPTOCURRENCIES = {
     icon: "/deposit/ETH__2_-removebg-preview.webp",
   },
   USDT_ERC20: {
-    name: "Tether (ERC20)",
+    name: "Tether (TRC20)",
     icon: "/deposit/trx.webp",
   },
   USDT_TRC20: {
-    name: "Tether (TRC20)",
+    name: "Tether (ERC20)",
     icon: "/deposit/images__2_-removebg-preview.webp",
   },
   USDC_ERC20: {
@@ -74,7 +74,7 @@ export default function TopUpPage() {
     "idle"
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const EXCHANGE_FEE = 0.025; // 2.5% exchange fee
+  const EXCHANGE_FEE = 0.015; // 1.5% exchange fee
   const PAYMENT_TIMEOUT = 30 * 60; // 30 minutes in seconds
 
   // Load payment status from localStorage on mount
@@ -525,7 +525,7 @@ export default function TopUpPage() {
                       <div className="mt-2 pt-2 border-t border-green-200">
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-green-700">
-                            Exchange Fee (2.5%)
+                            Exchange Fee (1.5%)
                           </span>
                           <span className="font-semibold text-black">
                             -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}
@@ -769,7 +769,7 @@ export default function TopUpPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-xs md:text-sm text-black">
-                        Exchange Fee (2.5%)
+                        Exchange Fee (1.5%)
                       </span>
                       <span className="text-xs md:text-sm font-medium text-black">
                         -{formatCurrency(parseFloat(amount) * EXCHANGE_FEE)}

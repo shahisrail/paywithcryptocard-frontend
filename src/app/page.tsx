@@ -38,7 +38,7 @@ const faqData = [
   },
   {
     question: "Are there any fees when using the PayWithCryptoCard Virtual Visa® Card?",
-    answer: "Whenever you top up your account with crypto, we convert it into USD and apply a flat 2.5% conversion fee. There are no monthly subscription charges and no hidden extras, just one clear fee every time you add funds. PayWithCryptoCard does not add extra usage fees for paying online with the virtual card."
+    answer: "Whenever you top up your account with crypto, we convert it into USD and apply a flat 1.5% conversion fee. There are no monthly subscription charges and no hidden extras, just one clear fee every time you add funds. PayWithCryptoCard does not add extra usage fees for paying online with the virtual card."
   },
   {
     question: "Can I reload a PayWithCryptoCard Virtual Visa® Card?",

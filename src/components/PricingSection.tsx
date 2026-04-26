@@ -37,7 +37,7 @@ const PricingSection = () => {
           >
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold mb-2">Simple Fee Structure</h3>
-              <div className="text-5xl font-bold mb-2">2.5%</div>
+              <div className="text-5xl font-bold mb-2">1.5%</div>
               <p className="text-lg opacity-90">conversion fee on crypto top-ups</p>
             </div>
 
