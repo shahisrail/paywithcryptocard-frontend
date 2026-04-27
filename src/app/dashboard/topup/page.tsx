@@ -33,12 +33,12 @@ const CRYPTOCURRENCIES = {
     icon: "/deposit/ETH__2_-removebg-preview.webp",
   },
   USDT_ERC20: {
-    name: "Tether (TRC20)",
-    icon: "/deposit/trx.webp",
-  },
-  USDT_TRC20: {
     name: "Tether (ERC20)",
     icon: "/deposit/images__2_-removebg-preview.webp",
+  },
+  USDT_TRC20: {
+    name: "Tether (TRC20)",
+    icon: "/deposit/trx.webp",
   },
   USDC_ERC20: {
     name: "USD Coin (ERC20)",
